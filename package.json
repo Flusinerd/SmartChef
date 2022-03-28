@@ -1,0 +1,11 @@
+{
+  "name": "smart-chef",
+  "description": "A smart chef",
+  "authors": "Smart Chef",
+  "version": "1.0.0",
+  "scripts": {
+    "start-ui": "cd smart-chef-ui && yarn start",
+    "start-api": "cd smart-chef-api/src && python manage.py runserver",
+    "start": "yarn start-ui && yarn start-api"
+  }
+}
