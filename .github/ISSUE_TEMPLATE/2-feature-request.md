@@ -16,7 +16,7 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 ### Relevant Package
 
-<!-- Can you pin-point one or more @datenlotse/* packages the are relevant for this feature request? -->
+<!-- Can you pin-point one or more packages the are relevant for this feature request? -->
 <!-- ✍️edit: --> This feature request is for
 
 ### Description
