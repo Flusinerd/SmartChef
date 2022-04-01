@@ -1,0 +1,8 @@
+{
+  "python.autoComplete.extraPaths": [
+    "./smart-chef-api/src"
+  ],
+  "python.analysis.extraPaths": [
+    "./smart-chef-api/src"
+  ]
+}
