@@ -6,6 +6,7 @@ export function SCNavbar(props: any) {
 
     <nav className="navbar">
       <h1>SmartChef</h1>
+      <h2>Subtitle</h2>
     </nav>
 
   );
