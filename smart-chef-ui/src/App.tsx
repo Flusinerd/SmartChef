@@ -6,9 +6,8 @@ function App() {
   return (
     <div className="App">
         <SCNavbar>
-          
         </SCNavbar>
-        <SCButton disabled={true}> Hello World </SCButton>
+        <SCButton disabled={false}> Hello World </SCButton>
     </div>
   );
 }
