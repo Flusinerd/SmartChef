@@ -1,12 +1,16 @@
 button.sc-button {
+  /* Only make button as high as the content */
+  height: 100%;
+
   background-color: var(--primary-color);
   border-radius: 0.5rem;
   border: none;
   color: var(--white);
-
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+
+  box-shadow: var(--drop-shadow);
 }
 
 button.sc-button:hover {

@@ -1,5 +1,5 @@
-import React from 'react';
-import './button.css';
+import React from "react";
+import "./button.css";
 
 export function SCButton(props: SCButtonProps) {
   const [disabled] = React.useState(props.disabled);
@@ -11,8 +11,7 @@ export function SCButton(props: SCButtonProps) {
   );
 }
 
-
-interface SCButtonProps {
+interface SCButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   children?: React.ReactNode;
 }

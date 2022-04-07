@@ -1,10 +1,14 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { SCLandingPage } from "./pages/landing/landing.page";
 
 function App() {
   return (
     <Router>
-      <Routes></Routes>
+      <Routes>
+        <Route path="/" element={<SCLandingPage />} />
+        <Route path="/login" element={<h1> Login </h1>} />
+      </Routes>
     </Router>
   );
 }

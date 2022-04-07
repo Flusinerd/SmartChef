@@ -1,0 +1,149 @@
+div.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 2rem;
+  box-sizing: border-box;
+
+  /* Make fullscreen */
+  height: 100vh;
+}
+
+div.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Dont scale */
+  flex: 0 0;
+}
+
+h1 {
+  font-size: 5rem;
+  margin: 0;
+}
+
+/* Override button styles */
+button.sc-button {
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 3rem;
+}
+
+div.content {
+  display: grid;
+  width: 100%;
+  grid-template-areas:
+    "text1 image1"
+    "image2 text2"
+    "text3 image3";
+
+  /* Center vertical */
+  align-items: center;
+
+  /* Space evenly horizontal */
+  justify-content: space-evenly;
+}
+
+div.content > img {
+  width: auto;
+  height: calc(33vh - 2rem);
+}
+
+div.content > p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  max-width: 300px;
+}
+
+#mobile-btn {
+  display: none;
+}
+
+#bg-image {
+  position: absolute;
+  left: 40%;
+  top: 5%;
+  z-index: -1;
+  height: 20vh;
+}
+
+/* Mobile Styling */
+
+@media screen and (max-width: 800px) {
+  div.content {
+    grid-template-areas:
+      "image1"
+      "text1"
+      "image2"
+      "text2"
+      "image3"
+      "text3";
+  }
+
+  #bg-image {
+    display: none;
+  }
+
+  div.content > * {
+    justify-self: center;
+    margin-top: 1.5rem;
+  }
+
+  div.content > p {
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  div.content > img {
+    height: 20vh;
+  }
+
+  div.header {
+    justify-content: center;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  #desktop-btn {
+    display: none;
+  }
+
+  #mobile-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(248, 249, 250, 0.9);
+    padding: 1rem;
+  }
+}
+
+/* Map Images / Texts to Grid areas */
+
+#image1 {
+  grid-area: image1;
+}
+
+#image2 {
+  grid-area: image2;
+}
+
+#image3 {
+  grid-area: image3;
+}
+
+#text1 {
+  grid-area: text1;
+}
+
+#text2 {
+  grid-area: text2;
+}
+
+#text3 {
+  grid-area: text3;
+}
