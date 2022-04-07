@@ -16,6 +16,7 @@ body {
   --disabled-color: rgba(159, 159, 159, 0.2);
   --text-color: #606060;
   --drop-shadow: 0px 6px 30px rgba(0, 0, 0, 0.16);
+  --white: #fff;
 
   background-color: #f8f9fa;
 }
