@@ -1,15 +1,11 @@
-import './App.css';
-import { SCButton } from './components/button/button';
-import { SCNavbar } from './components/navbar/Navbar';
+import "./App.css";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-        <SCNavbar>
-          
-        </SCNavbar>
-        <SCButton disabled={true}> Hello World </SCButton>
-    </div>
+    <Router>
+      <Routes></Routes>
+    </Router>
   );
 }
 

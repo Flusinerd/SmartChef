@@ -3,9 +3,59 @@ nav {
   height: 100px;
   background-color: #fff;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  box-sizing: border-box;
 
   box-shadow: var(--drop-shadow);
+}
+
+div.logo > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+
+  color: var(--text-color);
+}
+
+div.logo > a > img {
+  margin-left: 20px;
+}
+
+ul.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  flex: 1;
+}
+
+ul.links > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  transition: transform 0.2s ease-in-out;
+}
+
+ul.links > li > a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+ul.links > li:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+ul.links > li.active > a {
+  color: var(--primary-color) !important;
+  font-weight: 600;
 }
