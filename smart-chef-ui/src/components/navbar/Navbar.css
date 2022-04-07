@@ -19,10 +19,6 @@ div.logo > a {
   color: var(--text-color);
 }
 
-.color-primary {
-  color: var(--primary-color) !important;
-}
-
 div.logo > a > img {
   margin-left: 20px;
 }
@@ -49,12 +45,17 @@ ul.links > li {
   transition: transform 0.2s ease-in-out;
 }
 
+ul.links > li > a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
 ul.links > li:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-ul.links > li.active {
+ul.links > li.active > a {
   color: var(--primary-color) !important;
   font-weight: 600;
 }

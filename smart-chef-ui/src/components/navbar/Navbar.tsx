@@ -1,28 +1,34 @@
-import React from 'react';
-import './Navbar.css';
-import Logo from './logo.svg';
+import "./Navbar.css";
+import Logo from "./logo.svg";
+import { Link } from "react-router-dom";
 
 export function SCNavbar(props: any) {
   return (
-
     <nav className="navbar">
       <div className="logo">
-        <a href="#">
+        <Link to="/scan">
           <h1>
             <span className="color-primary">Smart</span>
             Chef
           </h1>
           <img src={Logo} alt="Logo" />
-        </a>
+        </Link>
       </div>
 
       <ul className="links">
-        <li className="link"><a>Scannen</a></li>
-        <li className="link active"><a>Einkaufsliste</a></li>
-        <li className="link"><a>Rezepte</a></li>
-        <li className="link"><a>Einstellung</a></li>
+        <li className="link">
+          <Link to="/scan">Scannen</Link>
+        </li>
+        <li className="link active">
+          <Link to="/shopping-list">Einkaufsliste</Link>
+        </li>
+        <li className="link">
+          <Link to="/recipes">Rezepte</Link>
+        </li>
+        <li className="link">
+          <Link to="/settings">Einstellungen</Link>
+        </li>
       </ul>
     </nav>
-
   );
 }
