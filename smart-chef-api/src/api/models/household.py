@@ -1,6 +1,7 @@
 from typing import List
 from api.models.resource import Resource
 from api.models.user import User
+from api.models.householdStock import HouseholdStock
 from django.db import models
 
 
