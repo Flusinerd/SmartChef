@@ -63,7 +63,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
-      - name: Run tests:
+      - name: Run tests
         run: yarn test-ci
         working-directory: ./smart-chef-ui
       - name: Upload coverage report
