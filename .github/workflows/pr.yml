@@ -4,8 +4,6 @@ name: PR-Push-UI
 # Only run on pushs to open PRs that are in the UI folder
 on:
   pull_request:
-    branches:
-      - main
     types:
       - synchronize
     paths:
@@ -69,6 +67,10 @@ jobs:
         with:
           coverage-file: ./coverage/coverage-final.json
         working-directory: ./smart-chef-ui
+      - uses: codecov/codecov-action@v2
+        with:
+          files: smart-chef-ui/report.json
+          flags: unittests
 
   # e2e-testing:
   #   needs: build

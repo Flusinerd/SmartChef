@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "lint": "eslint ./src",
     "test-coverage": "react-scripts test --coverage --out",
-    "test-ci": "react-scripts test --ci --json --coverage --testLocationInResults --outputFile=report.json",
+    "test-ci": "react-scripts test --ci --json --coverage --testLocationInResults --outputFile=report.json --collectCoverage=true --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]'",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
