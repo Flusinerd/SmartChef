@@ -1,7 +1,7 @@
 import React from "react";
 import "./button.css";
 
-export function SCButton(props: SCButtonProps) {
+function SCButton(props: SCButtonProps) {
   const [disabled] = React.useState(props.disabled);
 
   return (
@@ -16,6 +16,8 @@ export function SCButton(props: SCButtonProps) {
     </button>
   );
 }
+
+export default SCButton;
 
 interface SCButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;

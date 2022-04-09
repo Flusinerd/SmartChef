@@ -1,0 +1,88 @@
+# Workflow that runs on PRs
+name: PR-Push-UI
+
+# Only run on pushs to open PRs that are in the UI folder
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - synchronize
+    paths:
+      - "./smart-chef-ui/**/*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./smart-chef-ui
+      - name: Build UI
+        run: yarn build
+        working-directory: ./smart-chef-ui
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./smart-chef-ui
+      - name: Lint UI
+        run: yarn lint
+        working-directory: ./smart-chef-ui
+
+  unit-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./smart-chef-ui
+      - name: Run Jest Tests
+        run: yarn test-coverage
+        working-directory: ./smart-chef-ui
+      - name: Upload coverage report
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          coverage-file: ./coverage/coverage-final.json
+        working-directory: ./smart-chef-ui
+
+  # e2e-testing:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16.x
+  #         cache: "yarn"
+  #     - name: Install dependencies
+  #       run: yarn install --frozen-lockfile
+  #       working-directory: ./smart-chef-ui
+  #     - name: Run Cypress tests
+  #       uses: cypress-io/github-action@v2
+  #       working-directory: ./smart-chef-ui

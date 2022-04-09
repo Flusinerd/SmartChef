@@ -2,6 +2,7 @@
   "name": "smart-chef",
   "description": "A smart chef",
   "authors": "Smart Chef",
+  "license": "MIT",
   "version": "1.0.0",
   "scripts": {
     "start-ui": "cd smart-chef-ui && yarn start",

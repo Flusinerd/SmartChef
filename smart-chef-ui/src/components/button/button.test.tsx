@@ -1,18 +1,19 @@
-import React from "react";
-import { mount } from "@cypress/react";
-import { SCButton } from "./button";
+import { render, screen } from "@testing-library/react";
+import SCButton from "./button";
 
-it("renders the button with the provided content", () => {
-  mount(<SCButton>Hello World</SCButton>);
-  cy.get("[data-cy=SCButton]").should("contain", "Hello World");
-});
+describe("SCButton", () => {
+  it("renders the provided content", () => {
+    render(<SCButton>Test</SCButton>);
+    expect(screen.getByText("Test")).toBeInTheDocument();
+  });
 
-it('should be disabled when the "disabled" prop is set', () => {
-  mount(<SCButton disabled>Hello World</SCButton>);
-  cy.get("[data-cy=SCButton]").should("be.disabled");
-});
+  it("should be disabled if disabled is passed", () => {
+    render(<SCButton disabled>Test</SCButton>);
+    expect(screen.getByText("Test")).toBeDisabled();
+  });
 
-it('should not be disabled when the "disabled" prop is not set', () => {
-  mount(<SCButton>Hello World</SCButton>);
-  cy.get("[data-cy=SCButton]").should("not.be.disabled");
+  it("should not be disabled if disabled is not passed", () => {
+    render(<SCButton>Test</SCButton>);
+    expect(screen.getByText("Test")).not.toBeDisabled();
+  });
 });
