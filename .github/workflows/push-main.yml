@@ -3,6 +3,7 @@ name: Push UI
 
 # Only run on pushs to open PRs that are in the UI folder
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
