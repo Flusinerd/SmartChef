@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint ./src",
-    "test-coverage": "react-scripts test --coverage",
+    "test-coverage": "react-scripts test --coverage --config=jest.config.js",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"

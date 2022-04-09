@@ -63,13 +63,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
-      - name: Run Jest Tests
-        run: yarn test-coverage
-        working-directory: ./smart-chef-ui
       - name: Upload coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          coverage-file: ./smart-chef-ui/coverage/coverage-final.json
+          working-directory: ./smart-chef-ui
 
   # e2e-testing:
   #   needs: build
