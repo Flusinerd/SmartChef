@@ -57,6 +57,7 @@ jobs:
         with:
           node-version: 16.x
           cache: "yarn"
+          cache-dependency-path: ./smart-chef-ui/yarn.lock
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
