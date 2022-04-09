@@ -1,5 +1,5 @@
 import React from "react";
-import { SCButton } from "../../components/button/button";
+import SCButton from "../../components/button/button";
 import "./landingpage.css";
 import Image1 from "./images/image1.svg";
 import Image2 from "./images/image2.svg";
