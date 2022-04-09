@@ -69,20 +69,3 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           flags: unittests
-
-  # e2e-testing:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16.x
-  #         cache: "yarn"
-  #     - name: Install dependencies
-  #       run: yarn install --frozen-lockfile
-  #       working-directory: ./smart-chef-ui
-  #     - name: Run Cypress tests
-  #       uses: cypress-io/github-action@v2
-  #       working-directory: ./smart-chef-ui

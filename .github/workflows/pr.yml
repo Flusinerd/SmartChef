@@ -60,31 +60,9 @@ jobs:
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
       - name: Run Jest Tests
-        run: yarn test-coverage
-        working-directory: ./smart-chef-ui
-      - name: Upload coverage report
-        uses: ArtiomTr/jest-coverage-report-action@v2
-        with:
-          coverage-file: ./coverage/coverage-final.json
+        run: yarn test -- --ci --coverage
         working-directory: ./smart-chef-ui
       - uses: codecov/codecov-action@v2
         with:
           files: smart-chef-ui/report.json
           flags: unittests
-
-  # e2e-testing:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16.x
-  #         cache: "yarn"
-  #     - name: Install dependencies
-  #       run: yarn install --frozen-lockfile
-  #       working-directory: ./smart-chef-ui
-  #     - name: Run Cypress tests
-  #       uses: cypress-io/github-action@v2
-  #       working-directory: ./smart-chef-ui
