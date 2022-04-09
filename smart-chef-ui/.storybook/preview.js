@@ -9,4 +9,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  backgrounds: {
+    default: 'Boostrap White',
+    values: [
+      { name: 'Boostrap White', value: '#f8f9fa' },
+      { name: 'White', value: '#fff' },
+      { name: 'Black', value: '#000' },
+    ]
+  }
 }
