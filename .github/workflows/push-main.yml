@@ -66,8 +66,7 @@ jobs:
       - name: Upload coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          coverage-file: ./coverage/coverage-final.json
-        working-directory: ./smart-chef-ui
+          coverage-file: ./smart-chef-ui/coverage/coverage-final.json
 
   # e2e-testing:
   #   needs: build
