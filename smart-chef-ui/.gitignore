@@ -24,7 +24,9 @@ yarn-error.log*
 
 
 # Cypress
-
 cypress/videos
 cypress/screenshots
 cypress/downloads
+
+# Jest
+report.json

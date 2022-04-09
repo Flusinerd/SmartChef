@@ -67,8 +67,10 @@ jobs:
         uses: ArtiomTr/jest-coverage-report-action@v2.0.5
         with:
           working-directory: ./smart-chef-ui
-          package-manager: yarn
-          test-script: yarn test
+          coverage-file: ./results.json
+          base-coverage-file: ./results.json
+          threshold: 80
+          skip-step: all
 
   # e2e-testing:
   #   needs: build
