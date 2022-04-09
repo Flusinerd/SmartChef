@@ -1,5 +1,7 @@
 # SmartChef
 
+[![codecov](https://codecov.io/gh/Flusinerd/SmartChef/branch/main/graph/badge.svg?token=hP3zCCDx8G)](https://codecov.io/gh/Flusinerd/SmartChef)
+
 - [SmartChef](#smartchef)
   - [API](#api)
     - [Setting up a venv for the api](#setting-up-a-venv-for-the-api)
