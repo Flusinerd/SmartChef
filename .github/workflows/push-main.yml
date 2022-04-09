@@ -68,6 +68,7 @@ jobs:
         with:
           working-directory: ./smart-chef-ui
           package-manager: yarn
+          test-script: yarn test
 
   # e2e-testing:
   #   needs: build
