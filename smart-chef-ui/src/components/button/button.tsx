@@ -5,7 +5,13 @@ export function SCButton(props: SCButtonProps) {
   const [disabled] = React.useState(props.disabled);
 
   return (
-    <button type="button" className="sc-button" {...props} disabled={disabled}>
+    <button
+      type="button"
+      className="sc-button"
+      {...props}
+      disabled={disabled}
+      data-cy="SCButton"
+    >
       {props.children}
     </button>
   );
