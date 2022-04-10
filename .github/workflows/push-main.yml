@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: 16.x
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -30,6 +30,11 @@ jobs:
       - name: Build UI
         run: yarn build
         working-directory: ./smart-chef-ui
+      - name: Upload Build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: smart-chef-ui/build
 
   lint:
     needs: build
@@ -64,8 +69,30 @@ jobs:
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
       - name: Run tests
-        run: yarn test -- --ci --coverage
+        run: yarn test --ci --coverage
         working-directory: ./smart-chef-ui
       - uses: codecov/codecov-action@v2
         with:
           flags: unittests
+
+  push-docker-image:
+    needs: [unit-tests, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: smart-chef-ui/build
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: smart-chef-ui
+          push: true
+          tags: smart-chef/ui:latest
+          file: smart-chef-ui/ci/Dockerfile
