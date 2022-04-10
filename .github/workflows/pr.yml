@@ -67,5 +67,4 @@ jobs:
         working-directory: ./smart-chef-ui
       - uses: codecov/codecov-action@v2
         with:
-          files: smart-chef-ui/report.json
           flags: unittests
