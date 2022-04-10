@@ -2,7 +2,7 @@ import "./Navbar.css";
 import Logo from "./logo.svg";
 import { Link } from "react-router-dom";
 
-export function SCNavbar(props: any) {
+function SCNavbar(props: any) {
   return (
     <nav className="navbar">
       <div className="logo">
@@ -32,3 +32,5 @@ export function SCNavbar(props: any) {
     </nav>
   );
 }
+
+export default SCNavbar;
