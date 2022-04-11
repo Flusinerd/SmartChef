@@ -30,3 +30,5 @@ cypress/downloads
 
 # Jest
 report.json
+
+/.nyc_output

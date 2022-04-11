@@ -1,6 +1,3 @@
-/* Include Montserrat Font*/
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
-
 /* 
  * Set Montserrat Font to be used in the app
  * Set box-sizing to border-box
@@ -9,7 +6,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-:root {
+body {
   --primary-color: #eb5757;
   --primary-color-dark: #c53030;
   --primary-color-light: #f76464;
