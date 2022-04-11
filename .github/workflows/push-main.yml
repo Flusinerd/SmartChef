@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - "smart-chef-ui/**"
+      - ".github/workflows/push-main.yml"
 
 jobs:
   build:
