@@ -76,6 +76,7 @@
     "@storybook/testing-library": "^0.0.9",
     "@testing-library/cypress": "^8.0.2",
     "cypress": "^9.5.3",
+    "eslint": "^8.13.0",
     "eslint-config-react-app": "^7.0.0",
     "eslint-plugin-cypress": "^2.12.1",
     "nyc": "^15.1.0",
