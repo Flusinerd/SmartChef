@@ -42,9 +42,6 @@ jobs:
           node-version: 16.x
           cache: "yarn"
           cache-dependency-path: ./smart-chef-ui/yarn.lock
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        working-directory: ./smart-chef-ui
       - name: Lint UI
         run: yarn lint
         working-directory: ./smart-chef-ui
@@ -60,9 +57,6 @@ jobs:
           node-version: 16.x
           cache: "yarn"
           cache-dependency-path: ./smart-chef-ui/yarn.lock
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        working-directory: ./smart-chef-ui
       - name: E2E tests
         uses: cypress-io/github-action@v2
         with:
