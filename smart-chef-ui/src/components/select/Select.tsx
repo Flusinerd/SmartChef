@@ -31,11 +31,12 @@ function SCSelect(props: SelectProps) {
       )}
 
       {/* Map options */}
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
+      {options &&
+        options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
     </select>
   );
 }
@@ -49,7 +50,7 @@ type SCSelectOption = {
 export class SelectProps implements SelectHTMLAttributes<HTMLSelectElement> {
   placeholder?: string;
   value?: string;
-  options: SCSelectOption[] = [];
+  options?: SCSelectOption[];
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   disabled?: boolean;
 }
