@@ -4,8 +4,6 @@ name: PR-Push-UI
 # Only run on pushs to open PRs that are in the UI folder
 on:
   pull_request:
-    types:
-      - synchronize
     paths:
       - "smart-chef-ui/**"
       - ".github/workflows/pr-ui.yml"
