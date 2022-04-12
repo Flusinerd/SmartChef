@@ -56,7 +56,20 @@
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
-    "all": true
+    "all": true,
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.stories.*",
+      "**/*.spec.*",
+      "**/*.test.*"
+    ]
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.12",
