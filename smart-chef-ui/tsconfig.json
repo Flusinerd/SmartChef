@@ -14,7 +14,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "types": ["cypress"]
   },
-  "include": ["src", "src/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/**.*.stories.tsx"]
 }

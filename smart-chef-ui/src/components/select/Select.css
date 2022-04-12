@@ -1,0 +1,28 @@
+select.sc-select {
+  border: none;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+
+  padding: 0.5rem 1rem;
+
+  transition: box-shadow 0.2s, opacity 0.2s, background-color 0.2s;
+}
+
+select.sc-select:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px var(--focus-color);
+}
+
+select.sc-select:hover {
+  background-color: hsl(210, 17%, 95%);
+  box-shadow: 0px 0px 0px 1px var(--hover-color);
+}
+
+/* Disabled styling */
+select.sc-select:disabled {
+  opacity: 0.5;
+}
+
+select.sc-select:disabled:hover {
+  cursor: not-allowed;
+}

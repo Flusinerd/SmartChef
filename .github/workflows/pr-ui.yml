@@ -4,10 +4,9 @@ name: PR-Push-UI
 # Only run on pushs to open PRs that are in the UI folder
 on:
   pull_request:
-    types:
-      - synchronize
     paths:
       - "smart-chef-ui/**"
+      - ".github/workflows/pr-ui.yml"
 
 jobs:
   build:
@@ -48,7 +47,7 @@ jobs:
         run: yarn lint
         working-directory: ./smart-chef-ui
 
-  unit-tests:
+  tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -62,9 +61,36 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
-      - name: Run Jest Tests
-        run: yarn test --ci --coverage
-        working-directory: ./smart-chef-ui
-      - uses: codecov/codecov-action@v2
+      - name: E2E tests
+        uses: cypress-io/github-action@v2
         with:
-          flags: unittests
+          install: false
+          working-directory: smart-chef-ui
+          command: yarn e2e-ci
+      - name: Rename nyc output
+        run: mv smart-chef-ui/.nyc_output/out.json smart-chef-ui/.nyc_output/out-e2e.json
+      - name: Component tests
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          working-directory: smart-chef-ui
+          command: yarn cypress run-ct
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: smart-chef-ui/cypress/screenshots
+      - name: Upload video
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: smart-chef-ui/cypress/videos
+      - name: Merge coverage reports
+        run: yarn merge-reports
+        working-directory: ./smart-chef-ui
+      - name: Generate coverage report
+        run: yarn generate-coverage
+        working-directory: ./smart-chef-ui
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2

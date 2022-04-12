@@ -5,10 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",
@@ -21,18 +17,20 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress run-ct",
+    "dev": "concurrently \"react-scripts -r @cypress/instrument-cra start\" \"cypress open\"",
+    "e2e-ci": "start-server-and-test \"react-scripts -r @cypress/instrument-cra start\" http://localhost:3000 \"yarn cypress run\"",
     "lint": "eslint ./src",
-    "test-coverage": "react-scripts test --coverage --out",
-    "test-ci": "react-scripts test --ci --json --coverage --testLocationInResults --outputFile=report.json --collectCoverage=true --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]'",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "merge-reports": "nyc merge ./.nyc_output ./coverage/report.json",
+    "generate-coverage": "nyc report --reporter=html --reporter=text-summary"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "plugin:cypress/recommended"
     ],
     "overrides": [
       {
@@ -57,12 +55,29 @@
       "last 1 safari version"
     ]
   },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.stories.*",
+      "**/*.spec.*",
+      "**/*.test.*"
+    ]
+  },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.16.7",
-    "@babel/plugin-proposal-private-methods": "^7.16.11",
-    "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
+    "@cypress/code-coverage": "^3.9.12",
+    "@cypress/instrument-cra": "^1.4.0",
     "@cypress/react": "^5.12.4",
     "@cypress/webpack-dev-server": "^1.8.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@storybook/addon-actions": "^6.4.21",
     "@storybook/addon-essentials": "^6.4.21",
     "@storybook/addon-interactions": "^6.4.21",
@@ -73,7 +88,16 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.21",
     "@storybook/testing-library": "^0.0.9",
+    "@testing-library/cypress": "^8.0.2",
+    "concurrently": "^7.1.0",
     "cypress": "^9.5.3",
+    "eslint": "^8.13.0",
+    "eslint-config-react-app": "^7.0.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "nyc": "^15.1.0",
+    "source-map-support": "^0.5.21",
+    "start-server-and-test": "^1.14.0",
+    "ts-node": "^10.7.0",
     "webpack": "^5.72.0"
   }
 }

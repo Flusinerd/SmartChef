@@ -9,19 +9,17 @@ on:
       - main
     paths:
       - "smart-chef-ui/**"
+      - ".github/workflows/push-main.yml"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
           cache: "yarn"
           cache-dependency-path: ./smart-chef-ui/yarn.lock
       - name: Install dependencies
@@ -30,6 +28,11 @@ jobs:
       - name: Build UI
         run: yarn build
         working-directory: ./smart-chef-ui
+      - name: Upload Build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: smart-chef-ui/build
 
   lint:
     needs: build
@@ -49,7 +52,7 @@ jobs:
         run: yarn lint
         working-directory: ./smart-chef-ui
 
-  unit-tests:
+  tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -63,9 +66,58 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         working-directory: ./smart-chef-ui
-      - name: Run tests
-        run: yarn test --ci --coverage
-        working-directory: ./smart-chef-ui
-      - uses: codecov/codecov-action@v2
+      - name: E2E tests
+        uses: cypress-io/github-action@v2
         with:
-          flags: unittests
+          install: false
+          working-directory: smart-chef-ui
+          command: yarn e2e-ci
+      - name: Rename nyc output
+        run: mv smart-chef-ui/.nyc_output/out.json smart-chef-ui/.nyc_output/out-e2e.json
+      - name: Component tests
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          working-directory: smart-chef-ui
+          command: yarn cypress run-ct
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: smart-chef-ui/cypress/screenshots
+      - name: Upload video
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: smart-chef-ui/cypress/videos
+      - name: Merge coverage reports
+        run: yarn merge-reports
+        working-directory: ./smart-chef-ui
+      - name: Generate coverage report
+        run: yarn generate-coverage
+        working-directory: ./smart-chef-ui
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
+
+  push-docker-image:
+    needs: [tests, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: smart-chef-ui/build
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: smart-chef-ui
+          push: true
+          tags: flusinerd/smart-chef-ui:latest
+          file: smart-chef-ui/ci/Dockerfile
