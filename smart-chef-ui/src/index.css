@@ -15,6 +15,10 @@ body {
   --drop-shadow: 0px 6px 30px rgba(0, 0, 0, 0.16);
   --white: #fff;
 
+  /* Form colors */
+  --focus-color: #56ccf2;
+  --hover-color: hsl(195, 86%, 80%);
+
   background-color: #f8f9fa;
 }
 
