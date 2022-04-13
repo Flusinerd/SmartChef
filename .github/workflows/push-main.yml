@@ -121,3 +121,15 @@ jobs:
           push: true
           tags: flusinerd/smart-chef-ui:latest
           file: smart-chef-ui/ci/Dockerfile
+  deploy:
+    needs: [push-docker-image]
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.DEPLOYMENT_SSH }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: cd smart-chef && wget -O stack.yaml https://raw.githubusercontent.com/Flusinerd/SmartChef/main/stack.yaml && docker stack deploy -c stack.yaml smart-chef
+      
