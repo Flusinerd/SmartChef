@@ -126,14 +126,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Deploy to Docker swarm
-      uses: wshihadeh/docker-deployment-action@v1
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
       with:
-        remote_docker_host: ${{ secrets.DEPLOYMENT_SSH }}
-        ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-        ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
-        deployment_mode: docker-swarm
-        copy_stack_file: true
-        stack_file_name: stack.yaml
-        args: smart-chef
+        host: ${{ secrets.DEPLOYMENT_SSH }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: cd smart-chef && wget -O stack.yaml https://raw.githubusercontent.com/Flusinerd/SmartChef/main/stack.yaml && docker stack deploy -c stack.yml smart-chef
       
