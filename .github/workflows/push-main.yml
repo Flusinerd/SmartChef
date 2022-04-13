@@ -131,5 +131,5 @@ jobs:
         host: ${{ secrets.DEPLOYMENT_SSH }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        script: cd smart-chef && wget -O stack.yaml https://raw.githubusercontent.com/Flusinerd/SmartChef/main/stack.yaml && docker stack deploy -c stack.yml smart-chef
+        script: cd smart-chef && wget -O stack.yaml https://raw.githubusercontent.com/Flusinerd/SmartChef/main/stack.yaml && docker stack deploy -c stack.yaml smart-chef
       
