@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "postinstall": "cd .. && husky install smart-chef-ui/.husky",
+    "postinstall": "is-ci || cd .. && husky install smart-chef-ui/.husky",
     "build": "react-scripts build",
     "test": "cypress run-ct",
     "dev": "concurrently \"react-scripts -r @cypress/instrument-cra start\" \"cypress open\" \"cypress open-ct\" ",
@@ -31,6 +31,7 @@
     "build-storybook": "build-storybook -s public",
     "merge-reports": "nyc merge ./.nyc_output ./coverage/report.json",
     "generate-coverage": "nyc report --reporter=html --reporter=text-summary",
+    "lint-staged": "lint-staged",
     "codegen": "npx @openapitools/openapi-generator-cli generate -g typescript-axios -o ./src/generated/openapi -i http://localhost:8000/openapi"
   },
   "eslintConfig": {
@@ -126,6 +127,7 @@
     "eslint-config-react-app": "^7.0.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "is-ci": "^3.0.1",
     "nyc": "^15.1.0",
     "pinst": "^3.0.0",
     "source-map-support": "^0.5.21",
