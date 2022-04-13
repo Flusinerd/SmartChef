@@ -2,7 +2,7 @@ import "./Navbar.css";
 import Logo from "./logo.svg";
 import { Link } from "react-router-dom";
 
-function SCNavbar(props: any) {
+function SCNavbar(_props: any) {
   return (
     <nav className="navbar">
       <div className="logo">
