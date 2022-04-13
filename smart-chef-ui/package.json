@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "postinstall": "cd .. && husky install smart-chef-ui/.husky",
     "build": "react-scripts build",
     "test": "cypress run-ct",
     "dev": "concurrently \"react-scripts -r @cypress/instrument-cra start\" \"cypress open\" \"cypress open-ct\" ",
@@ -126,6 +127,7 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-unused-imports": "^2.0.0",
     "nyc": "^15.1.0",
+    "pinst": "^3.0.0",
     "source-map-support": "^0.5.21",
     "start-server-and-test": "^1.14.0",
     "ts-node": "^10.7.0",
