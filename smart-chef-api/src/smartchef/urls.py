@@ -18,14 +18,13 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 from api.views.household import HouseholdViewSet
-from api.views.user import PrivateUserViewSet, UserViewSet
+from api.views.user import UserViewSet
 from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 
 
 router = routers.DefaultRouter()
-router.register(r'users/public', UserViewSet)
-router.register(r'users/private', PrivateUserViewSet)
+router.register(r'users', UserViewSet)
 router.register(r'households', HouseholdViewSet)
 
 urlpatterns = [

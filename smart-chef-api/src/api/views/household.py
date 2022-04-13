@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from api.models.household import Household
-from api.serializers.serializer import HouseholdSerializer
+from api.serializers.household import HouseholdSerializer
 
 
 class HouseholdViewSet(viewsets.ModelViewSet):

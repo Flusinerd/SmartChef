@@ -1,15 +1,28 @@
 from api.models.user import User
-from rest_framework import serializers
+from api.serializers.resource import ResourceSerializer
+from django.contrib.auth.hashers import make_password
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'firstName', 'lastName', 'createdAt', 'updatedAt')
+class UserSerializer(ResourceSerializer):
 
+    # Override create method to set the user's password
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(UserSerializer, self).create(validated_data)
 
-class PrivateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'firstName', 'lastName',
-                  'createdAt', 'updatedAt', 'email')
+                  'createdAt', 'updatedAt', 'password', 'email')
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
+
+
+class UpdateUserSerializer(ResourceSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'firstName', 'lastName', 'password')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }

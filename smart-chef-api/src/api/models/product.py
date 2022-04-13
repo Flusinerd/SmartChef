@@ -1,6 +1,8 @@
 from api.models.resource import Resource
 from django.db import models
 from api.shared.unit_enum import UnitEnum
+from api.models.productCategory import ProductCategory
+import api.models.productManufacturer as productManufacturerModel
 
 
 class Product(Resource):
@@ -13,3 +15,7 @@ class Product(Resource):
     amount: float = models.FloatField()
     unit: UnitEnum = models.CharField(
         max_length=255, choices=UnitEnum.choices())
+    category: ProductCategory = models.ForeignKey(
+        ProductCategory, on_delete=models.PROTECT, null=False)
+    manufacturer: productManufacturerModel.ProductManufacturer = models.ForeignKey(
+        productManufacturerModel.ProductManufacturer, on_delete=models.PROTECT, null=True)
