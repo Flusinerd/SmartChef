@@ -121,3 +121,15 @@ jobs:
           push: true
           tags: flusinerd/smart-chef-ui:latest
           file: smart-chef-ui/ci/Dockerfile
+  deploy:
+    needs: [push-docker-image]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to swarm
+      uses: sagebind/docker-swarm-deploy-action@v2
+      with:
+        remote_host: ssh://jan@master.jan-krueger.eu
+        ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+        ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+        args: stack deploy --compose-file stack.yaml smart-chef
+      
