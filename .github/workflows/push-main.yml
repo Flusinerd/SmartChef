@@ -129,7 +129,7 @@ jobs:
     - name: Deploy to Docker swarm
       uses: wshihadeh/docker-deployment-action@v1
       with:
-        remote_docker_host: jan@master.jan-krueger.eu
+        remote_docker_host: ${{ secrets.DEPLOYMENT_SSH }}
         ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
         ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
         deployment_mode: docker-swarm
