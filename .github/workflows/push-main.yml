@@ -134,7 +134,6 @@ jobs:
         ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
         deployment_mode: docker-swarm
         copy_stack_file: true
-        deploy_path: /home/jan/smart-chef
         stack_file_name: stack.yaml
         args: smart-chef
       
