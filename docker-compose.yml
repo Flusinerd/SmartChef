@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  ui:
+    image: flusinerd/smart-chef-ui:latest
+    networks:
+      - traefik-public
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.constraint-label: traefik-public
+        traefik.docker.network: traefik-public
+        traefik.http.routers.smart-chef-ui-http.entrypoints: http
+        traefik.http.routers.smart-chef-ui-http.rule: Host(`smart-chef.tech`)
+        traefik.http.routers.smart-chef-ui-http.service: smart-chef-ui
+        traefik.http.services.smart-chef-ui.loadbalancer.server.port: 80
+        # HTTPS
+
+        traefik.http.routers.smart-chef-ui-http.middlewares: https-redirect
+        traefik.http.routers.smart-chef-ui-https.entrypoints: https
+        traefik.http.routers.smart-chef-ui-https.rule: Host(`smart-chef.tech`)
+        traefik.http.routers.smart-chef-ui-https.tls: "true"
+        traefik.http.routers.smart-chef-ui-https.tls.certresolver: le
+        traefik.http.routers.smart-chef-ui-https.service: smart-chef-ui
+        
+networks:
+  traefik-public:
+    external: true
