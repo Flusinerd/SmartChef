@@ -1,8 +1,8 @@
-from api.models.resource import Resource
+from smartchef.api.models.resource import Resource
 from django.db import models
-from api.shared.unit_enum import UnitEnum
-from api.models.productCategory import ProductCategory
-import api.models.productManufacturer as productManufacturerModel
+from smartchef.api.shared.unit_enum import UnitEnum
+from smartchef.api.models.productCategory import ProductCategory
+import smartchef.api.models.productManufacturer as productManufacturerModel
 
 
 class Product(Resource):

@@ -1,6 +1,6 @@
 from django.db import models
-from api.models.resource import Resource
-from api.shared import unit_enum
+from smartchef.api.models.resource import Resource
+from smartchef.api.shared import unit_enum
 from .productCategory import ProductCategory
 from .recipe import Recipe
 

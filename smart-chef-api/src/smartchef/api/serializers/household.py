@@ -1,4 +1,4 @@
-from api.models.household import Household
+from smartchef.api.models.household import Household
 from rest_framework import serializers
 from .user import UserSerializer
 

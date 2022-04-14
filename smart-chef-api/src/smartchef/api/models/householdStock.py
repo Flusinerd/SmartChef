@@ -1,6 +1,6 @@
 from django.db import models
-import api.models.household as HouseholdModel
-import api.models.product as ProductModel
+import smartchef.api.models.household as HouseholdModel
+import smartchef.api.models.product as ProductModel
 
 
 class HouseholdStock(models.Model):

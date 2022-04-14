@@ -1,5 +1,5 @@
-from api.models.user import User
-from api.serializers.resource import ResourceSerializer
+from smartchef.api.models.user import User
+from smartchef.api.serializers.resource import ResourceSerializer
 from django.contrib.auth.hashers import make_password
 
 

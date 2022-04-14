@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from api.views.household import HouseholdViewSet
-from api.views.user import UserViewSet
+from .api.views import HouseholdViewSet
+from .api.views import UserViewSet
 from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView

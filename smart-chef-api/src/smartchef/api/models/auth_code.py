@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-from api.models import Application
+from .application import Application
 
 
 class AuthCode(models.Model):

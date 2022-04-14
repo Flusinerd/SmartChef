@@ -1,9 +1,9 @@
 from django.db import models
-from api.models.resource import Resource
-from api.shared.unit_enum import UnitEnum
-import api.models.productCategory as productCategoryModel
-import api.models.household as householdModel
-import api.models.recipe as recipeModel
+from smartchef.api.models.resource import Resource
+from smartchef.api.shared.unit_enum import UnitEnum
+import smartchef.api.models.productCategory as productCategoryModel
+import smartchef.api.models.household as householdModel
+import smartchef.api.models.recipe as recipeModel
 
 
 class IngredientPurchase(Resource):
