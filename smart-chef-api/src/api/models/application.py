@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 
 
-class Application:
+class Application(models.Model):
     """
     An OAuth2 application
     """

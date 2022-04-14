@@ -1,9 +1,9 @@
 from datetime import datetime
 from django.db import models
-from api.models.application import Application
+from api.models import Application
 
 
-class AuthCode:
+class AuthCode(models.Model):
     auth_code: str = models.CharField(
         max_length=255, primary_key=True, editable=False)
     client: Application = models.ForeignKey(

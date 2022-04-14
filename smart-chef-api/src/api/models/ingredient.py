@@ -1,7 +1,8 @@
 from django.db import models
 from api.models.resource import Resource
 from api.shared import unit_enum
-import api.models.productCategory as productCategoryModel
+from .productCategory import ProductCategory
+from .recipe import Recipe
 
 
 class Ingredient(Resource):
@@ -11,5 +12,7 @@ class Ingredient(Resource):
     amount: float = models.FloatField()
     unit: unit_enum.UnitEnum = models.CharField(
         max_length=255, choices=unit_enum.UnitEnum.choices())
-    product: models.ForeignKey(
-        productCategoryModel.ProductCategory, on_delete=models.PROTECT, null=False)
+    product: ProductCategory = models.ForeignKey(
+        ProductCategory, on_delete=models.PROTECT, null=False)
+    recipe: Recipe = models.ForeignKey(
+        Recipe, on_delete=models.PROTECT, null=False)

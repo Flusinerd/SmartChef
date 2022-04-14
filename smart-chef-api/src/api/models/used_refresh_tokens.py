@@ -2,9 +2,9 @@ from datetime import datetime
 from django.db import models
 
 
-class UsedRefreshTokens:
+class UsedRefreshTokens(models.Model):
     refresh_token: str = models.CharField(
-        max_length=512, primary_key=True, editable=False)
+        max_length=255, primary_key=True, editable=False)
     expires_at: datetime = models.DateTimeField()
 
     class Meta:
