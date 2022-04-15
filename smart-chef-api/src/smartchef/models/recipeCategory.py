@@ -1,6 +1,6 @@
 import imp
 from django.db import models
-from smartchef.api.models.resource import Resource
+from . import Resource
 
 
 class RecipeCategory(Resource):

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from smartchef.api.models.user import User
-from smartchef.api.serializers.user import UserSerializer
+from ..models.user import User
+from ..serializers.user import UserSerializer
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 

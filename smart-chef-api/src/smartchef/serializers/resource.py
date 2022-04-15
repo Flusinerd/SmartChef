@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from smartchef.api.models.resource import Resource
+from ..models import Resource
 
 
 class ResourceSerializer(serializers.ModelSerializer):

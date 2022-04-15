@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from ..models import Household
-from smartchef.api.serializers.household import HouseholdSerializer, HouseholdUserSerializer
-from smartchef.api.serializers import UserSerializer
+from ..serializers.household import HouseholdSerializer, HouseholdUserSerializer
+from ..serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.schemas.openapi import AutoSchema

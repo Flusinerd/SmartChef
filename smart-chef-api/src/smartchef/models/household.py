@@ -1,6 +1,6 @@
 from typing import List
 from .resource import Resource
-import smartchef.api.models.user as UserModel
+import smartchef.models.user as UserModel
 from django.db import models
 
 

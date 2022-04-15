@@ -6,7 +6,7 @@ class Application(models.Model):
     """
     An OAuth2 application
     """
-    client_id: str = models.UUIDField(
+    client_id: uuid.UUID = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     redirect_uri: str = models.CharField(max_length=500)
     client_secret: str = models.CharField(max_length=255)

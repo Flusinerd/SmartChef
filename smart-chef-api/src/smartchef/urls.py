@@ -17,16 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .api.views import HouseholdViewSet
-from .api.views import UserViewSet
+from .views import HouseholdViewSet, UserViewSet, AuthViewSet
 from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'households', HouseholdViewSet)
+router.register(r'auth', AuthViewSet, basename='auth')
 
 urlpatterns = [
     path('', include(router.urls)),
