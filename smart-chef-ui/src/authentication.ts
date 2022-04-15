@@ -131,6 +131,14 @@ export class AuthService {
     ) {
       if (this.refreshToken) {
         await this.refreshAccessToken();
+
+        // Retry the request with the new access token
+        const config = response.config;
+        if (!config.headers) {
+          config.headers = {};
+        }
+        config.headers.Authorization = `Bearer ${this.accessToken}`;
+        return axios(config);
       } else {
         this.logout();
       }
