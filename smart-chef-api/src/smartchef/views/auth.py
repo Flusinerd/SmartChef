@@ -3,18 +3,27 @@ import jwt
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from ..serializers import AuthSerializer, RefreshSerializer
+from ..serializers import AuthSerializer, RefreshTokenSerializer, LoginRequestSerializer, TokenPairSerializer
 from ..models import User, Household, Application, UsedRefreshTokens
-from ..shared import AccessToken, RefreshToken
+from ..shared import RefreshToken
 from django.contrib.auth.hashers import check_password
+from django.utils import timezone
 from jwt import encode, decode
 from datetime import datetime, timedelta
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
+from django.db.utils import DatabaseError
 
 
 class AuthViewSet(ViewSet):
     serializer_class = AuthSerializer
     permission_classes = []
 
+    @extend_schema(
+        responses=TokenPairSerializer,
+        request=LoginRequestSerializer,
+        tags=['auth'],
+    )
     @action(detail=False, methods=['POST'], url_path='login')
     def get_token_pair(self, request):
         """
@@ -44,7 +53,12 @@ class AuthViewSet(ViewSet):
         sub = user.id.__str__()
         return self.generateTokenPair(application, householdIds, sub)
 
-    @action(detail=False, methods=['POST'], url_path='refresh', serializer_class=RefreshSerializer)
+    @extend_schema(
+        responses=TokenPairSerializer,
+        request=RefreshTokenSerializer,
+        tags=['auth'],
+    )
+    @action(detail=False, methods=['POST'], url_path='refresh', serializer_class=TokenPairSerializer)
     def refresh_token(self, request):
         """
         Generates a new token pair using the refresh token
@@ -87,10 +101,14 @@ class AuthViewSet(ViewSet):
         response = self.generateTokenPair(application, householdIds, sub)
         # Add the refresh token to the list of used refresh tokens
         try:
-            UsedRefreshTokens.objects.create(
-                refresh_token=refreshToken, expires_at=expires)
+            if usedRefreshTokens.count() == 0:
+                UsedRefreshTokens.objects.create(
+                    refresh_token=refreshToken, expires_at=timezone.make_aware(expires))
             return response
-        except:
+        except DatabaseError:
+            return response
+        except Exception as e:
+            print(e)
             return Response({'error': 'Error refreshing the token, try again'}, status=500)
 
     def generateTokenPair(self, application: Application, householdIds: List[str], sub: str):
