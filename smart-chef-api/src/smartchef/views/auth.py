@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 
 class AuthViewSet(ViewSet):
     serializer_class = AuthSerializer
+    permission_classes = []
 
     @action(detail=False, methods=['POST'], url_path='login')
     def get_token_pair(self, request):

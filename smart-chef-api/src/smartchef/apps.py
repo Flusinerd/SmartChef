@@ -1,5 +1,8 @@
 import os
 from django.apps import AppConfig
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class ApiConfig(AppConfig):
