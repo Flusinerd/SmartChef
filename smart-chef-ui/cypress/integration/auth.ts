@@ -1,6 +1,10 @@
-import { AuthService } from "./authentication";
+import { AuthService } from "../../src/authentication";
 
 describe("Unit test for AuthService", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
   it("Should be a singleton", () => {
     const authService1 = AuthService.getInstance();
     const authService2 = AuthService.getInstance();

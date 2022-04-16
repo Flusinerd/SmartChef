@@ -107,7 +107,9 @@
       "**/*.d.ts",
       "**/*.stories.*",
       "**/*.spec.*",
-      "**/*.test.*"
+      "**/*.test.*",
+      "src/generated/**/*",
+      "src/authentication.ts"
     ]
   },
   "devDependencies": {
