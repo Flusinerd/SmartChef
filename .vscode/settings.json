@@ -1,4 +1,5 @@
 {
   "python.autoComplete.extraPaths": ["{workspaceFolder}/smart-chef-api/src"],
-  "python.analysis.extraPaths": ["{workspaceFolder}/smart-chef-api/src"]
+  "python.analysis.extraPaths": ["{workspaceFolder}/smart-chef-api/src"],
+  "eslint.workingDirectories": ["{workspaceFolder}/smart-chef-ui"]
 }

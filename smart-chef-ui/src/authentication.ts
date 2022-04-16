@@ -5,6 +5,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 export class AuthService {
   private static instance: AuthService;
+  private readonly REFRESH_TOKEN_LS_KEY = "sc_refresh_token";
 
   private apiUrl = "http://localhost:8000";
   private isLoggedIn = false;
@@ -128,7 +129,7 @@ export class AuthService {
 
   private saveRefreshToken() {
     if (this.refreshToken) {
-      localStorage.setItem("sc_refresh_token", this.refreshToken);
+      localStorage.setItem(this.REFRESH_TOKEN_LS_KEY, this.refreshToken);
     }
   }
 
@@ -139,7 +140,7 @@ export class AuthService {
     const prom = new Promise<void>(async (resolve) => {
       console.debug("Loading tokens");
       const refreshToken =
-        localStorage.getItem("sc_refresh_token") ?? undefined;
+        localStorage.getItem(this.REFRESH_TOKEN_LS_KEY) ?? undefined;
       if (refreshToken) {
         const decodedToken = jwt_decode<RefreshTokenPayload>(refreshToken);
         const expiry = new Date(decodedToken.exp * 1000);
@@ -151,7 +152,7 @@ export class AuthService {
           }
         } else {
           // Token expired, remove it
-          localStorage.removeItem("sc_refresh_token");
+          localStorage.removeItem(this.REFRESH_TOKEN_LS_KEY);
         }
       } else {
         // No refresh token, remove any access token
@@ -169,7 +170,7 @@ export class AuthService {
     this.accessToken = undefined;
     this.refreshToken = undefined;
     this.isLoggedIn = false;
-    localStorage.removeItem("sc_refresh_token");
+    localStorage.removeItem(this.REFRESH_TOKEN_LS_KEY);
   }
 }
 
