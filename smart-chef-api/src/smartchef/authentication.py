@@ -28,11 +28,11 @@ class BearerAuthentication(authentication.TokenAuthentication):
             user.is_authenticated = True
         except User.DoesNotExist:
             msg = ('Invalid token header. User does not exist.')
-            raise authentication.exceptions.AuthenticationFailed(msg)
+            raise authentication.exceptions.AuthenticationFailed(msg, code=400)
         except jwt.exceptions.ExpiredSignatureError:
             msg = ('Invalid token header. Token has expired.')
-            raise authentication.exceptions.AuthenticationFailed(msg)
+            raise authentication.exceptions.AuthenticationFailed(msg, code=401)
         except jwt.exceptions.InvalidTokenError:
             msg = ('Invalid token header. Token is invalid.')
-            raise authentication.exceptions.AuthenticationFailed(msg)
+            raise authentication.exceptions.AuthenticationFailed(msg, code=400)
         return (user, token)
