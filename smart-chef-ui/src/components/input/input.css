@@ -1,0 +1,40 @@
+div.sc-input {
+  position: relative;
+  display: inline-block;
+}
+
+input.sc-input {
+  background-color: #f8f9fa;
+  border: 1px solid #9f9f9f;
+  border-radius: 0.5rem;
+  line-height: 2rem;
+  padding: 0 0.75rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+input.sc-input:focus {
+  box-shadow: 0 0 0 2px var(--focus-color);
+  outline: none;
+}
+
+input.sc-input::placeholder {
+  color: #939393;
+}
+
+input.sc-input-error {
+  border-color: var(--primary-color);
+}
+
+img.sc-input-error-icon {
+  color: var(--primary-color);
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
+div.sc-input-error {
+  color: var(--primary-color);
+  font-size: 1rem;
+  margin-left: 0.75rem;
+  margin-top: 0.25rem;
+}
