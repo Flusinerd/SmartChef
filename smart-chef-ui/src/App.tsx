@@ -1,9 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SCLandingPage } from "./pages/landing/landing.page";
+import { AuthService } from "./authentication";
 
 function App() {
-  // Login the user
+  const authService = AuthService.getInstance();
+  // Load token from local storage
+  authService.loadTokens();
 
   return (
     <Router>

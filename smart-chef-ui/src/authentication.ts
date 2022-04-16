@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { AuthApi, Configuration, TokenPair } from "./generated/openapi";
 import jwt_decode from "jwt-decode";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 export class AuthService {
   private static instance: AuthService;
@@ -15,6 +16,7 @@ export class AuthService {
 
   private refreshInProgress: Promise<void> | undefined;
   private loginInProgress: Promise<void> | undefined;
+  private loadInProgress: Promise<void> | undefined;
 
   private apiConfig = new Configuration({
     basePath: this.apiUrl,
@@ -22,12 +24,8 @@ export class AuthService {
   private api = new AuthApi(this.apiConfig, undefined, this.axiosInstance);
 
   private constructor() {
-    this.loadTokens().then(() => {
-      if (!this.interceptorAdded) {
-        this.addInterceptor();
-        this.interceptorAdded = true;
-      }
-    });
+    createAuthRefreshInterceptor(axios, async (failedRequest: any) => {});
+    this.addInterceptor();
   }
 
   static getInstance() {
@@ -56,6 +54,20 @@ export class AuthService {
       resolve();
     });
     this.loginInProgress = promise;
+  }
+
+  private async refreshAuthToken(failedRequest: any) {
+    if (this.refreshToken) {
+      const refreshToken = this.refreshToken;
+      this.refreshToken = undefined;
+      const res = await this.api.apiAuthRefreshCreate({
+        refresh_token: refreshToken,
+      });
+      this.setTokens(res);
+      failedRequest.response.config.headers[
+        "Authorization"
+      ] = `Bearer ${this.accessToken}`;
+    }
   }
 
   private setTokens(response: AxiosResponse<TokenPair, any>) {
@@ -101,7 +113,6 @@ export class AuthService {
 
   addInterceptor() {
     axios.interceptors.request.use(this.authRequestInterceptor);
-    axios.interceptors.response.use(this.authResponseInterceptor);
   }
 
   async authRequestInterceptor(config: AxiosRequestConfig<unknown>) {
@@ -109,41 +120,10 @@ export class AuthService {
     if (!config.headers) {
       config.headers = {};
     }
-    if (!this.accessToken) {
-      if (this.refreshToken) {
-        await this.refreshAccessToken();
-      } else {
-        throw new Error("No refresh token");
-      }
+    if (this.accessToken) {
+      config.headers["Authorization"] = `Bearer ${this.accessToken}`;
     }
-    config.headers.Authorization = `Bearer ${this.accessToken}`;
     return config;
-  }
-
-  /**
-   * Refreshes a access token if we get a 401 error and the response contains { "detail": "Invalid token header. Token has expired." }
-   * @param response Response we got
-   */
-  async authResponseInterceptor(response: AxiosResponse<any, any>) {
-    if (
-      response.status === 401 &&
-      response.data.detail === "Invalid token header. Token has expired."
-    ) {
-      if (this.refreshToken) {
-        await this.refreshAccessToken();
-
-        // Retry the request with the new access token
-        const config = response.config;
-        if (!config.headers) {
-          config.headers = {};
-        }
-        config.headers.Authorization = `Bearer ${this.accessToken}`;
-        return axios(config);
-      } else {
-        this.logout();
-      }
-    }
-    return response;
   }
 
   private saveRefreshToken() {
@@ -152,22 +132,36 @@ export class AuthService {
     }
   }
 
-  private async loadTokens() {
-    const refreshToken = localStorage.getItem("sc_refresh_token") ?? undefined;
-    if (refreshToken) {
-      const decodedToken = jwt_decode<RefreshTokenPayload>(refreshToken);
-      const expiry = new Date(decodedToken.exp * 1000);
-      if (expiry > new Date()) {
-        // Token not expired, request a new access token
-        this.refreshToken = refreshToken;
-        if (!this.loginInProgress) {
-          await this.refreshAccessToken();
+  public async loadTokens() {
+    if (this.loadInProgress) {
+      return this.loadInProgress;
+    }
+    const prom = new Promise<void>(async (resolve, reject) => {
+      console.debug("Loading tokens");
+      const refreshToken =
+        localStorage.getItem("sc_refresh_token") ?? undefined;
+      if (refreshToken) {
+        const decodedToken = jwt_decode<RefreshTokenPayload>(refreshToken);
+        const expiry = new Date(decodedToken.exp * 1000);
+        if (expiry > new Date()) {
+          // Token not expired, request a new access token
+          this.refreshToken = refreshToken;
+          if (!this.loginInProgress) {
+            await this.refreshAccessToken();
+          }
+        } else {
+          // Token expired, remove it
+          localStorage.removeItem("sc_refresh_token");
         }
       } else {
-        // Token expired, remove it
-        localStorage.removeItem("sc_refresh_token");
+        // No refresh token, remove any access token
+        this.accessToken = undefined;
+        console.debug("No refresh token");
       }
-    }
+      this.loadInProgress = undefined;
+      resolve();
+    });
+    this.loadInProgress = prom;
   }
 
   logout() {
