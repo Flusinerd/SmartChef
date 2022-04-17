@@ -1,7 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* 
  * Set Montserrat Font to be used in the app
  * Set box-sizing to border-box
-*/
+ */
 body {
   font-family: "Montserrat", sans-serif;
 }
@@ -20,6 +24,14 @@ body {
   --hover-color: hsl(195, 86%, 80%);
 
   background-color: #f8f9fa;
+}
+
+.color-primary {
+  color: var(--primary-color) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
 }
 
 /* #region CSS RESET*/
