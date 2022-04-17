@@ -1,0 +1,20 @@
+div.sc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: var(--drop-shadow);
+  padding: 1.5rem;
+}
+
+div.sc-card-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.sc-card-title {
+  font-weight: 500;
+  font-size: 2rem;
+  margin: 0;
+}
