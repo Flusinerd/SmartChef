@@ -1,0 +1,29 @@
+div.sc-form-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+div.sc-form-group > label {
+  font-weight: 500;
+}
+
+div.sc-form-group.sc-form-group-horizontal > label {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+label.required::after {
+  content: "*";
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+
+div.sc-form-group-vertical {
+  flex-direction: column;
+}
+
+div.sc-form-group-horizontal {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}

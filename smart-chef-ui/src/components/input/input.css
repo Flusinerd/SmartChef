@@ -1,6 +1,8 @@
 div.sc-input {
   position: relative;
-  display: inline-block;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
 }
 
 input.sc-input {
@@ -28,13 +30,13 @@ input.sc-input-error {
 img.sc-input-error-icon {
   color: var(--primary-color);
   position: absolute;
-  right: 0.5rem;
   top: 0.5rem;
+  right: 0.5rem;
 }
 
 div.sc-input-error {
   color: var(--primary-color);
   font-size: 1rem;
-  margin-left: 0.75rem;
   margin-top: 0.25rem;
+  display: inline;
 }
