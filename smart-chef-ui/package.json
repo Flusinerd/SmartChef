@@ -20,10 +20,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-instrumented": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "cypress run-ct",
     "dev": "concurrently \"react-scripts -r @cypress/instrument-cra start\" \"cypress open\" \"cypress open-ct\" ",
-    "e2e-ci": "start-server-and-test \"react-scripts -r @cypress/instrument-cra start\" http://localhost:3000 \"yarn cypress run\"",
     "lint": "eslint ./src",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",

@@ -63,10 +63,10 @@ jobs:
         working-directory: ./smart-chef-ui
       - name: E2E tests
         uses: cypress-io/github-action@v2
-        with:
           install: false
           working-directory: smart-chef-ui
-          command: yarn e2e-ci
+          start: yarn start-instrumented
+          wait-on: "http://localhost:3000"
       - name: Rename nyc output
         run: mv smart-chef-ui/.nyc_output/out.json smart-chef-ui/.nyc_output/out-e2e.json
       - name: Component tests
