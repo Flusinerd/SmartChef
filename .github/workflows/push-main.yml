@@ -68,6 +68,7 @@ jobs:
         working-directory: ./smart-chef-ui
       - name: E2E tests
         uses: cypress-io/github-action@v2
+        with:
           install: false
           working-directory: smart-chef-ui
           start: yarn start-instrumented
