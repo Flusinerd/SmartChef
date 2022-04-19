@@ -9,7 +9,7 @@ function SCInput(props: SCInputProps) {
       <input
         {...props}
         className={props.error ? "sc-input-error sc-input" : "sc-input"}
-      ></input>
+      />
       {error && <img src={ErrorIcon} alt="" className="sc-input-error-icon" />}
       {error && <div className="sc-input-error">{error}</div>}
     </div>

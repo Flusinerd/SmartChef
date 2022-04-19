@@ -7,8 +7,9 @@ function SCFormGroup(props: SCFormGroupProps) {
       className={
         "sc-form-group " +
         (props.horizontal
-          ? "sc-form-group-horizontal"
-          : "sc-form-group-vertical")
+          ? "sc-form-group-horizontal "
+          : "sc-form-group-vertical ") +
+        props.className
       }
     >
       <label htmlFor="input" className={props.required ? " required" : ""}>
