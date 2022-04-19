@@ -1,10 +1,14 @@
-import FabSvg from './fab.svg';
+import FabSvg from "./fab.svg";
+import "./Fab.css";
 
 function SCFab() {
-    return ( 
-    <div className="scfab" >
-        <img src={FabSvg} alt='FabSvg'/>
-    </div> );
+  const showModal = () => {};
+
+  return (
+    <div className="scfab" onClick={showModal}>
+      <img src={FabSvg} alt="FabSvg" />
+    </div>
+  );
 }
 
 export default SCFab;

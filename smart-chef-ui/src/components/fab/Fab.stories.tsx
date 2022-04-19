@@ -1,5 +1,5 @@
 import React from "react";
-import SCFab from "./SCFab";
+import SCFab from "./Fab";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Story, Meta } from "@storybook/react";
 
