@@ -1,0 +1,19 @@
+.accordion-header{
+    display: flex;
+    flex-direction: row;
+    font-weight: 500;
+    font-size: 2rem;
+}
+
+.accordion-body{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+div > img{
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+}

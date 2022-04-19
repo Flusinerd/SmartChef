@@ -1,28 +1,26 @@
-import React,{useState} from 'react'
-import "./Accordion.css"
+import React, { useState } from "react";
+import "./Accordion.css";
+import DropArrow from "./dropArrow.svg";
 
-const Accordion = ( props: SCAccordion ) => {
-  const [show,setShow] = useState(false);
+const Accordion = (props: SCAccordionProps) => {
+  const [show, setShow] = useState(false);
   const open = () => {
-   setShow(!show)  
+    setShow(!show);
   };
 
-
   return (
-    
     <div className="accordion-header" onClick={open}>
-      {props.title}
-      <div>
-        {show && props.children}
-      </div>
+      {`${props.title}   `}
+      {show ? <img  src={DropArrow} alt="DropArrow"/> : <img style={{transform: 'rotate(180deg)'}} src={DropArrow} alt="DropArrow"/>}
+      <div className="accordion-body">{show && props.children}</div>
+      
     </div>
-  )
-}
+  );
+};
 
+export default Accordion;
 
-export default Accordion
-
-export interface SCAccordion {
+export interface SCAccordionProps {
   title?: string;
   children: React.ReactNode;
-} 
+}
