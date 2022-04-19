@@ -3,16 +3,17 @@ import "./button.css";
 
 function SCButton(props: SCButtonProps) {
   const [disabled] = React.useState(props.disabled);
+  const { className, children, ...rest } = props;
 
   return (
     <button
       type="button"
-      className="sc-button"
-      {...props}
+      className={`sc-button ${className}`}
+      {...rest}
       disabled={disabled}
       data-cy="SCButton"
     >
-      {props.children}
+      {children}
     </button>
   );
 }

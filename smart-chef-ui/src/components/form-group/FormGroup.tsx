@@ -12,10 +12,10 @@ function SCFormGroup(props: SCFormGroupProps) {
         props.className
       }
     >
-      <label htmlFor="input" className={props.required ? " required" : ""}>
+      <label htmlFor={props.name} className={props.required ? " required" : ""}>
         {props.label}
       </label>
-      <SCInput {...props} id="input" required />
+      <SCInput {...props} id={props.name} required />
     </div>
   );
 }
