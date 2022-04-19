@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Accordion.css";
 import DropArrow from "./dropArrow.svg";
 
-const Accordion = (props: SCAccordionProps) => {
+const SCAccordion = (props: SCAccordionProps) => {
   const [show, setShow] = useState(false);
   const open = () => {
     setShow(!show);
@@ -18,7 +18,7 @@ const Accordion = (props: SCAccordionProps) => {
   );
 };
 
-export default Accordion;
+export default SCAccordion;
 
 export interface SCAccordionProps {
   title?: string;
