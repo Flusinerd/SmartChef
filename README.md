@@ -38,7 +38,7 @@ For Powershell:
 For Linux:
 
 ```
-./smart-chef-api/env/Scripts/activate
+source ./smart-chef-api/env/Scripts/activate
 ```
 
 ### Installing Python dependencies
