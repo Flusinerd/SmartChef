@@ -20,7 +20,7 @@ function SCButton(props: SCButtonProps) {
 
 export default SCButton;
 
-interface SCButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface SCButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   children?: React.ReactNode;
 }
