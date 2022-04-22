@@ -1,33 +1,29 @@
-import { FieldValues, RegisterOptions, UseFormRegister } from "react-hook-form";
-import SCInput, { SCInputProps } from "../input/Input";
+import React from "react";
 import "./formGroup.css";
 
 function SCFormGroup(props: SCFormGroupProps) {
-  const { register, registerOptions, label } = props;
+  const { label, inputId, required, horizontal, className, ...rest } = props;
   return (
     <div
       className={
-        "sc-form-group " +
-        (props.horizontal
-          ? "sc-form-group-horizontal "
-          : "sc-form-group-vertical ") +
-        props.className
+        `sc-form-group ${className} ` +
+        (horizontal ? "sc-form-group-horizontal " : "sc-form-group-vertical ")
       }
+      {...rest}
     >
-      <label htmlFor={props.name} className={props.registerOptions?.required ? " required" : ""}>
-        {props.label}
+      <label htmlFor={inputId} className={required ? " required" : ""}>
+        {label}
       </label>
-      <SCInput {...props} />
+      {props.children}
     </div>
   );
 }
 
 export default SCFormGroup;
 
-export interface SCFormGroupProps extends SCInputProps {
+export interface SCFormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   horizontal?: boolean;
   required?: boolean;
   label: string;
-  register: UseFormRegister<FieldValues>
-  registerOptions: RegisterOptions
+  inputId: string;
 }
