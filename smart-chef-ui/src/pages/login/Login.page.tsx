@@ -1,68 +1,50 @@
-import styles from "./loginpage.module.css";
+import axios from "axios";
+import React from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useGlobalState } from "../../App";
 import BgImage from "../../assets/images/background.svg";
+import { AuthService } from "../../authentication";
+import SCButton from "../../components/button/button";
 import SCCard from "../../components/card/Card";
 import SCFormGroup from "../../components/form-group/FormGroup";
-import SCButton from "../../components/button/button";
-import { Link } from "react-router-dom";
-import React from "react";
-import { useForm } from "react-hook-form";
+import SCInput from "../../components/input/Input";
 import emailRegex from "../../shared/email-regex";
+import styles from "./loginpage.module.css";
 
 function SCLoginPage() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [emailError, setEmailError] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState("");
-  const [disabled, setDisabled] = React.useState(true);
+  const authServie = AuthService.getInstance();
+  const [, dispatch] = useGlobalState();
 
-  const onSubmit = (data: any) => {
-    // event.preventDefault();
-    console.log("Form submitted", data);
+  const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
+    console.log("email: ", email);
+    try {
+      dispatch({ loading: true });
+      await authServie.login(email, password);
+      alert("Login success");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const { response } = error;
+        if (response && response.status === 401) {
+          alert("E-Mail Adresse oder Passwort ist falsch");
+        } else {
+          alert("Es ist ein Fehler aufgetreten");
+        }
+      } else {
+        console.log("Error logging in: ", error);
+      }
+    } finally {
+      dispatch({ loading: false });
+    }
   };
 
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
-    mode: "onTouched",
+    formState: { errors, isValid },
+  } = useForm<FormValues>({
+    mode: "onChange",
   });
-
-  // const handleChange = (event: any) => {
-  //   // Validate email input
-  //   if (event.target.name === "email") {
-  //     const email = event.target.value;
-  //     if (emailRegex.test(email)) {
-  //       setEmail(email);
-  //       setEmailError("");
-  //     } else {
-  //       setEmail("");
-  //       // Set the error on the email input
-  //       setEmailError("E-Mail Adresse ist ungültig");
-  //     }
-  //   }
-
-  //   // Validate password input
-  //   if (event.target.name === "password") {
-  //     const password = event.target.value;
-  //     if (password.length >= 8) {
-  //       setPassword(password);
-  //       setPasswordError("");
-  //     } else {
-  //       setPassword("");
-  //       // Set the error on the password input
-  //       setPasswordError("Passwort muss mindestens 8 Zeichen lang sein");
-  //     }
-  //   }
-
-  //   // Disable the login button if the email or password is empty
-  //   if (emailError || passwordError) {
-  //     setDisabled(true);
-  //   } else {
-  //     setDisabled(false);
-  //   }
-  // };
 
   return (
     <div className={styles.wrapper}>
@@ -73,36 +55,55 @@ function SCLoginPage() {
       <div className={styles["login-card"]}>
         <SCCard title="Anmelden">
           <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-8">
-              <SCFormGroup
-                label="Email"
-                placeholder="Bitte E-Mail Adresse eingeben"
-                error={emailError}
-                defaultValue={email}
-                autoComplete="email"
-                register={register}
-                registerOptions={{ required: true, pattern: emailRegex }}
-              ></SCFormGroup>
-              {errors.Email && (
+            <SCFormGroup
+              label="Email"
+              required
+              inputId="email-input"
+              className="mb-5"
+            >
+              <SCInput
+                type="text"
+                id="email-input"
+                placeholder="Bitte geben Sie Ihre Email-Adresse ein"
+                register={register("email", {
+                  required: true,
+                  pattern: emailRegex,
+                })}
+              ></SCInput>
+              {errors.email?.type === "required" && (
+                <span className="color-primary">E-Mail Adresse benötigt</span>
+              )}
+              {errors.email?.type === "pattern" && (
                 <span className="color-primary">E-Mail Adresse ungültig</span>
               )}
-            </div>
+            </SCFormGroup>
             <SCFormGroup
-              label="Password"
-              placeholder="Bitte Passwort eingeben"
+              label="Passwort"
+              required
+              inputId="password-input"
               className="mb-8"
-              defaultValue={password}
-              type="password"
-              error={passwordError}
-              register={register}
-              registerOptions={{ required: true }}
-              autoComplete="current-password"
-            ></SCFormGroup>
+            >
+              <SCInput
+                type="password"
+                id="password-input"
+                placeholder="Bitte geben Sie Ihr Passwort ein"
+                register={register("password", {
+                  required: true,
+                  minLength: 8,
+                })}
+              ></SCInput>
+              {errors.password?.type === "required" && (
+                <span className="color-primary">Passwort wird benötigt</span>
+              )}
+              {errors.password?.type === "minLength" && (
+                <span className="color-primary">Passwort zu kurz</span>
+              )}
+            </SCFormGroup>
             <div className={styles["action-texts"] + " mb-5"}>
               <Link to="/forgot-password">Passwort vergessen</Link>
               <Link to="/register">Konto erstellen</Link>
             </div>
-            <SCButton className="w-full" type="submit">
+            <SCButton className="w-full" type="submit" disabled={!isValid}>
               Anmelden
             </SCButton>
           </form>
@@ -113,3 +114,8 @@ function SCLoginPage() {
 }
 
 export default SCLoginPage;
+
+type FormValues = {
+  email: string;
+  password: string;
+};
