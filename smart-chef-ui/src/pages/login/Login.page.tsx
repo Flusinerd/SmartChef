@@ -43,7 +43,7 @@ function SCLoginPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormValues>({
-    mode: "onChange",
+    mode: "all",
   });
 
   return (
@@ -71,10 +71,14 @@ function SCLoginPage() {
                 })}
               ></SCInput>
               {errors.email?.type === "required" && (
-                <span className="color-primary">E-Mail Adresse benötigt</span>
+                <span className="color-primary" data-cy="email-required-error">
+                  E-Mail Adresse benötigt
+                </span>
               )}
               {errors.email?.type === "pattern" && (
-                <span className="color-primary">E-Mail Adresse ungültig</span>
+                <span className="color-primary" data-cy="email-invalid-error">
+                  E-Mail Adresse ungültig
+                </span>
               )}
             </SCFormGroup>
             <SCFormGroup
@@ -93,10 +97,20 @@ function SCLoginPage() {
                 })}
               ></SCInput>
               {errors.password?.type === "required" && (
-                <span className="color-primary">Passwort wird benötigt</span>
+                <span
+                  className="color-primary"
+                  data-cy="password-required-error"
+                >
+                  Passwort wird benötigt
+                </span>
               )}
               {errors.password?.type === "minLength" && (
-                <span className="color-primary">Passwort zu kurz</span>
+                <span
+                  className="color-primary"
+                  data-cy="password-invalid-error"
+                >
+                  Passwort zu kurz
+                </span>
               )}
             </SCFormGroup>
             <div className={styles["action-texts"] + " mb-5"}>

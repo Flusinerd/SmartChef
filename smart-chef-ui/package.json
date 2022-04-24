@@ -24,7 +24,7 @@
     "start-instrumented": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "cypress run-ct",
-    "dev": "concurrently \"react-scripts -r @cypress/instrument-cra start\" \"cypress open\" \"cypress open-ct\" ",
+    "dev": "concurrently \"react-scripts -r @cypress/instrument-cra start\" \"cypress open\" ",
     "lint": "eslint ./src",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
