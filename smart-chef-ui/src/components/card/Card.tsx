@@ -3,7 +3,10 @@ import "./card.css";
 function SCCard(props: SCCardProps) {
   return (
     <div
-      className="sc-card"
+      className={
+        "sc-card" +
+        (props.mobileFullScreen ? " sc-card-mobile-full-screen" : "")
+      }
       style={{
         backgroundColor: props.backgroundColor,
         color: props.fontColor,
@@ -24,5 +27,6 @@ export interface SCCardProps {
   children: React.ReactNode;
   header?: React.ReactNode;
   backgroundColor?: string;
+  mobileFullScreen?: boolean;
   fontColor?: string;
 }

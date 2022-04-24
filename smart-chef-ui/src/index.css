@@ -34,6 +34,14 @@ body {
   background-color: var(--primary-color) !important;
 }
 
+img.sc-bg-image {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
 /* #region CSS RESET*/
 
 /* CSS Reset */

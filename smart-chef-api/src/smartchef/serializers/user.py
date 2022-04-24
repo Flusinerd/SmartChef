@@ -10,6 +10,13 @@ class UserSerializer(ResourceSerializer):
         validated_data['password'] = make_password(validated_data['password'])
         return super(UserSerializer, self).create(validated_data)
 
+    # Override update method to set the user's password
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(
+                validated_data['password'])
+        return super(UserSerializer, self).update(instance, validated_data)
+
     class Meta:
         model = User
         fields = ('id', 'firstName', 'lastName',

@@ -2,24 +2,24 @@ import React from "react";
 import "./button.css";
 
 function SCButton(props: SCButtonProps) {
-  const [disabled] = React.useState(props.disabled);
+  const { className, children, disabled, ...rest } = props;
 
   return (
     <button
       type="button"
-      className="sc-button"
-      {...props}
+      className={`sc-button ${className}`}
       disabled={disabled}
+      {...rest}
       data-cy="SCButton"
     >
-      {props.children}
+      {children}
     </button>
   );
 }
 
 export default SCButton;
 
-interface SCButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface SCButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   children?: React.ReactNode;
 }

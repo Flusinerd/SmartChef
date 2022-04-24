@@ -2,30 +2,26 @@ import { mount } from "@cypress/react";
 import SCFormGroup from "./FormGroup";
 
 const labelText = "Label";
-const errorText = "Error";
 
 describe("FormGroup", () => {
   it("should render", () => {
-    mount(<SCFormGroup label={labelText}></SCFormGroup>);
+    mount(
+      <SCFormGroup label={labelText} inputId="input">
+        <input type="text" id="input" />
+      </SCFormGroup>
+    );
 
     // Should have one input and one label
     cy.get("input").should("have.length", 1);
     cy.get("label").should("have.length", 1);
-  });
-
-  it("should render with error", () => {
-    mount(<SCFormGroup label={labelText} error={errorText}></SCFormGroup>);
-
-    // Should have one input and one label
-    cy.get("input").should("have.length", 1);
-    cy.get("label").should("have.length", 1);
-
-    // Should pass the error prop to the input
-    cy.get("input").should("have.attr", "error", errorText);
   });
 
   it("should render with horizontal layout", () => {
-    mount(<SCFormGroup label={labelText} horizontal></SCFormGroup>);
+    mount(
+      <SCFormGroup label={labelText} inputId="input" horizontal>
+        <input type="text" id="input" />
+      </SCFormGroup>
+    );
 
     // Should have one input and one label
     cy.get("input").should("have.length", 1);
@@ -36,7 +32,11 @@ describe("FormGroup", () => {
   });
 
   it("should render with required", () => {
-    mount(<SCFormGroup label={labelText} required></SCFormGroup>);
+    mount(
+      <SCFormGroup label={labelText} inputId="input" required>
+        <input type="text" id="input" />
+      </SCFormGroup>
+    );
 
     // Should have one input and one label
     cy.get("input").should("have.length", 1);

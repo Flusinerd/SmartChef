@@ -1,0 +1,49 @@
+h1 {
+  font-weight: 600;
+}
+
+div.wrapper {
+  height: 100vh;
+  display: flex;
+}
+
+div.login-card {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 480px;
+  max-width: 900px;
+  width: 50%;
+}
+
+@media screen and (max-width: 480px) {
+  div.login-card {
+    width: 100%;
+    min-width: auto;
+    max-width: none;
+  }
+}
+
+div.action-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+div.action-texts a {
+  color: #999;
+  transition: color 200ms ease-in-out, transform 200ms ease-in-out;
+  transform: scale(1);
+  transform-origin: left;
+}
+
+div.action-texts a:hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.login-button {
+  width: 100%;
+}
