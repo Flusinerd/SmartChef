@@ -18,3 +18,11 @@ div.sc-card-header {
   font-size: 2rem;
   margin: 0;
 }
+
+@media screen and (max-width: 480px) {
+  .sc-card-mobile-full-screen {
+    display: block !important;
+    width: 100% !important;
+    box-shadow: none !important;
+  }
+}

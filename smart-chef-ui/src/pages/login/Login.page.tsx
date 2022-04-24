@@ -53,7 +53,7 @@ function SCLoginPage() {
       </h1>
       <img src={BgImage} alt="" className="sc-bg-image" />
       <div className={styles["login-card"]}>
-        <SCCard title="Anmelden">
+        <SCCard title="Anmelden" mobileFullScreen>
           <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
             <SCFormGroup
               label="Email"
