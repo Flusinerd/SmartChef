@@ -14,7 +14,8 @@ function SCPasswordStrength(props: SCPasswordStrengthProps) {
       // Weak: At least 8 characters and only letters or numbers
       if (
         props.password.length >= 8 &&
-        (/^[0-9]+$/.test(props.password) || /^[a-zA-Z]+$/.test(props.password))
+        /^[0-9]+$/.test(props.password) &&
+        /^[a-zA-Z]+$/.test(props.password)
       ) {
         setWeak(true);
         setMedium(false);
@@ -68,9 +69,6 @@ function SCPasswordStrength(props: SCPasswordStrengthProps) {
         ></div>
         <div className={(isStrong ? "sc-filled-green " : "") + baseClass}></div>
       </div>
-      {(!props.password || props.password.length < 8) && (
-        <p className="color-primary mt-1">{passwordToShortText}</p>
-      )}
     </div>
   );
 }

@@ -126,7 +126,7 @@ export class AuthService {
     if (!config.headers) {
       config.headers = {};
     }
-    if (this.accessToken) {
+    if (this && this.accessToken) {
       config.headers["Authorization"] = `Bearer ${this.accessToken}`;
     }
     return config;

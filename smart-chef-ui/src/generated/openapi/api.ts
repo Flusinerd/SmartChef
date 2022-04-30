@@ -24,6 +24,55 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface CreateUser
+ */
+export interface CreateUser {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'firstName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'lastName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'password': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateUser
+     */
+    'email': string;
+}
+/**
+ * 
+ * @export
  * @interface Household
  */
 export interface Household {
@@ -57,25 +106,12 @@ export interface Household {
      * @memberof Household
      */
     'owner': string;
-}
-/**
- * 
- * @export
- * @interface HouseholdUser
- */
-export interface HouseholdUser {
     /**
      * 
-     * @type {string}
-     * @memberof HouseholdUser
+     * @type {Array<string>}
+     * @memberof Household
      */
-    'userId': string;
-    /**
-     * 
-     * @type {Array<User>}
-     * @memberof HouseholdUser
-     */
-    'users': Array<User>;
+    'users': Array<string>;
 }
 /**
  * 
@@ -200,6 +236,12 @@ export interface PatchedHousehold {
      * @memberof PatchedHousehold
      */
     'owner'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof PatchedHousehold
+     */
+    'users'?: Array<string>;
 }
 /**
  * 
@@ -249,6 +291,12 @@ export interface PatchedUser {
      * @memberof PatchedUser
      */
     'email'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof PatchedUser
+     */
+    'households'?: Array<string>;
 }
 /**
  * 
@@ -330,6 +378,12 @@ export interface User {
      * @memberof User
      */
     'email': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof User
+     */
+    'households': Array<string>;
 }
 
 /**
@@ -574,127 +628,6 @@ export const ApiApiAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * Removes a user from the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {string} userId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiHouseholdsUserDestroy: async (id: string, userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('apiHouseholdsUserDestroy', 'id', id)
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('apiHouseholdsUserDestroy', 'userId', userId)
-            const localVarPath = `/api/households/{id}/user/{userId}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication tokenAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adds a user to the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {HouseholdUser} householdUser 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiHouseholdsUsersCreate: async (id: string, householdUser: HouseholdUser, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('apiHouseholdsUsersCreate', 'id', id)
-            // verify required parameter 'householdUser' is not null or undefined
-            assertParamExists('apiHouseholdsUsersCreate', 'householdUser', householdUser)
-            const localVarPath = `/api/households/{id}/users/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication tokenAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(householdUser, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns the users in the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiHouseholdsUsersRetrieve: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('apiHouseholdsUsersRetrieve', 'id', id)
-            const localVarPath = `/api/households/{id}/users/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication tokenAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
          * @param {'json' | 'yaml'} [format] 
          * @param {'af' | 'ar' | 'ar-dz' | 'ast' | 'az' | 'be' | 'bg' | 'bn' | 'br' | 'bs' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'dsb' | 'el' | 'en' | 'en-au' | 'en-gb' | 'eo' | 'es' | 'es-ar' | 'es-co' | 'es-mx' | 'es-ni' | 'es-ve' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'fy' | 'ga' | 'gd' | 'gl' | 'he' | 'hi' | 'hr' | 'hsb' | 'hu' | 'hy' | 'ia' | 'id' | 'ig' | 'io' | 'is' | 'it' | 'ja' | 'ka' | 'kab' | 'kk' | 'km' | 'kn' | 'ko' | 'ky' | 'lb' | 'lt' | 'lv' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'my' | 'nb' | 'ne' | 'nl' | 'nn' | 'os' | 'pa' | 'pl' | 'pt' | 'pt-br' | 'ro' | 'ru' | 'sk' | 'sl' | 'sq' | 'sr' | 'sr-latn' | 'sv' | 'sw' | 'ta' | 'te' | 'tg' | 'th' | 'tk' | 'tr' | 'tt' | 'udm' | 'uk' | 'ur' | 'uz' | 'vi' | 'zh-hans' | 'zh-hant'} [lang] 
@@ -739,13 +672,13 @@ export const ApiApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * API endpoint that allows users to be viewed or edited.
-         * @param {User} user 
+         * @param {CreateUser} createUser 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUsersCreate: async (user: User, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'user' is not null or undefined
-            assertParamExists('apiUsersCreate', 'user', user)
+        apiUsersCreate: async (createUser: CreateUser, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createUser' is not null or undefined
+            assertParamExists('apiUsersCreate', 'createUser', createUser)
             const localVarPath = `/api/users/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -769,7 +702,7 @@ export const ApiApiAxiosParamCreator = function (configuration?: Configuration) 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createUser, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1045,38 +978,6 @@ export const ApiApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Removes a user from the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {string} userId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiHouseholdsUserDestroy(id: string, userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiHouseholdsUserDestroy(id, userId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adds a user to the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {HouseholdUser} householdUser 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiHouseholdsUsersCreate(id: string, householdUser: HouseholdUser, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HouseholdUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiHouseholdsUsersCreate(id, householdUser, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Returns the users in the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiHouseholdsUsersRetrieve(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HouseholdUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiHouseholdsUsersRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
          * OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
          * @param {'json' | 'yaml'} [format] 
          * @param {'af' | 'ar' | 'ar-dz' | 'ast' | 'az' | 'be' | 'bg' | 'bn' | 'br' | 'bs' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'dsb' | 'el' | 'en' | 'en-au' | 'en-gb' | 'eo' | 'es' | 'es-ar' | 'es-co' | 'es-mx' | 'es-ni' | 'es-ve' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'fy' | 'ga' | 'gd' | 'gl' | 'he' | 'hi' | 'hr' | 'hsb' | 'hu' | 'hy' | 'ia' | 'id' | 'ig' | 'io' | 'is' | 'it' | 'ja' | 'ka' | 'kab' | 'kk' | 'km' | 'kn' | 'ko' | 'ky' | 'lb' | 'lt' | 'lv' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'my' | 'nb' | 'ne' | 'nl' | 'nn' | 'os' | 'pa' | 'pl' | 'pt' | 'pt-br' | 'ro' | 'ru' | 'sk' | 'sl' | 'sq' | 'sr' | 'sr-latn' | 'sv' | 'sw' | 'ta' | 'te' | 'tg' | 'th' | 'tk' | 'tr' | 'tt' | 'udm' | 'uk' | 'ur' | 'uz' | 'vi' | 'zh-hans' | 'zh-hant'} [lang] 
@@ -1089,12 +990,12 @@ export const ApiApiFp = function(configuration?: Configuration) {
         },
         /**
          * API endpoint that allows users to be viewed or edited.
-         * @param {User} user 
+         * @param {CreateUser} createUser 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiUsersCreate(user: User, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersCreate(user, options);
+        async apiUsersCreate(createUser: CreateUser, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUsersCreate(createUser, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1216,35 +1117,6 @@ export const ApiApiFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.apiHouseholdsUpdate(id, household, options).then((request) => request(axios, basePath));
         },
         /**
-         * Removes a user from the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {string} userId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiHouseholdsUserDestroy(id: string, userId: string, options?: any): AxiosPromise<void> {
-            return localVarFp.apiHouseholdsUserDestroy(id, userId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adds a user to the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {HouseholdUser} householdUser 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiHouseholdsUsersCreate(id: string, householdUser: HouseholdUser, options?: any): AxiosPromise<HouseholdUser> {
-            return localVarFp.apiHouseholdsUsersCreate(id, householdUser, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns the users in the household.
-         * @param {string} id A UUID string identifying this household.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiHouseholdsUsersRetrieve(id: string, options?: any): AxiosPromise<HouseholdUser> {
-            return localVarFp.apiHouseholdsUsersRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
          * OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
          * @param {'json' | 'yaml'} [format] 
          * @param {'af' | 'ar' | 'ar-dz' | 'ast' | 'az' | 'be' | 'bg' | 'bn' | 'br' | 'bs' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'dsb' | 'el' | 'en' | 'en-au' | 'en-gb' | 'eo' | 'es' | 'es-ar' | 'es-co' | 'es-mx' | 'es-ni' | 'es-ve' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'fy' | 'ga' | 'gd' | 'gl' | 'he' | 'hi' | 'hr' | 'hsb' | 'hu' | 'hy' | 'ia' | 'id' | 'ig' | 'io' | 'is' | 'it' | 'ja' | 'ka' | 'kab' | 'kk' | 'km' | 'kn' | 'ko' | 'ky' | 'lb' | 'lt' | 'lv' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'my' | 'nb' | 'ne' | 'nl' | 'nn' | 'os' | 'pa' | 'pl' | 'pt' | 'pt-br' | 'ro' | 'ru' | 'sk' | 'sl' | 'sq' | 'sr' | 'sr-latn' | 'sv' | 'sw' | 'ta' | 'te' | 'tg' | 'th' | 'tk' | 'tr' | 'tt' | 'udm' | 'uk' | 'ur' | 'uz' | 'vi' | 'zh-hans' | 'zh-hant'} [lang] 
@@ -1256,12 +1128,12 @@ export const ApiApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * API endpoint that allows users to be viewed or edited.
-         * @param {User} user 
+         * @param {CreateUser} createUser 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUsersCreate(user: User, options?: any): AxiosPromise<User> {
-            return localVarFp.apiUsersCreate(user, options).then((request) => request(axios, basePath));
+        apiUsersCreate(createUser: CreateUser, options?: any): AxiosPromise<CreateUser> {
+            return localVarFp.apiUsersCreate(createUser, options).then((request) => request(axios, basePath));
         },
         /**
          * API endpoint that allows users to be viewed or edited.
@@ -1389,41 +1261,6 @@ export class ApiApi extends BaseAPI {
     }
 
     /**
-     * Removes a user from the household.
-     * @param {string} id A UUID string identifying this household.
-     * @param {string} userId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ApiApi
-     */
-    public apiHouseholdsUserDestroy(id: string, userId: string, options?: AxiosRequestConfig) {
-        return ApiApiFp(this.configuration).apiHouseholdsUserDestroy(id, userId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adds a user to the household.
-     * @param {string} id A UUID string identifying this household.
-     * @param {HouseholdUser} householdUser 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ApiApi
-     */
-    public apiHouseholdsUsersCreate(id: string, householdUser: HouseholdUser, options?: AxiosRequestConfig) {
-        return ApiApiFp(this.configuration).apiHouseholdsUsersCreate(id, householdUser, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Returns the users in the household.
-     * @param {string} id A UUID string identifying this household.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ApiApi
-     */
-    public apiHouseholdsUsersRetrieve(id: string, options?: AxiosRequestConfig) {
-        return ApiApiFp(this.configuration).apiHouseholdsUsersRetrieve(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
      * OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
      * @param {'json' | 'yaml'} [format] 
      * @param {'af' | 'ar' | 'ar-dz' | 'ast' | 'az' | 'be' | 'bg' | 'bn' | 'br' | 'bs' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'dsb' | 'el' | 'en' | 'en-au' | 'en-gb' | 'eo' | 'es' | 'es-ar' | 'es-co' | 'es-mx' | 'es-ni' | 'es-ve' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'fy' | 'ga' | 'gd' | 'gl' | 'he' | 'hi' | 'hr' | 'hsb' | 'hu' | 'hy' | 'ia' | 'id' | 'ig' | 'io' | 'is' | 'it' | 'ja' | 'ka' | 'kab' | 'kk' | 'km' | 'kn' | 'ko' | 'ky' | 'lb' | 'lt' | 'lv' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'my' | 'nb' | 'ne' | 'nl' | 'nn' | 'os' | 'pa' | 'pl' | 'pt' | 'pt-br' | 'ro' | 'ru' | 'sk' | 'sl' | 'sq' | 'sr' | 'sr-latn' | 'sv' | 'sw' | 'ta' | 'te' | 'tg' | 'th' | 'tk' | 'tr' | 'tt' | 'udm' | 'uk' | 'ur' | 'uz' | 'vi' | 'zh-hans' | 'zh-hant'} [lang] 
@@ -1437,13 +1274,13 @@ export class ApiApi extends BaseAPI {
 
     /**
      * API endpoint that allows users to be viewed or edited.
-     * @param {User} user 
+     * @param {CreateUser} createUser 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ApiApi
      */
-    public apiUsersCreate(user: User, options?: AxiosRequestConfig) {
-        return ApiApiFp(this.configuration).apiUsersCreate(user, options).then((request) => request(this.axios, this.basePath));
+    public apiUsersCreate(createUser: CreateUser, options?: AxiosRequestConfig) {
+        return ApiApiFp(this.configuration).apiUsersCreate(createUser, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

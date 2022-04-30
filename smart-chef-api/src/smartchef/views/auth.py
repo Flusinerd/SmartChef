@@ -49,7 +49,7 @@ class AuthViewSet(ViewSet):
             return Response({'error': 'Email or password is incorrect'}, status=401)
         # Generate token pair
         households: List[Household] = user.households.all()
-        householdIds = [household.id for household in households]
+        householdIds = [str(household.id) for household in households]
         sub = user.id.__str__()
         return self.generateTokenPair(application, householdIds, sub)
 
@@ -97,7 +97,7 @@ class AuthViewSet(ViewSet):
         sub = decoded['sub']
         user: User = User.objects.get(id=sub)
         households: List[Household] = user.households.all()
-        householdIds = [household.id for household in households]
+        householdIds = [str(household.id) for household in households]
         response = self.generateTokenPair(application, householdIds, sub)
         # Add the refresh token to the list of used refresh tokens
         try:

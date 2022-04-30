@@ -143,6 +143,7 @@
     "nyc": "^15.1.0",
     "pinst": "^3.0.0",
     "postcss": "^7",
+    "sass": "^1.51.0",
     "source-map-support": "^0.5.21",
     "start-server-and-test": "^1.14.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",

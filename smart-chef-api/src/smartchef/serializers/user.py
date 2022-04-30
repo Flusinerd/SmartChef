@@ -11,6 +11,24 @@ class UserSerializer(ResourceSerializer):
     households = serializers.SlugRelatedField(
         slug_field='id', many=True, read_only=True)
 
+    # Override update method to set the user's password
+
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(
+                validated_data['password'])
+        return super(UserSerializer, self).update(instance, validated_data)
+
+    class Meta:
+        model = User
+        fields = ('id', 'firstName', 'lastName',
+                  'createdAt', 'updatedAt', 'password', 'email', 'households')
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
+
+
+class CreateUserSerializer(UserSerializer):
     # Override create method to set the user's password
     @atomic
     def create(self, validated_data):
@@ -28,18 +46,10 @@ class UserSerializer(ResourceSerializer):
         household_serializer.save()
         return createdUser
 
-    # Override update method to set the user's password
-
-    def update(self, instance, validated_data):
-        if 'password' in validated_data:
-            validated_data['password'] = make_password(
-                validated_data['password'])
-        return super(UserSerializer, self).update(instance, validated_data)
-
     class Meta:
         model = User
         fields = ('id', 'firstName', 'lastName',
-                  'createdAt', 'updatedAt', 'password', 'email', 'households')
+                  'createdAt', 'updatedAt', 'password', 'email')
         extra_kwargs = {
             'password': {'write_only': True},
         }
