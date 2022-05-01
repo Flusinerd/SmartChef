@@ -30,6 +30,7 @@ function SCRegisterPage() {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    getValues,
   } = useForm<FormValues>({
     mode: "all",
   });
@@ -51,9 +52,10 @@ function SCRegisterPage() {
       // Redirect to /login
       window.location.href = "/login";
     } catch (error) {
+      console.log("error", error);
       if (axios.isAxiosError(error)) {
         const { response } = error;
-        if (response && response.status === 400) {
+        if (response && response.status === 409) {
           alert("E-Mail Adresse ist bereits vergeben");
         } else {
           alert("Es ist ein Fehler aufgetreten");
@@ -70,16 +72,14 @@ function SCRegisterPage() {
     // Check if the target is the password input
     if (event.target.name === "password") {
       setPassword(event.target.value);
-      console.log("password: ", event.target.value);
     } else if (event.target.name === "passwordConfirm") {
       setPasswordConfirm(event.target.value);
     }
-
-    // Check if the password and passwordConfirm match
-    if (password === passwordConfirm) {
-      setPasswordMatch(true);
-    }
   };
+
+  React.useEffect(() => {
+    setPasswordMatch(password === passwordConfirm);
+  }, [password, passwordConfirm]);
 
   return (
     <div className="sc-wrapper">
@@ -109,7 +109,7 @@ function SCRegisterPage() {
               {errors.firstName?.type === "required" && (
                 <span
                   className="color-primary"
-                  data-cy="firstname-required-error"
+                  data-cy="first-name-required-error"
                 >
                   Bitte geben Sie Ihren Vornamen ein
                 </span>
@@ -131,7 +131,7 @@ function SCRegisterPage() {
               {errors.lastName?.type === "required" && (
                 <span
                   className="color-primary"
-                  data-cy="lastname-required-error"
+                  data-cy="last-name-required-error"
                 >
                   Bitte geben Sie Ihren Nachnamen ein
                 </span>
@@ -153,6 +153,16 @@ function SCRegisterPage() {
                   pattern: emailRegex,
                 })}
               ></SCInput>
+              {errors.email?.type === "required" && (
+                <span className="color-primary" data-cy="email-required-error">
+                  Bitte geben Sie Ihre Email-Adresse ein
+                </span>
+              )}
+              {errors.email?.type === "pattern" && (
+                <span className="color-primary" data-cy="email-pattern-error">
+                  Bitte geben Sie eine gültige Email-Adresse ein
+                </span>
+              )}
             </SCFormGroup>
 
             <SCFormGroup
@@ -174,17 +184,23 @@ function SCRegisterPage() {
               ></SCInput>
               <SCPasswordStrength password={password}></SCPasswordStrength>
               {errors.password?.type === "required" && (
-                <span className="color-primary">
+                <span
+                  className="color-primary"
+                  data-cy="password-required-error"
+                >
                   Bitte geben Sie Ihr Passwort ein
                 </span>
               )}
               {errors.password?.type === "minLength" && (
-                <span className="color-primary">
+                <span className="color-primary" data-cy="password-length-error">
                   Das Passwort muss mindestens 8 Zeichen lang sein
                 </span>
               )}
               {errors.password?.type === "pattern" && (
-                <span className="color-primary">
+                <span
+                  className="color-primary"
+                  data-cy="password-pattern-error"
+                >
                   Das Passwort muss einen Kleinbuchstaben, einen Großbuchstaben
                   und eine Ziffer enthalten
                 </span>
@@ -207,7 +223,10 @@ function SCRegisterPage() {
                 })}
               ></SCInput>
               {errors.passwordConfirm?.type === "required" && (
-                <span className="color-primary">
+                <span
+                  className="color-primary"
+                  data-cy="password-confirm-required-error"
+                >
                   Bitte geben Sie Ihr Passwort erneut ein
                 </span>
               )}
@@ -217,7 +236,10 @@ function SCRegisterPage() {
                 </span>
               )}
               {password !== passwordConfirm && (
-                <span className="color-primary">
+                <span
+                  className="color-primary"
+                  data-cy="password-mismatch-error"
+                >
                   Die Passwörter stimmen nicht überein
                 </span>
               )}

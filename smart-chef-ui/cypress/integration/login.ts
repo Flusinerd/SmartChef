@@ -3,10 +3,6 @@ describe("Login page", () => {
     cy.visit("/login");
   });
 
-  it("Should have a link to forgot-password", () => {
-    cy.get('a[href="/forgot-password"]').should("exist");
-  });
-
   it("Should have a link to register", () => {
     cy.get('a[href="/register"]').should("exist");
   });
