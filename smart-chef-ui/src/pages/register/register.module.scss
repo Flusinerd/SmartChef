@@ -1,0 +1,17 @@
+div.register-card {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 480px;
+  max-width: 900px;
+  width: 50%;
+}
+
+@media screen and (max-width: 480px) {
+  div.register-card {
+    width: 100%;
+    min-width: auto;
+    max-width: none;
+  }
+}

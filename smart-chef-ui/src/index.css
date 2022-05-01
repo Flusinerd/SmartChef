@@ -42,6 +42,11 @@ img.sc-bg-image {
   z-index: -1;
 }
 
+div.sc-wrapper {
+  height: 100vh;
+  display: flex;
+}
+
 /* #region CSS RESET*/
 
 /* CSS Reset */

@@ -2,11 +2,6 @@ h1 {
   font-weight: 600;
 }
 
-div.wrapper {
-  height: 100vh;
-  display: flex;
-}
-
 div.login-card {
   position: absolute;
   top: 40%;

@@ -5,6 +5,8 @@ import { AuthService } from "./authentication";
 import SCLoginPage from "./pages/login/Login.page";
 import React, { ReactNode } from "react";
 import SCLoading from "./components/loading/Loading";
+import SCRegisterPage from "./pages/register/Register";
+import SCScanPage from "./pages/scan/Scan.page";
 
 const globalState = {
   loading: false,
@@ -46,6 +48,8 @@ function App() {
         <Routes>
           <Route path="/" element={<SCLandingPage />} />
           <Route path="/login" element={<SCLoginPage />} />
+          <Route path="/register" element={<SCRegisterPage />} />
+          <Route path="/scan" element={<SCScanPage />} />
         </Routes>
       </Router>
       <SCLoading />

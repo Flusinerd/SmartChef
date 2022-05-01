@@ -21,7 +21,8 @@ function SCLoginPage() {
     try {
       dispatch({ loading: true });
       await authServie.login(email, password);
-      alert("Login success");
+      // Redirect to /scan
+      window.location.href = "/scan";
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const { response } = error;
@@ -47,7 +48,7 @@ function SCLoginPage() {
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div className="sc-wrapper">
       <h1>
         <span className="color-primary">Smart</span>Chef
       </h1>
@@ -114,7 +115,7 @@ function SCLoginPage() {
               )}
             </SCFormGroup>
             <div className={styles["action-texts"] + " mb-5"}>
-              <Link to="/forgot-password">Passwort vergessen</Link>
+              {/* <Link to="/forgot-password">Passwort vergessen</Link> */}
               <Link to="/register">Konto erstellen</Link>
             </div>
             <SCButton className="w-full" type="submit" disabled={!isValid}>
