@@ -30,7 +30,6 @@ function SCRegisterPage() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    getValues,
   } = useForm<FormValues>({
     mode: "all",
   });
