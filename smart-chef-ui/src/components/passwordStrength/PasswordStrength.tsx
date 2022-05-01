@@ -1,9 +1,6 @@
 import React from "react";
 import "./PasswordStrength.css";
 
-export const passwordToShortText =
-  "Passwort muss mindestens 8 Zeichen lang sein";
-
 function SCPasswordStrength(props: SCPasswordStrengthProps) {
   const [isWeak, setWeak] = React.useState(false);
   const [isMedium, setMedium] = React.useState(false);
@@ -12,11 +9,7 @@ function SCPasswordStrength(props: SCPasswordStrengthProps) {
   React.useEffect(() => {
     if (props.password) {
       // Weak: At least 8 characters and only letters or numbers
-      if (
-        props.password.length >= 8 &&
-        /^[0-9]+$/.test(props.password) &&
-        /^[a-zA-Z]+$/.test(props.password)
-      ) {
+      if (props.password.length >= 8 && /^[0-9a-zA-Z]+$/.test(props.password)) {
         setWeak(true);
         setMedium(false);
         setStrong(false);

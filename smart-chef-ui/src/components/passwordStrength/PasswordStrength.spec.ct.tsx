@@ -1,5 +1,5 @@
 import { mount } from "@cypress/react";
-import SCPasswordStrength, { passwordToShortText } from "./PasswordStrength";
+import SCPasswordStrength from "./PasswordStrength";
 
 describe("SCPasswordStrength", () => {
   it("should render", () => {
@@ -17,9 +17,6 @@ describe("SCPasswordStrength", () => {
     const wrapper = mount(<SCPasswordStrength password="1234567" />);
     // The first bar should have class sc-filled-red
     wrapper.get(".sc-filled-red").should("have.length", 1);
-    // The error message should be visible
-    wrapper.get("p").should("have.length", 1);
-    wrapper.get("p").should("have.text", passwordToShortText);
   });
 
   it("should show weak password for only numbers", () => {
