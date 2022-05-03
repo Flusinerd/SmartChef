@@ -9,15 +9,20 @@ const ModalOverlay = (props: SCModalProps) => {
   return <div className="modal">{props.children}</div>;
 };
 
+const portalElement = document.getElementById("overlays")
+
 const SCModal = (props: SCModalProps) => {
-    const modal = (
+    return (
+        portalElement &&
         <React.Fragment>
-            <Backdrop hideOverlay={props.hideOverlay} />
-            <ModalOverlay>{props.children}</ModalOverlay>
+          {ReactDOM.createPortal(
+            <Backdrop hideOverlay={props.hideOverlay} />, portalElement
+          )}
+          {ReactDOM.createPortal(
+            <ModalOverlay>{props.children}</ModalOverlay>, portalElement
+          )}
         </React.Fragment>
       );
-
-      return props.isShown ? ReactDOM.createPortal(modal, document.body) : null;
 };
 
 export default SCModal;
