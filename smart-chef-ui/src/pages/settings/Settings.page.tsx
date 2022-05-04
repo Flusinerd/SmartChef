@@ -1,14 +1,30 @@
 import styles from "./Settings.module.css";
-import React from "react";
+import React, { useState } from "react";
 import SCNavbar from "../../components/navbar/Navbar";
 import Input from "../../components/input/Input";
 // import PasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import Button from "../../components/button/button";
 import { Link } from "react-router-dom";
+// import SCModal from "../../components/modal/Modal";
 
 function SCSettingsPage() {
+  const [overlayVisible, setOverlayVisible] = useState(false);
+
+  const showOverlayHandler = () => {
+    setOverlayVisible(true);
+  };
+
+  const hideOverlayHandler = () => {
+      setOverlayVisible(false);
+  }
+
   return (
     <React.Fragment>
+      {overlayVisible &&
+        {
+          /*<Modal onOverlay={hideOverlayHandler} />*/
+        }}
+
       <SCNavbar />
       <div className={styles.wrapper}>
         <div className={styles["user-settings"]}>
@@ -35,7 +51,9 @@ function SCSettingsPage() {
             </Button>
           </div>
           <div>
-            <Button className={styles.btn2}>Benutzerkonto löschen</Button>
+            <Button className={styles.btn2} onClick={showOverlayHandler}>
+              Benutzerkonto löschen
+            </Button>
           </div>
         </div>
 
