@@ -15,15 +15,15 @@ function SCSettingsPage() {
   };
 
   const hideOverlayHandler = () => {
-      setOverlayVisible(false);
-  }
+    setOverlayVisible(false);
+  };
 
   return (
     <React.Fragment>
-      {overlayVisible &&
+      {/* {overlayVisible &&
         {
-          /*<Modal onOverlay={hideOverlayHandler} />*/
-        }}
+          <Modal onOverlay={hideOverlayHandler} />
+        }} */}
 
       <SCNavbar />
       <div className={styles.wrapper}>
@@ -60,14 +60,18 @@ function SCSettingsPage() {
         <div className={styles["household-settings"]}>
           <h2>Haushaltseinstellungen</h2>
           <div>
-            <Button className={styles.buttons} id={styles.btn1}>
-              Mitglieder verwalten
-            </Button>
+            <Link to="/users">
+              <Button className={styles.buttons} id={styles.btn1}>
+                Mitglieder verwalten
+              </Button>
+            </Link>
           </div>
           <div>
-            <Button className={styles.buttons} id={styles.btn1}>
-              Bestand verwalten
-            </Button>
+            <Link to="/stock">
+              <Button className={styles.buttons} id={styles.btn1}>
+                Bestand verwalten
+              </Button>
+            </Link>
           </div>
         </div>
         <div className={styles.bottomBtnContainer}>
