@@ -8,6 +8,14 @@ import { Link } from "react-router-dom";
 // import SCModal from "../../components/modal/Modal";
 
 function SCSettingsPage() {
+//   const [password, setPassword] = useState("");
+//     const [passwordConfirm, setPasswordConfirm] = useState("");
+//   const [passwordMatch, setPasswordMatch] = useState(false);
+
+//   React.useEffect(() => {
+//     setPasswordMatch(password === passwordConfirm);
+//   }, [password, passwordConfirm]);
+
   const [overlayVisible, setOverlayVisible] = useState(false);
 
   const showOverlayHandler = () => {
