@@ -1,0 +1,57 @@
+.wrapper{
+    padding-top: 2rem;
+    padding-left: 1.5rem;
+}
+
+.wrapper h2{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.inputfield{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.inputfield label{
+    width: 12rem;
+}
+
+.inputfield input{
+    width: 25rem;
+}
+
+.wrapper .actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40rem;
+}
+
+.btn1{
+    background-color: var(#9f9f9f);
+}
+
+
+ /* h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1.5rem 0 0.5rem 0.75rem ; 
+} */
+/*
+.user-settings {
+    color: var(--text-color);
+    margin-left: 2rem;
+}
+
+
+input {
+    margin-left: 10%;
+    width: 150%;
+}
+
+.household-settings{
+
+} */
