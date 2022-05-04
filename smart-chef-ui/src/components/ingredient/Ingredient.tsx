@@ -1,7 +1,7 @@
 import SCInput from "../input/Input";
 import "./Ingredient.css";
 
-function SCIngredient(props: any) {
+function SCIngredient(props: SCIngredientProps) {
   return (
     <li className="ingredientItem">
       <div className="ingredientItemLi">
@@ -15,6 +15,7 @@ function SCIngredient(props: any) {
   );
 }
 export interface SCIngredientProps {
+  id?: number;
   title: string;
   quantity: string;
 }

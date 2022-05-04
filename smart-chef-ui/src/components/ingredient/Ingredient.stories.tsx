@@ -10,7 +10,7 @@ export default {
 
 const Template: Story = () => (
   <Router>
-    <SCIngredient title = "Tomatensaft" quantity = "1 L"/>
+    <SCIngredient id = {1} title = "Tomatensaft" quantity = "1 L"/>
   </Router>
 );
 
