@@ -14,6 +14,7 @@ import SCRecipesPage from "./pages/recipes/Recipes.page";
 import SCSettingsPage from "./pages/settings/Settings.page";
 import SCShoppingListPage from "./pages/shoppingList/ShoppingList.page";
 import SCStockPage from "./pages/stock/Stock.page";
+import SCUsersPage from "./pages/users/Users.page";
 
 const globalState = {
   loading: false,
@@ -64,6 +65,7 @@ function App() {
           <Route path="/settings" element={<SCSettingsPage />} />
           <Route path="/shopping-list" element={<SCShoppingListPage />} />
           <Route path="/stock" element={<SCStockPage />} />
+          <Route path="/users" element={<SCUsersPage />} />
         </Routes>
       </Router>
       <SCLoading />
