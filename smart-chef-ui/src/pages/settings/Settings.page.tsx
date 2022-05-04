@@ -28,8 +28,12 @@ function SCSettingsPage() {
         </div>
 
         <div className={styles.actions}>
-            <Button className={} >Änderungen speichern</Button>
-            <Button>Benutzerkonto löschen</Button>
+          <div>
+            <Button id={styles["settingsBtn1"]} >Änderungen speichern</Button>
+          </div>
+          <div>
+            <Button className={styles.btn2}>Benutzerkonto löschen</Button>
+          </div>
         </div>
       </div>
     </React.Fragment>

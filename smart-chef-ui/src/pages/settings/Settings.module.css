@@ -23,15 +23,19 @@
     width: 25rem;
 }
 
-.wrapper .actions{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.actions{
     width: 40rem;
 }
 
-.btn1{
+#btn1{
+    width: 100%;
+    margin-bottom: 0.5rem;
+    background-color: var(--text-color);
+}
+
+.btn2{
     background-color: var(#9f9f9f);
+    width: 100%;
 }
 
 
