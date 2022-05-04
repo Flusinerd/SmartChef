@@ -1,6 +1,7 @@
 import "./Ingredients.css";
 import SCIngredient, { SCIngredientProps } from "../ingredient/Ingredient";
 
+
 function SCIngredients(props: any) {
   return (
     <ul>

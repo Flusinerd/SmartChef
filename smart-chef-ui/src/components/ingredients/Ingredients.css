@@ -3,9 +3,6 @@
     border-radius: 100%;
     width: 1.3rem;
     margin-right: 1rem;
-    
-    
-
 }
 .newArticle{
     display: flex;
@@ -13,6 +10,4 @@
     align-items: center;
     padding-top: 0.6rem;
     padding-left: 0.7rem;
-
-
 }

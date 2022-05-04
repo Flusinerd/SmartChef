@@ -1,3 +1,13 @@
+body{
+    background-image: url("dude.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% -25%;
+    
+    
+}
+
+
 .centerContents {
   display: flex;
   justify-content: center;
@@ -12,3 +22,5 @@
   justify-content: end;
   margin-bottom: 1rem;
 }
+
+
