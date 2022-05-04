@@ -4,6 +4,7 @@ import SCNavbar from "../../components/navbar/Navbar";
 import Input from "../../components/input/Input";
 // import PasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import Button from "../../components/button/button";
+import { Link } from "react-router-dom";
 
 function SCSettingsPage() {
   return (
@@ -29,11 +30,32 @@ function SCSettingsPage() {
 
         <div className={styles.actions}>
           <div>
-            <Button id={styles["settingsBtn1"]} >Änderungen speichern</Button>
+            <Button className={styles.buttons} id={styles.btn1}>
+              Änderungen speichern
+            </Button>
           </div>
           <div>
             <Button className={styles.btn2}>Benutzerkonto löschen</Button>
           </div>
+        </div>
+
+        <div className={styles["household-settings"]}>
+          <h2>Haushaltseinstellungen</h2>
+          <div>
+            <Button className={styles.buttons} id={styles.btn1}>
+              Mitglieder verwalten
+            </Button>
+          </div>
+          <div>
+            <Button className={styles.buttons} id={styles.btn1}>
+              Bestand verwalten
+            </Button>
+          </div>
+        </div>
+        <div className={styles.bottomBtnContainer}>
+          <Link to="/login">
+            <Button className={styles.logoutBtn}>Abmelden</Button>
+          </Link>
         </div>
       </div>
     </React.Fragment>
