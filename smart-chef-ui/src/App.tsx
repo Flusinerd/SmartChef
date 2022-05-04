@@ -62,7 +62,7 @@ function App() {
           <Route path="/recipe" element={<SCRecipePage />} />
           <Route path="/recipes" element={<SCRecipesPage />} />
           <Route path="/settings" element={<SCSettingsPage />} />
-          <Route path="/shoppinglist" element={<SCShoppingListPage />} />
+          <Route path="/shopping-list" element={<SCShoppingListPage />} />
           <Route path="/stock" element={<SCStockPage />} />
         </Routes>
       </Router>
