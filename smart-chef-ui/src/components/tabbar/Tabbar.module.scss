@@ -1,0 +1,33 @@
+.icon-wrapper {
+  img.tabbar-icon {
+    filter: invert(100%);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  span {
+    opacity: 0.7;
+    color: #fff;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+}
+
+.icon-wrapper:hover {
+  img.tabbar-icon {
+    opacity: 0.8;
+  }
+
+  span {
+    opacity: 0.8;
+    color: #fff;
+  }
+}
+
+img.tabbar-icon.active {
+  opacity: 1;
+}
+
+div.tabbar-container {
+  background-color: var(--primary-color);
+}
