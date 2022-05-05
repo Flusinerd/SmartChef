@@ -6,7 +6,7 @@ import styles from "./shoppingpage.module.css";
 import { useState } from "react";
 
 function SCShoppingListPage(): React.ReactElement {
-  const [ingredients, setIngredients] = useState([
+  const [ingredients] = useState([
     {
       id: 1,
       title: "Tomatensaft",
@@ -22,20 +22,17 @@ function SCShoppingListPage(): React.ReactElement {
   return (
     <React.Fragment>
       <SCNavbar />
-      <div className ={styles.centerContents}>
+      <div className={styles.centerContents}>
         <div className={styles.listwrapper}>
           <div className={styles.ingredientSearch}>
             <SCInput placeholder="Suchen" />
           </div>
-          
-            <SCIngredients items={ingredients} />
-          
+
+          <SCIngredients items={ingredients} />
         </div>
       </div>
       {/* Hier SCAccordion einfuegen  */}
-   
     </React.Fragment>
-
   );
 }
 export default SCShoppingListPage;
