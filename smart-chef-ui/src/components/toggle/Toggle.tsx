@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import styles from "./Toggle.module.css";
-import ReactDOMServer from 'react-dom/server';
+
 
 function SCToggle(props: React.HTMLAttributes<HTMLDivElement>) {
   const [isToggled, setIsToggled] = useState(false);
@@ -24,9 +24,6 @@ function SCToggle(props: React.HTMLAttributes<HTMLDivElement>) {
     </React.Fragment>
   );
 }
-export interface SCToggleProps {
-  children: string;
-  
-}
+
 
 export default SCToggle;
