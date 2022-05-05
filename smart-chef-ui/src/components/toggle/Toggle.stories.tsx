@@ -10,7 +10,9 @@ export default {
 
 const Template: Story = () => (
   <Router>
-    <SCToggle />
+    <SCToggle >
+      Einbuchen / Ausbuchen
+    </SCToggle>
   </Router>
 );
 
