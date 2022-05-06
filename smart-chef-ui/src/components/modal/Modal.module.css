@@ -16,6 +16,25 @@
   background-color: white;
   padding: 1rem;
   border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--drop-shadow);
   z-index: 30;
+}
+
+.modal-header{
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+}
+
+.modal-body{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 90%;
+}
+
+.modal-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 95%;
 }

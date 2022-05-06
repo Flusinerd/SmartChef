@@ -12,15 +12,25 @@ const ModalOverlay = (props: SCModalProps) => {
 
 const portalElement = document.getElementById("overlays")
 
-const SCModal = (props: SCModalProps) => {
+const SCModal = ({children, hideOverlay, ...rest} : SCModalProps) => {
     return (
         portalElement &&
         <React.Fragment>
           {ReactDOM.createPortal(
-            <Backdrop hideOverlay={props.hideOverlay} />, portalElement
+            <Backdrop hideOverlay={hideOverlay} />, portalElement
           )}
           {ReactDOM.createPortal(
-            <ModalOverlay>{props.children}</ModalOverlay>, portalElement
+            <ModalOverlay {...rest}>
+                <div className={styles["modal-header"]}>
+                    {rest.title}
+                </div>
+                <div className={styles["modal-body"]}>
+                    {children}
+                </div>
+                <div className={styles["modal-footer"]}>
+                    {rest.buttons}
+                </div>
+                </ModalOverlay>, portalElement
           )}
         </React.Fragment>
       );
@@ -28,8 +38,10 @@ const SCModal = (props: SCModalProps) => {
 
 export default SCModal;
 
-export interface SCModalProps {
+export interface SCModalProps extends React.HTMLAttributes<HTMLDivElement> {
   hideOverlay?: MouseEventHandler; // möglicherweise nicht richtig
   children?: React.ReactNode;
+  title?: string;
   isShown?: boolean;
+  buttons?: React.ReactNode;
 }
