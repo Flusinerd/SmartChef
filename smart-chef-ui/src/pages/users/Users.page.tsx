@@ -10,7 +10,7 @@ function SCUsersPage() {
       <div className={styles.usersBackground}>
         <div className={styles.contentwrapper}>
           <div className={styles.actions}>
-            <div>
+            <div className={styles.switchhousehold}>
               <SCInput placeholder="Haushalt 1" disabled={true} />
 
               <button>raus</button>
