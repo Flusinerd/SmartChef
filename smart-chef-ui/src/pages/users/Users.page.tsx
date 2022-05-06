@@ -11,15 +11,12 @@ function SCUsersPage() {
         <div className={styles.contentwrapper}>
           <div className={styles.actions}>
             <div>
-              <SCInput
-                className={styles.userInput}
-                placeholder="Haushalt 1"
-                type="text"
-                disabled={true}
-              />
+              <SCInput placeholder="Haushalt 1" disabled={true} />
+
               <button>raus</button>
             </div>
-            <SCInput className={styles.userInput} placeholder="Suchen" />
+
+            <SCInput placeholder="Suchen" />
           </div>
           <SCUsers />
         </div>

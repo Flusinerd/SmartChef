@@ -2,13 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .contentwrapper{
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
-    width: 40rem;
+    width: 90%;
 
 }
 
@@ -20,6 +21,7 @@
     margin-bottom: 1rem;
 }
 
-.input{
-    background-color: aqua;
+.actions input{
+    background-color: #f2f2f280;
+    border-style: none;
 }
