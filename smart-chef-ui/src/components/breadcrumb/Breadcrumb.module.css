@@ -4,29 +4,3 @@
     padding: 1.0rem;
 }
 
-.breadcrumb{
-    padding: 1.0rem;
-    list-style: none;
-    box-shadow: var(--drop-shadow);
-    
-    
-}
-.breadcrumb li {
-    display: inline;
-    
-  }
-.breadcrumb li+li:before {
-    padding: 0.5rem;
-    color: #333333;
-    content: "\003E";
-    font-weight: bold;
-    
-  }
-.breadcrumb li:hover {
-    color: #EB5757;
-  }
-.breadElement{
-    font-weight: 500;
-    font-size: 0.9rem;
-    
-}
