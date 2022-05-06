@@ -1,0 +1,25 @@
+.usersBackground{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentwrapper{
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+
+}
+
+
+
+.actions{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.input{
+    background-color: aqua;
+}
