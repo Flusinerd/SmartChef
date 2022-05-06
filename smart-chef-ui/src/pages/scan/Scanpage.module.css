@@ -1,0 +1,22 @@
+.scanWrapper img {
+  opacity: 20%;
+  position: absolute;
+  z-index: -1;
+  width: 80rem;
+  margin-left: 70rem;
+}
+
+.scanWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10rem;
+}
+
+.scan {
+  margin-top: 1rem;
+  width: 50rem;
+  height: 50rem;
+  background-color: var(--disabled-color);
+  border-radius: 0.5rem;
+}
