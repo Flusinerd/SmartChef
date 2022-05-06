@@ -1,12 +1,13 @@
 import React, {MouseEventHandler} from "react";
 import ReactDOM from "react-dom";
+import styles from "./Modal.module.css";
 
 const Backdrop = (props: SCModalProps) => {
-  return <div className="backdrop" onClick={props.hideOverlay}></div>;
+  return <div className={styles.backdrop} onClick={props.hideOverlay}></div>;
 };
 
 const ModalOverlay = (props: SCModalProps) => {
-  return <div className="modal">{props.children}</div>;
+  return <div className={styles.modal}>{props.children}</div>;
 };
 
 const portalElement = document.getElementById("overlays")
