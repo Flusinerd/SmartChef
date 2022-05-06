@@ -12,7 +12,7 @@ function SCToggle(props: React.HTMLAttributes<HTMLDivElement>) {
 
   return (
     <React.Fragment>
-      <div className={styles["toggle-div"]} >
+      <div className={styles["toggle-div"]}{...rest} >
         <label className={styles["toggle-switch"]}>
           <input type="checkbox" checked={isToggled} onChange={onToggle} />
           <span className={styles.switch} />
