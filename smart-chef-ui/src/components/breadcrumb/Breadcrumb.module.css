@@ -1,5 +1,6 @@
-.breadNav{
+.c-breadcrumb{
     display: flex;
+    align-items: center;
     padding: 1.0rem;
 }
 

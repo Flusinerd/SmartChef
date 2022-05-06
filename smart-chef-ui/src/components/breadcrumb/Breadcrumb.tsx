@@ -1,50 +1,42 @@
-import "./Breadcrumb.css"
+import React from "react"
+import styles from "./Breadcrumb.module.css"
 
-const defaultProps = {
-    crumbs: ['Home', 'Category', 'Sub Category'],
-    selected: (crumb: any)=>{
-        console.log(crumb)
-    }
 
+function SCBreadcrumbItem({ url, name, index, isLast }:
+  { url: string, name: string, index: number, isLast: boolean }) {
+  return (
+    <React.Fragment>
+      <li itemProp="itemListElement" itemScope
+        itemType="https://schema.org/ListItem" key={index} className={styles["breadcrumb-element"]}>
+        <a itemProp="item" href={url} className={styles["breadcrumb-element__link"]}>
+          <span itemProp="name" className={styles["breadcrumb-element__name"]}>{name}</span></a>
+        <meta itemProp="position" content={index.toString()} />
+      </li>
+
+      {isLast ? "" : <span className={styles["breadcrumb-element__divider"]}>{'>'}</span>}
+    </React.Fragment>
+  )
 }
-
-function Breadcrumb(props: BreadcrumbProps) {
-
-    function isLast(index: number) {
-        return index === props.crumbs.length - 1;
-      }
-
-    return ( <>
-        <nav className="breadNav">
-      <ol className="breadcrumb">
-        {
-          props.crumbs.map((crumb: string, ci: number) => {
-            const disabled = isLast(ci) ? 'disabled' : '';
-            
-            return (
-              <li
-                key={ ci }
-                
-              >
-                <button className="breadElement" onClick={ () => props.selected(crumb) }>
-                  { crumb }
-                </button>
-              </li>
-            );
-          })
-        }
+function SCBreadcrumb({ breadcrumbItems }: BreadcrumbProps) {
+  return (
+    <nav className={styles["c-breadcrumb"]}>
+      <ol itemScope itemType="https://schema.org/BreadcrumbList" className={styles["breadcrumb__list"]}>
+        {breadcrumbItems.map((item, index, array) =>
+          <SCBreadcrumbItem {...item} index={index + 1} isLast={array.length - 1 === index} key={index} />)}
       </ol>
-    </nav>    
-    
-    
-    </> );
+    </nav>
+  );
+}
+export default SCBreadcrumb;
+
+
+
+
+interface BreadcrumbProps {
+  breadcrumbItems: Array<BreadcrumbItemProps>;
 }
 
-export default Breadcrumb;
-
-export interface BreadcrumbProps {
-   crumbs: string[];
-   selected: any;
-  }
-
-  Breadcrumb.defaultProps = defaultProps;
+interface BreadcrumbItemProps {
+  url: string
+  name: string
+}

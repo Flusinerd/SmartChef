@@ -9,12 +9,16 @@ export default {
   component: SCBreadcrumb,
 } as Meta;
 
+const breadcrumb = [
+  {url:'/', name:"Home"},
+  {url:'/scan', name:"Scannen"}, 
+  {url:'/settings', name:"Einstellungen"}];
 
   
 
 const Template: Story = () => (
   <Router>
-    <SCBreadcrumb />
+    <SCBreadcrumb breadcrumbItems={breadcrumb} />
   </Router>
 );
 
