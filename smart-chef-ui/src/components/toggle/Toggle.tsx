@@ -7,7 +7,7 @@ function SCToggle(props: React.HTMLAttributes<HTMLDivElement>) {
   const [isToggled, setIsToggled] = useState(false);
   const onToggle = () => setIsToggled(!isToggled);
   const {children, ...rest} = props
-  const title = String(props.children).split("/");
+  const title = String(props.children).split(" ");
   
 
   return (
