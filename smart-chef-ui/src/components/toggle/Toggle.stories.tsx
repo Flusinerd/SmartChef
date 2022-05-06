@@ -16,7 +16,6 @@ const Template: Story<SCToggleProps> = (args) => (
 );
 
 const withReactHookForm = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { register, watch } = useForm();
   console.log(watch("checkbox"));
   return (
