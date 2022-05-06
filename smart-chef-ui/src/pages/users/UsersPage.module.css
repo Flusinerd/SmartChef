@@ -5,6 +5,12 @@
     
 }
 
+.usersBackground img{
+    z-index: -1;
+    position: absolute;
+    margin-top: 30rem;
+    opacity: 50%;
+}
 .contentwrapper{
     margin-top: 5rem;
     display: flex;
