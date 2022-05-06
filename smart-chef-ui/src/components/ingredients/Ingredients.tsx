@@ -1,10 +1,10 @@
-import "./Ingredients.css";
+import styles from "./Ingredients.module.css";
 import SCIngredient, { SCIngredientProps } from "../ingredient/Ingredient";
 
 
 function SCIngredients(props: any) {
   return (
-    <ul>
+    <ul className={styles.ulIngredients}>
       {props.items.map((ingredient: SCIngredientProps) => (
         <SCIngredient
           key={ingredient.id}
@@ -12,9 +12,9 @@ function SCIngredients(props: any) {
           quantity={ingredient.quantity}
         />
       ))}
-      <li className ="newArticle">
+      <li className ={styles.newArticle}>
         
-          <button>+</button>
+          <button onClick={props.openOverlay} >+</button>
           <p>Neuen Artikel hinzufügen</p>
         
       </li>
