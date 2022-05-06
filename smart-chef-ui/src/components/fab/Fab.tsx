@@ -1,13 +1,12 @@
-import FabSvg from "./fab.svg";
-import "./Fab.css";
+import Plus from "./plusIcon.svg";
+import styles from "./Fab.module.css";
 
-function SCFab() {
-  const showModal = () => {};
+function SCFab({showModal} : any) {
 
   return (
-    <div className="scfab" onClick={showModal}>
-      <img src={FabSvg} alt="FabSvg" />
-    </div>
+    <button className={styles.fab} onClick={showModal}>
+      <img src={Plus} alt="plusIcon" />
+    </button>
   );
 }
 
