@@ -1,29 +1,39 @@
-
 import React, { useState } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 import styles from "./Toggle.module.css";
 
-
-function SCToggle(props: React.HTMLAttributes<HTMLDivElement>) {
+function SCToggle(props: SCToggleProps) {
+  const { activeLabel, inactiveLabel, register, ...rest } = props;
   const [isToggled, setIsToggled] = useState(false);
-  const onToggle = () => setIsToggled(!isToggled);
-  const {children, ...rest} = props
-  const title = String(props.children).split(" ");
-  
+  const onToggle = (event: { target: any; type?: any }) => {
+    setIsToggled(!isToggled);
+    if (register) {
+      register.onChange(event);
+    }
+  };
 
   return (
-    <React.Fragment>
-      <div className={styles["toggle-div"]}{...rest} >
-        <label className={styles["toggle-switch"]}>
-          <input type="checkbox" checked={isToggled} onChange={onToggle} />
-          <span className={styles.switch} />
-        </label>
-        <label className={styles["toggle-title"]}>
-          {isToggled ? title[0] : title[1]}
-        </label>
+    <div className={styles["toggle-div"]} {...rest}>
+      <label className={styles["toggle-switch"]}>
+        <input
+          type="checkbox"
+          checked={isToggled}
+          {...register}
+          onChange={onToggle}
+        />
+        <span className={styles.switch} />
+      </label>
+      <label className={styles["toggle-title"]}>
+        {isToggled ? activeLabel : inactiveLabel}
+      </label>
     </div>
-    </React.Fragment>
   );
 }
 
-
 export default SCToggle;
+
+export type SCToggleProps = {
+  activeLabel: React.ReactNode | string;
+  inactiveLabel: React.ReactNode | string;
+  register?: UseFormRegisterReturn;
+} & React.HTMLAttributes<HTMLDivElement>;
