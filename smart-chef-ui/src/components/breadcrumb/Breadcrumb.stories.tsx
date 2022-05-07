@@ -2,6 +2,7 @@ import React from "react";
 import SCBreadcrumb from "./Breadcrumb";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Story, Meta } from "@storybook/react";
+import  {ReactComponent as HomeIcon} from "./home-icon.svg"
 
 
 export default {
@@ -10,9 +11,10 @@ export default {
 } as Meta;
 
 const breadcrumb = [
-  {url:'/', name:"Home"},
-  {url:'/scan', name:"Scannen"}, 
-  {url:'/settings', name:"Einstellungen"}];
+  {url:'/', name: <HomeIcon />},
+  {url:'/menue', name:"Menüart"}, 
+  {url:'/maindish', name:"Hauptspeise"}
+  ];
 
   
 

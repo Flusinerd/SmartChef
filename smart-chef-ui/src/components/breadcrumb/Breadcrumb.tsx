@@ -3,7 +3,7 @@ import styles from "./Breadcrumb.module.css"
 
 
 function SCBreadcrumbItem({ url, name, index, isLast }:
-  { url: string, name: string, index: number, isLast: boolean }) {
+  { url: string, name: React.ReactNode | string, index: number, isLast: boolean }) {
   return (
     <React.Fragment>
       <li itemProp="itemListElement" itemScope
@@ -38,5 +38,5 @@ interface BreadcrumbProps {
 
 interface BreadcrumbItemProps {
   url: string
-  name: string
+  name: React.ReactNode | string
 }
