@@ -1,24 +1,21 @@
-
-
-.liwrapper{
-    background-color: #f2f2f280;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    height: 2.5rem;
-    align-items: center;
+.liwrapper {
+  background-color: #f2f2f280;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  align-items: center;
 }
 
-.liwrapper button{
-    margin-left: 1rem;
-    margin-right: 1rem;
+.liwrapper button {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-.names{
-    margin-left: 1rem;
-    display: flex;
-    justify-content: space-between;
-    width: 8rem;
+.names {
+  margin-left: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 8rem;
 }
-
