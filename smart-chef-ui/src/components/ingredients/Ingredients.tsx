@@ -2,7 +2,7 @@ import styles from "./Ingredients.module.css";
 import SCIngredient, { SCIngredientProps } from "../ingredient/Ingredient";
 
 
-function SCIngredients(props: any) {
+function SCIngredients(props: SCIngredientsProps) {
   return (
     <ul className={styles.ulIngredients}>
       {props.items.map((ingredient: SCIngredientProps) => (
@@ -23,3 +23,8 @@ function SCIngredients(props: any) {
 }
 
 export default SCIngredients;
+
+export interface SCIngredientsProps{
+    items: SCIngredientProps[],
+    openOverlay: () => void,
+}

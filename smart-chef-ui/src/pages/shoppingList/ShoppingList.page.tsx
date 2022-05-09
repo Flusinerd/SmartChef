@@ -20,6 +20,10 @@ function SCShoppingListPage(): React.ReactElement {
     },
   ]);
 
+  const openOverlay= () => {
+
+  }
+
   return (
     <React.Fragment>
       <SCNavbar />
@@ -31,7 +35,7 @@ function SCShoppingListPage(): React.ReactElement {
           </div>
 
             {/* Neuen Artikel hinzufügen Button braucht eine Funktion zum öffnen des Modals */}
-          <SCIngredients openOverlay={() => {}} items={ingredients} />
+          <SCIngredients openOverlay={openOverlay} items={ingredients} />
         </div>
       </div>
       {/* Hier SCAccordion einfuegen  */}
