@@ -1,7 +1,5 @@
-.liwrapper {
-  /* background-color: #f2f2f280; */
-  background-color: #00000020;
-  border-bottom: 2px solid #d9d9d9;
+.liwrapperStock {
+  border-bottom: 2px solid #a7a7a7;
   display: flex;
   justify-content: space-between;
   height: 2.5rem;
@@ -10,7 +8,7 @@
   color: var(--text-color);
 }
 
-.liwrapper button {
+.liwrapperStock button {
   margin-left: 1rem;
   margin-right: 1rem;
 }

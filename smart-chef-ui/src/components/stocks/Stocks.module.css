@@ -1,6 +1,6 @@
-.ulStocks li:first-of-type {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+.ulStocks {
+  background-color: #00000020;
+  border-radius: 0.5rem;
 }
 
 .newArticle button {
@@ -9,14 +9,13 @@
   width: 1.3rem;
   margin-right: 1rem;
 }
+
 .newArticle {
   display: flex;
   justify-content: left;
   align-items: center;
   padding-top: 0.6rem;
   padding-left: 0.7rem;
-  /* background-color: #f2f2f280; */
-  background-color: #00000020;
   padding-bottom: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;

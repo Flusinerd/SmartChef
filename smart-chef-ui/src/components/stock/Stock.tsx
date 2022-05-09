@@ -5,22 +5,20 @@ const SCStock = ({
   id,
   product,
   quantity,
-  deleteStockHandler,
+  openStockModalHandler,
 }: SCStockProps) => {
-  const deleteStock = () => {
-    deleteStockHandler(id);
+  const openStockModal = () => {
+    openStockModalHandler(id);
   };
 
   return (
-    <li>
-      <div className={styles.liwrapper}>
+    <li className={styles.liwrapperStock}>
         <span>{product}</span>
         <div className={styles.quantitiyaction}>
           {quantity}
           {/* präventiv mit button, da wir das icon nicht haben. Löschen muss später in der DB erfolgen ? */}
-          <button onClick={deleteStock}>-</button>
+          <button onClick={openStockModal}>-</button>
         </div>
-      </div>
     </li>
   );
 };
@@ -31,5 +29,5 @@ export interface SCStockProps {
   id: number;
   product: string;
   quantity: string;
-  deleteStockHandler: any;
+  openStockModalHandler: any;
 }

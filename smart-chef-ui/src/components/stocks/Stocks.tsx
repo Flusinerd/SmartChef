@@ -1,7 +1,7 @@
 import styles from "./Stocks.module.css";
 import SCStock, { SCStockProps } from "../stock/Stock";
 
-const SCStocks = ({ stocks, openOverlay, deleteStockHandler }: any) => {
+const SCStocks = ({ stocks, openOverlay, openStockModalHandler }: any) => {
   return (
     <ul className={styles.ulStocks}>
       {stocks.map((stock: SCStockProps) => (
@@ -10,7 +10,7 @@ const SCStocks = ({ stocks, openOverlay, deleteStockHandler }: any) => {
           id={stock.id}
           product={stock.product}
           quantity={stock.quantity}
-          deleteStockHandler={deleteStockHandler}
+          openStockModalHandler={openStockModalHandler}
         />
       ))}
       <li className={styles.newArticle}>
