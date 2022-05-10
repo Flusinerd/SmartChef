@@ -1,0 +1,39 @@
+.usersBackground{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.usersBackground img{
+    z-index: -1;
+    position: absolute;
+    margin-top: 30rem;
+    opacity: 50%;
+}
+.contentwrapper{
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+
+}
+
+
+
+
+.actions{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.switchhousehold{
+    
+    
+    
+}
+
+.actions input{
+    background-color: #f2f2f280;
+    border-style: none;
+}
