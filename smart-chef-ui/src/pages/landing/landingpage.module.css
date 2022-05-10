@@ -3,9 +3,10 @@ div.wrapper {
   flex-direction: column;
   padding: 0rem 2rem;
   box-sizing: border-box;
+  margin-top: 1rem;
 
   /* Make fullscreen */
-  height: 100vh;
+  height: calc(100vh - 2rem);
 }
 
 div.header {
@@ -45,7 +46,7 @@ div.content {
 
 div.content > img {
   width: auto;
-  height: calc(33vh - 2rem);
+  height: calc(33vh - 3rem);
 }
 
 div.content > p {
@@ -77,6 +78,7 @@ div.content > p {
       "text2"
       "image3"
       "text3";
+    padding-bottom: 3rem;
   }
 
   #bg-image {

@@ -40,21 +40,26 @@ export class AuthService {
     if (this.loginInProgress) {
       return this.loginInProgress;
     }
-    const promise = new Promise<void>(async (resolve) => {
-      const response = await this.api.apiAuthLoginCreate({
-        email,
-        password,
-        applicationId: this.clientId,
-      });
-
-      this.setTokens(response);
-      if (!this.interceptorAdded) {
-        this.addInterceptor();
+    const promise = new Promise<void>(async (resolve, reject) => {
+      try {
+        const response = await this.api.apiAuthLoginCreate({
+          email,
+          password,
+          applicationId: this.clientId,
+        });
+        this.setTokens(response);
+        if (!this.interceptorAdded) {
+          this.addInterceptor();
+        }
+        this.loginInProgress = undefined;
+        resolve();
+      } catch (error) {
+        this.loginInProgress = undefined;
+        reject(error);
       }
-      this.loginInProgress = undefined;
-      resolve();
     });
     this.loginInProgress = promise;
+    return promise;
   }
 
   private async refreshAuthToken(failedRequest: any) {
@@ -121,7 +126,7 @@ export class AuthService {
     if (!config.headers) {
       config.headers = {};
     }
-    if (this.accessToken) {
+    if (this && this.accessToken) {
       config.headers["Authorization"] = `Bearer ${this.accessToken}`;
     }
     return config;

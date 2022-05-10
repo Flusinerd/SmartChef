@@ -15,8 +15,11 @@ describe("Input", () => {
   });
 
   it("Should render the provided value", () => {
+    const onChangeListener = cy.stub();
     const value = "Value";
-    const component = mount(<SCInput value={value} />);
+    const component = mount(
+      <SCInput value={value} onChange={onChangeListener} />
+    );
     component.get("input").should("have.value", value);
   });
 
@@ -46,5 +49,14 @@ describe("Input", () => {
 
     // Verify the error icon is rendered
     component.get(".sc-input-error-icon").should("be.visible");
+  });
+
+  it("Should render error with a boolean", () => {
+    const component = mount(<SCInput error />);
+    // Verify the icon is rendered
+    component.get(".sc-input-error-icon").should("be.visible");
+
+    // Verify the text is not rendered
+    component.get("div.sc-input-error").should("not.exist");
   });
 });

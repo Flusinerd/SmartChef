@@ -36,7 +36,7 @@ class AuthViewSet(ViewSet):
         try:
             user: User = User.objects.get(email=email)
         except User.DoesNotExist:
-            return Response({'error': 'Email or password is incorrect'}, status=400)
+            return Response({'error': 'Email or password is incorrect'}, status=401)
         try:
             application: Application = Application.objects.get(
                 client_id=application_id)
@@ -46,10 +46,10 @@ class AuthViewSet(ViewSet):
         passwordMatches = check_password(
             password, user.password)
         if passwordMatches == False:
-            return Response({'error': 'Email or password is incorrect'}, status=400)
+            return Response({'error': 'Email or password is incorrect'}, status=401)
         # Generate token pair
         households: List[Household] = user.households.all()
-        householdIds = [household.id for household in households]
+        householdIds = [str(household.id) for household in households]
         sub = user.id.__str__()
         return self.generateTokenPair(application, householdIds, sub)
 
@@ -97,7 +97,7 @@ class AuthViewSet(ViewSet):
         sub = decoded['sub']
         user: User = User.objects.get(id=sub)
         households: List[Household] = user.households.all()
-        householdIds = [household.id for household in households]
+        householdIds = [str(household.id) for household in households]
         response = self.generateTokenPair(application, householdIds, sub)
         # Add the refresh token to the list of used refresh tokens
         try:

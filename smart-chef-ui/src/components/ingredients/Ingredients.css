@@ -1,0 +1,13 @@
+.newArticle button{
+    border: 2px solid #D9D9D9;
+    border-radius: 100%;
+    width: 1.3rem;
+    margin-right: 1rem;
+}
+.newArticle{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-top: 0.6rem;
+    padding-left: 0.7rem;
+}

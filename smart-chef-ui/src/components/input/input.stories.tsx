@@ -6,6 +6,10 @@ export default {
   component: SCInput,
 } as Meta;
 
+const onChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(e.target.value);
+};
+
 const Template: Story<SCInputProps> = (args) => <SCInput {...args} />;
 
 export const Default = Template.bind({});
@@ -17,11 +21,13 @@ export const WithValue = Template.bind({});
 WithValue.args = {
   placeholder: "Enter a value",
   value: "Hello World",
+  onChange: onChangeListener,
 };
 
 export const WithError = Template.bind({});
 WithError.args = {
   placeholder: "Enter a value",
   value: "Hello World",
-  error: "This is an error",
+  error: "Error",
+  onChange: onChangeListener,
 };

@@ -8,8 +8,5 @@
     "start-ui": "cd smart-chef-ui && yarn start",
     "start-api": "cd smart-chef-api/src && python manage.py runserver",
     "start": "yarn start-ui && yarn start-api"
-  },
-  "devDependencies": {
-    "cypress": "^9.5.4"
   }
 }

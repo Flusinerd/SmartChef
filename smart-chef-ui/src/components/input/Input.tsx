@@ -1,17 +1,23 @@
 import { InputHTMLAttributes } from "react";
 import "./input.css";
 import ErrorIcon from "./error.svg";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 function SCInput(props: SCInputProps) {
-  const { error } = props;
+  const { error, register, ...rest } = props;
   return (
     <div className="sc-input">
       <input
-        {...props}
+        {...register}
+        {...rest}
         className={props.error ? "sc-input-error sc-input" : "sc-input"}
-      ></input>
-      {error && <img src={ErrorIcon} alt="" className="sc-input-error-icon" />}
-      {error && <div className="sc-input-error">{error}</div>}
+      />
+      {!!error && (
+        <img src={ErrorIcon} alt="" className="sc-input-error-icon" />
+      )}
+      {typeof error === "string" && (
+        <div className="sc-input-error">{error}</div>
+      )}
     </div>
   );
 }
@@ -19,5 +25,6 @@ function SCInput(props: SCInputProps) {
 export default SCInput;
 
 export type SCInputProps = InputHTMLAttributes<HTMLInputElement> & {
-  error?: string;
+  error?: boolean | string;
+  register?: UseFormRegisterReturn;
 };

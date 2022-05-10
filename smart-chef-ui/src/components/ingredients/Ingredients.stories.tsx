@@ -1,16 +1,16 @@
 import React from "react";
-import SCFab from "./Fab";
+import SCIngredients from "./Ingredients";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Story, Meta } from "@storybook/react";
 
 export default {
-  title: "Smartchef/Fab",
-  component: SCFab,
+  title: "Smartchef/Ingredients",
+  component: SCIngredients,
 } as Meta;
 
 const Template: Story = () => (
   <Router>
-    <SCFab />
+    <SCIngredients />
   </Router>
 );
 
