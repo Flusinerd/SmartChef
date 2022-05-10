@@ -4,6 +4,7 @@ import SCIngredients from "../../components/ingredients/Ingredients";
 import SCInput from "../../components/input/Input";
 import styles from "./shoppingpage.module.css";
 import { useState } from "react";
+import Dude from "./dude.svg";
 
 function SCShoppingListPage(): React.ReactElement {
   const [ingredients] = useState([
@@ -19,16 +20,22 @@ function SCShoppingListPage(): React.ReactElement {
     },
   ]);
 
+  const openOverlay= () => {
+
+  }
+
   return (
     <React.Fragment>
       <SCNavbar />
       <div className={styles.centerContents}>
+        <img src={Dude} alt="dude" />
         <div className={styles.listwrapper}>
           <div className={styles.ingredientSearch}>
             <SCInput placeholder="Suchen" />
           </div>
 
-          <SCIngredients items={ingredients} />
+            {/* Neuen Artikel hinzufügen Button braucht eine Funktion zum öffnen des Modals */}
+          <SCIngredients openOverlay={openOverlay} items={ingredients} />
         </div>
       </div>
       {/* Hier SCAccordion einfuegen  */}

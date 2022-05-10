@@ -1,5 +1,5 @@
 import React from "react";
-import SCIngredients from "./Ingredients";
+import SCIngredients, {SCIngredientsProps} from "./Ingredients";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Story, Meta } from "@storybook/react";
 
@@ -8,10 +8,15 @@ export default {
   component: SCIngredients,
 } as Meta;
 
-const Template: Story = () => (
+const Template: Story<SCIngredientsProps> = (args) => (
   <Router>
-    <SCIngredients />
+    <SCIngredients {...args} />
   </Router>
 );
 
 export const Default = Template.bind({});
+
+Default.args={
+    items: [{id: 1, title: "Tomatensaft", quantity: "3"}],
+    openOverlay: () => {},
+}

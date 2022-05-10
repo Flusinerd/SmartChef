@@ -3,6 +3,14 @@
   justify-content: center;
   margin-top: 3rem;
 }
+
+.centerContents img {
+  opacity: 20%;
+  position: absolute;
+  z-index: -1;
+  width: 80rem;
+}
+
 .listwrapper {
   width: 90%;
 }
@@ -11,4 +19,10 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1rem;
+  
+}
+
+.ingredientSearch input {
+    background-color: #f2f2f280;
+    border-style: none;
 }
