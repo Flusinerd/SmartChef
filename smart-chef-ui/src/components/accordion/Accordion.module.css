@@ -1,0 +1,68 @@
+
+.accordionWrapper {
+    width: 18rem;
+}
+
+.accordionTitle {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+
+.accordionTitle:hover .title {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.accordionTitle:hover .action img {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.title {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  user-select: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.action {
+  margin-right: 1rem;
+}
+
+.action > img {
+  width: 2rem;
+  height: 2rem;
+  opacity: 0.8;
+  transform: rotate(90deg);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.accordionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem 0;
+  animation: openAccordion 0.2s ease-in;
+  transform-origin: top left;
+}
+
+.accordionContent > * {
+  margin: 0.25rem 0;
+  cursor: pointer;
+}
+
+.rotate {
+  transform: rotate(180deg) !important;
+}
+
+@keyframes openAccordion {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

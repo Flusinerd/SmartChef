@@ -34,3 +34,6 @@ venv.bak/
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+.vs
+
+node_modules/
