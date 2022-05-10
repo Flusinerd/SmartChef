@@ -1,0 +1,14 @@
+.liwrapperStock {
+  border-bottom: 2px solid #a7a7a7;
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  align-items: center;
+  padding: 0 1rem;
+  color: var(--text-color);
+}
+
+.liwrapperStock button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

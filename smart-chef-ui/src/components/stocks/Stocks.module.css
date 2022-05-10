@@ -1,0 +1,22 @@
+.ulStocks {
+  background-color: #00000020;
+  border-radius: 0.5rem;
+}
+
+.newArticle button {
+  border: 2px solid #d9d9d9;
+  border-radius: 100%;
+  width: 1.3rem;
+  margin-right: 1rem;
+}
+
+.newArticle {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-top: 0.6rem;
+  padding-left: 0.7rem;
+  padding-bottom: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}

@@ -1,0 +1,54 @@
+.contentCenter {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.contentWrapper {
+  width: 80%;
+  font-size: larger;
+}
+
+.contentWrapper li {
+  height: 3.14159rem;
+}
+
+.searchWrapper {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: end;
+}
+
+.mCWrapper {
+  color: var(--text-color);
+}
+.mCTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.mCInputWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.mCInputWrapper input {
+  height: 3rem;
+}
+
+.mCInputWrapper input:first-of-type {
+  margin-right: 1rem;
+}
+
+.mCButtonWrapper {
+  width: 55%;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mCButtonWrapper button {
+  height: 2.5rem;
+  margin-bottom: -0.5rem;
+}
