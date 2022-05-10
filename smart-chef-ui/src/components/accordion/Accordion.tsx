@@ -1,31 +1,9 @@
-// import React, { useState } from "react";
-// import "./Accordion.css";
-// import DropArrow from "./dropArrow.svg";
-
-// const SCAccordion = (props: SCAccordionProps) => {
-//   const [show, setShow] = useState(false);
-//   const open = () => {
-//     setShow(!show);
-//   };
-
-//   return (
-//     <div className="accordion-header" onClick={open}>
-//       {`${props.title}   `}
-//       {show ? <img  src={DropArrow} alt="DropArrow"/> : <img style={{transform: 'rotate(180deg)'}} src={DropArrow} alt="DropArrow"/>}
-//       <div className="accordion-body">{show && props.children}</div>
-      
-//     </div>
-//   );
-// };
-
-// export default SCAccordion;
-
-
 import React, { useState } from "react";
 import styles from "./Accordion.module.css";
 import Chevron from "./chevron.svg";
 
-const SCAccordion = ({ title, children } : SCAccordionProps) => {
+const SCAccordion = (props: SCAccordionProps) => {
+  const { title,children} = props;
   const [show, setShow] = useState(false);
 
   const showContent = () => {
@@ -37,13 +15,14 @@ const SCAccordion = ({ title, children } : SCAccordionProps) => {
       <div
         className={styles.accordionTitle}
         onClick={showContent}
+        data-cy="accordion-click"
       >
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title} data-cy="accordion-title">{title}</div>
         <div className={styles.action}>
-          <img src={Chevron} alt="chevron" className={show ? styles.rotate : undefined} />
+          <img src={Chevron} alt="open" className={show ? styles.rotate : undefined} />
         </div>
       </div>
-      {show && <div className={styles.accordionContent}>{children}</div>}
+      {show && <div className={styles.accordionContent} data-cy="accordion-content">{children}</div>}
     </div>
   );
 };
@@ -51,7 +30,7 @@ const SCAccordion = ({ title, children } : SCAccordionProps) => {
 export default SCAccordion;
 
 
-export interface SCAccordionProps {
-  title?: string;
+export interface SCAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
+  title: string;
   children: React.ReactNode;
 }
