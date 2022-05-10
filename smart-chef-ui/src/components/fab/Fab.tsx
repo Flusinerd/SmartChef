@@ -1,15 +1,16 @@
+import { classNames } from "../../shared/merge-classnames";
 import styles from "./Fab.module.css";
 import Plus from "./Plus.svg";
 
-//sollte eigentlich eine vom Type Function sein
 function SCFab(props: SCFabProps) {
+  const { className, ...rest } = props;
   return (
-    <button className={styles.fab} {...props}>
+    <button className={classNames(className, styles.fab)} {...rest}>
       <img src={Plus} alt="plusIcon" />
     </button>
   );
 }
 
-type SCFabProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+export type SCFabProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default SCFab;
