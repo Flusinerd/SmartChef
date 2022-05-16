@@ -7,11 +7,11 @@ function SCNavbar(_props: any) {
     <nav className={styles.navbar}>
       <div className={styles.logo}>
         <Link to="/scan">
-          <h1>
+          <h1 className={styles.name}>
             <span className={styles["color-primary"]}>Smart</span>
             Chef
           </h1>
-          <img src={Logo} alt="Logo" />
+          <img src={Logo} alt="Logo" className={styles.logoImg}/>
         </Link>
       </div>
 

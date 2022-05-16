@@ -9,8 +9,8 @@ nav {
   box-shadow: var(--drop-shadow);
 }
 
-.color-primary{
-    color: var(--primary-color) !important;
+.color-primary {
+  color: var(--primary-color) !important;
 }
 
 div.logo > a {
@@ -35,7 +35,7 @@ ul.links {
   justify-content: space-between;
   list-style: none;
   margin-left: 2rem;
-  flex: 0.8
+  flex: 0.8;
 }
 
 ul.links > li {
@@ -66,10 +66,26 @@ ul.links > li.active > a {
   font-weight: 600;
 }
 
-/* @media screen and (max-width: 1500px) {
-    nav{
-        font-size: 0.5rem;
-        transition: font-size 0.5s ease-in-out;
+@media screen and (max-width: 1500px) {
+  .name {
+    font-size: 4rem;
+    transition: font-size 0.5s ease-in-out;
+  }
 
-    }
-} */
+  .logoImg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .name {
+    font-size: 5rem;
+    transition: font-size 0.5s ease-in-out;
+  }
+
+  .logoImg {
+    width: 5rem;
+    height: 5rem;
+  }
+}
