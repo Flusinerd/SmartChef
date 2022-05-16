@@ -22,10 +22,9 @@ div.logo > a {
   color: var(--text-color);
 }
 
-div.logo > a > img {
+.logoImg {
   margin-left: 20px;
   width: 5rem;
-  height: 5rem;
 }
 
 ul.links {
@@ -43,7 +42,7 @@ ul.links > li {
   flex-direction: row;
   align-items: center;
   margin-left: 1rem;
-  margin-right: 1rem;
+  margin-right: 0rem;
 
   font-size: 1.2rem;
   font-weight: 500;
@@ -73,8 +72,7 @@ ul.links > li.active > a {
   }
 
   .logoImg {
-    width: 2rem;
-    height: 2rem;
+    width: 4rem;
   }
 }
 
@@ -86,6 +84,5 @@ ul.links > li.active > a {
 
   .logoImg {
     width: 5rem;
-    height: 5rem;
   }
 }
