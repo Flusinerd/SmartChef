@@ -18,7 +18,7 @@ body {
   --text-color: #606060;
   --drop-shadow: 0px 6px 30px rgba(0, 0, 0, 0.16);
   --white: #fff;
-  
+  --grey: #9f9f9f4f;
 
   /* Form colors */
   --focus-color: #56ccf2;
