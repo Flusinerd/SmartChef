@@ -10,9 +10,13 @@
 
 .modal {
   position: fixed;
-  top: 20vh;
-  left: 20%;
+  height: auto;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 60%;
+  min-width: 400px;
+  max-width: 800px;
   background-color: white;
   padding: 1rem 0;
   border-radius: 14px;
@@ -39,6 +43,8 @@
 }
 
 .modal-body {
+  display: flex;
+  flex-direction: row;
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 90%;
@@ -49,4 +55,18 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 60%;
+  }
+
+  .modal-body{
+      flex-direction: column;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
 }
