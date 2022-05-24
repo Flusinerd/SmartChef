@@ -1,11 +1,17 @@
 import React from "react";
 import styles from "./User.module.css";
+import { ReactComponent as Delete } from "./delete.svg";
 
-const SCUser = ({ id, firstname, lastname, email, deleteUserHandler }: SCUserProps) => {
-
-    const deleteUser = () => {
-        deleteUserHandler(id);
-    }
+const SCUser = ({
+  id,
+  firstname,
+  lastname,
+  email,
+  deleteUserHandler,
+}: SCUserProps) => {
+  const deleteUser = () => {
+    deleteUserHandler(id);
+  };
 
   return (
     <li>
@@ -15,9 +21,10 @@ const SCUser = ({ id, firstname, lastname, email, deleteUserHandler }: SCUserPro
           <span>{lastname}</span>
         </div>
         <div className={styles.emailaction}>
-          {email}
-          {/* präventiv mit button, da wir das icon nicht haben. Löschen muss später in der DB erfolgen */}
-          <button onClick={deleteUser}>-</button>
+          <div>{email}</div>
+          <button onClick={deleteUser}>
+            <Delete className={styles.delete} />
+          </button>
         </div>
       </div>
     </li>
