@@ -5,7 +5,7 @@ import BarcodeIcon from "../../assets/icons/barcode-outline.svg";
 import BookIcon from "../../assets/icons/book-outline.svg";
 import CogIcon from "../../assets/icons/cog-outline.svg";
 import ListIcon from "../../assets/icons/list-outline.svg";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
   const { className, ...rest } = props;
@@ -18,7 +18,7 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
       )}
       {...rest}
     >
-      <Link to="">
+      <NavLink to="/scan">
         <div
           className={classNames(
             "flex flex-col justify-center",
@@ -30,10 +30,13 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
             src={BarcodeIcon}
             className={classNames("h-8", styles["tabbar-icon"])}
           />
-          <span className="text-sm">Scannen</span>
+          <span className="text-xs sm:text-sm">Scannen</span>
         </div>
-      </Link>
-      <Link to="" className={classNames("flex flex-col justify-center")}>
+      </NavLink>
+      <NavLink
+        to="/shopping-list"
+        className={classNames("flex flex-col justify-center")}
+      >
         <div
           className={classNames(
             "flex flex-col justify-center",
@@ -45,10 +48,13 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
             src={ListIcon}
             className={classNames("h-8", styles["tabbar-icon"])}
           />
-          <span className="text-sm">Einkaufsliste</span>
+          <span className="text-xs sm:text-sm">Einkaufsliste</span>
         </div>
-      </Link>
-      <Link to="" className={classNames("flex flex-col justify-center")}>
+      </NavLink>
+      <NavLink
+        to="/recipes"
+        className={classNames("flex flex-col justify-center")}
+      >
         <div
           className={classNames(
             "flex flex-col justify-center",
@@ -60,10 +66,13 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
             src={BookIcon}
             className={classNames("h-8", styles["tabbar-icon"])}
           />
-          <span className="text-sm">Rezepte</span>
+          <span className="text-xs sm:text-sm">Rezepte</span>
         </div>
-      </Link>
-      <Link to="" className={classNames("flex flex-col justify-center")}>
+      </NavLink>
+      <NavLink
+        to="/settings"
+        className={classNames("flex flex-col justify-center")}
+      >
         <div
           className={classNames(
             "flex flex-col justify-center",
@@ -75,9 +84,9 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
             src={CogIcon}
             className={classNames("h-8", styles["tabbar-icon"])}
           />
-          <span className="text-sm">Einstellungen</span>
+          <span className="text-xs sm:text-sm">Einstellungen</span>
         </div>
-      </Link>
+      </NavLink>
     </div>
   );
 }
