@@ -17,7 +17,7 @@ div.header {
   flex: 0 0;
 }
 
-h1 {
+h1.title {
   font-size: 5rem;
   margin: 0;
 }

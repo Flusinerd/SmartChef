@@ -12,7 +12,7 @@ export function SCLandingPage(): React.ReactElement {
     <div className={styles.wrapper}>
       <img src={BGImage} alt="" id={styles["bg-image"]} />
       <div className={styles.header}>
-        <h1>
+        <h1 className={styles.title}>
           <span className="color-primary">Smart</span>
           Chef
         </h1>
