@@ -1,12 +1,23 @@
-import SCNavbar from "../../components/navbar/Navbar";
 import React from "react";
 import SCIngredients from "../../components/ingredients/Ingredients";
 import SCInput from "../../components/input/Input";
 import styles from "./shoppingpage.module.css";
 import { useState } from "react";
-import Dude from "./dude.svg";
+import { ReactComponent as Dude } from "./dude.svg";
+import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
+import SCModal from "../../components/modal/Modal";
 
 function SCShoppingListPage(): React.ReactElement {
+  const [showModal, setShowModal] = useState(false);
+
+  const hideModal = () => {
+    setShowModal(false);
+  };
+
+  const openOverlay = () => {
+      setShowModal(true);
+  }
+
   const [ingredients] = useState([
     {
       id: 1,
@@ -20,26 +31,21 @@ function SCShoppingListPage(): React.ReactElement {
     },
   ]);
 
-  const openOverlay= () => {
-
-  }
-
   return (
-    <React.Fragment>
-      <SCNavbar />
+    <SCResponsiveContainer>
+      {showModal && <SCModal hideOverlay={hideModal} />}
       <div className={styles.centerContents}>
-        <img src={Dude} alt="dude" />
+        <Dude className={styles.dude} />
         <div className={styles.listwrapper}>
           <div className={styles.ingredientSearch}>
             <SCInput placeholder="Suchen" />
           </div>
 
-            {/* Neuen Artikel hinzufügen Button braucht eine Funktion zum öffnen des Modals */}
           <SCIngredients openOverlay={openOverlay} items={ingredients} />
         </div>
       </div>
       {/* Hier SCAccordion einfuegen  */}
-    </React.Fragment>
+    </SCResponsiveContainer>
   );
 }
 export default SCShoppingListPage;
