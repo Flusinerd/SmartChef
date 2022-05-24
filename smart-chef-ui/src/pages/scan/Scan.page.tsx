@@ -8,7 +8,7 @@ const SCScanPage = () => {
   return (
     <SCResponsiveContainer pageTitle="Scannen">
       <div className={styles.scanWrapper}>
-        <img src={Dude} alt="dude" />
+        <img src={Dude} alt="" className={styles["bg-image"]} />
         <div>
           <div className={styles.toggleWrapper}>
             <SCToggle activeLabel="Ausbuchen" inactiveLabel="Einscannen" />

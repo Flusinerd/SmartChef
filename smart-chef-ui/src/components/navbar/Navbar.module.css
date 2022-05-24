@@ -25,6 +25,7 @@ div.logo > a {
 .logoImg {
   margin-left: 20px;
   width: 5rem;
+  height: 5rem;
 }
 
 ul.links {
@@ -42,7 +43,7 @@ ul.links > li {
   flex-direction: row;
   align-items: center;
   margin-left: 1rem;
-  margin-right: 0rem;
+  margin-right: 1rem;
 
   font-size: 1.2rem;
   font-weight: 500;
@@ -72,7 +73,8 @@ ul.links > li.active > a {
   }
 
   .logoImg {
-    width: 4rem;
+    width: 3rem;
+    height: 3rem;
   }
 }
 
@@ -84,5 +86,6 @@ ul.links > li.active > a {
 
   .logoImg {
     width: 5rem;
+    height: 5rem;
   }
 }

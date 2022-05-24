@@ -1,20 +1,20 @@
-import styles from "./Settings.module.css";
 import React, { useState } from "react";
-import SCNavbar from "../../components/navbar/Navbar";
-import Input from "../../components/input/Input";
+import { Link } from "react-router-dom";
 // import PasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import Button from "../../components/button/button";
-import { Link } from "react-router-dom";
+import Input from "../../components/input/Input";
+import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
+import styles from "./Settings.module.css";
 // import SCModal from "../../components/modal/Modal";
 
 function SCSettingsPage() {
-//   const [password, setPassword] = useState("");
-//     const [passwordConfirm, setPasswordConfirm] = useState("");
-//   const [passwordMatch, setPasswordMatch] = useState(false);
+  //   const [password, setPassword] = useState("");
+  //     const [passwordConfirm, setPasswordConfirm] = useState("");
+  //   const [passwordMatch, setPasswordMatch] = useState(false);
 
-//   React.useEffect(() => {
-//     setPasswordMatch(password === passwordConfirm);
-//   }, [password, passwordConfirm]);
+  //   React.useEffect(() => {
+  //     setPasswordMatch(password === passwordConfirm);
+  //   }, [password, passwordConfirm]);
 
   const [overlayVisible, setOverlayVisible] = useState(false);
 
@@ -27,13 +27,12 @@ function SCSettingsPage() {
   };
 
   return (
-    <React.Fragment>
+    <SCResponsiveContainer pageTitle="Einstellungen">
       {/* {overlayVisible &&
         {
           <Modal onOverlay={hideOverlayHandler} />
         }} */}
 
-      <SCNavbar />
       <div className={styles.wrapper}>
         <div className={styles["user-settings"]}>
           <h2>Nutzereinstellungen</h2>
@@ -88,7 +87,7 @@ function SCSettingsPage() {
           </Link>
         </div>
       </div>
-    </React.Fragment>
+    </SCResponsiveContainer>
   );
 }
 

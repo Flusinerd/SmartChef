@@ -12,7 +12,6 @@ function SCResponsiveContainer(props: SCResponsiveContainerProps) {
   React.useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      console.log(windowWidth);
     };
 
     window.addEventListener("resize", handleResize);

@@ -103,7 +103,7 @@ div.content > p {
     justify-content: center;
   }
 
-  h1 {
+  h1.title {
     font-size: 4rem;
   }
 

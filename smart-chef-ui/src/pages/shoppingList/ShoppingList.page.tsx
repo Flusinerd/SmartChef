@@ -1,10 +1,9 @@
-import SCNavbar from "../../components/navbar/Navbar";
-import React from "react";
+import React, { useState } from "react";
 import SCIngredients from "../../components/ingredients/Ingredients";
 import SCInput from "../../components/input/Input";
-import styles from "./shoppingpage.module.css";
-import { useState } from "react";
+import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
 import Dude from "./dude.svg";
+import styles from "./shoppingpage.module.css";
 
 function SCShoppingListPage(): React.ReactElement {
   const [ingredients] = useState([
@@ -20,26 +19,23 @@ function SCShoppingListPage(): React.ReactElement {
     },
   ]);
 
-  const openOverlay= () => {
-
-  }
+  const openOverlay = () => {};
 
   return (
-    <React.Fragment>
-      <SCNavbar />
+    <SCResponsiveContainer pageTitle="Einkaufsliste">
       <div className={styles.centerContents}>
-        <img src={Dude} alt="dude" />
+        <img src={Dude} alt="dude" className={styles["bg-image"]} />
         <div className={styles.listwrapper}>
           <div className={styles.ingredientSearch}>
             <SCInput placeholder="Suchen" />
           </div>
 
-            {/* Neuen Artikel hinzufügen Button braucht eine Funktion zum öffnen des Modals */}
+          {/* Neuen Artikel hinzufügen Button braucht eine Funktion zum öffnen des Modals */}
           <SCIngredients openOverlay={openOverlay} items={ingredients} />
         </div>
       </div>
       {/* Hier SCAccordion einfuegen  */}
-    </React.Fragment>
+    </SCResponsiveContainer>
   );
 }
 export default SCShoppingListPage;
