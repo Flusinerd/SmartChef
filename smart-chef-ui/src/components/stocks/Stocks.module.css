@@ -1,5 +1,5 @@
 .ulStocks {
-  background-color: #00000020;
+  background-color: var(--grey);
   border-radius: 0.5rem;
 }
 
@@ -19,4 +19,14 @@
   padding-bottom: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+}
+
+.add{
+    width: 1.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .newArticle{
+        font-size: 1rem;
+    }
 }

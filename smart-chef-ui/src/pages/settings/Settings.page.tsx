@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Input from "../../components/input/Input";
 // import PasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import Button from "../../components/button/button";
-import Input from "../../components/input/Input";
 import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
 import styles from "./Settings.module.css";
 // import SCModal from "../../components/modal/Modal";
@@ -58,7 +58,11 @@ function SCSettingsPage() {
             </Button>
           </div>
           <div>
-            <Button className={styles.btn2} onClick={showOverlayHandler}>
+            <Button
+              className={styles.buttons}
+              id={styles.btn2}
+              onClick={showOverlayHandler}
+            >
               Benutzerkonto löschen
             </Button>
           </div>
@@ -66,21 +70,24 @@ function SCSettingsPage() {
 
         <div className={styles["household-settings"]}>
           <h2>Haushaltseinstellungen</h2>
-          <div>
-            <Link to="/users">
-              <Button className={styles.buttons} id={styles.btn1}>
-                Mitglieder verwalten
-              </Button>
-            </Link>
-          </div>
-          <div>
-            <Link to="/stock">
-              <Button className={styles.buttons} id={styles.btn1}>
-                Bestand verwalten
-              </Button>
-            </Link>
+          <div className={styles["hs-action"]}>
+            <div>
+              <Link to="/users">
+                <Button className={styles.buttons} id={styles.btn1}>
+                  Mitglieder verwalten
+                </Button>
+              </Link>
+            </div>
+            <div>
+              <Link to="/stock">
+                <Button className={styles.buttons} id={styles.btn1}>
+                  Bestand verwalten
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
+
         <div className={styles.bottomBtnContainer}>
           <Link to="/login">
             <Button className={styles.logoutBtn}>Abmelden</Button>

@@ -4,14 +4,11 @@
   margin-top: 3rem;
 }
 
-.centerContents img.bg-image {
+.dude {
   opacity: 20%;
   position: absolute;
   z-index: -1;
-  left: 50%;
-  top: 20%;
-  transform: translateX(-50%);
-  height: 70vh;
+  width: 100%;
 }
 
 .listwrapper {
@@ -27,4 +24,11 @@
 .ingredientSearch input {
   background-color: #f2f2f280;
   border-style: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .dude {
+    width: 150%;
+    right: 0.5rem;
+  }
 }

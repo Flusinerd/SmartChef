@@ -1,10 +1,10 @@
 import styles from "./StockPage.module.css";
-import SCNavbar from "../../components/navbar/Navbar";
 import SCInput from "../../components/input/Input";
 import SCStocks from "../../components/stocks/Stocks";
 import { useState } from "react";
 import Modal from "../../components/modal/Modal";
 import Button from "../../components/button/button";
+import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
 
 function SCStockPage() {
   const [stocks, setStocks] = useState([
@@ -26,49 +26,74 @@ function SCStockPage() {
   ]);
 
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showNewModal, setShowNewModal] = useState(false);
 
-  const [ modalChildren, setModalChildren] = useState(<div></div>);
+  const [modalChildren, setModalChildren] = useState(<div></div>);
 
-  const openStockModalHandler = (id: number) => {
+  const openEditModalHandler = (id: number) => {
     editModal(id);
     setShowEditModal(true);
   };
 
-  const hideStockModalHandler = () => {
-      setShowEditModal(false);
-  }
+  const hideEditModalHandler = () => {
+    setShowEditModal(false);
+  };
+
+  const openNewModalHandler = () => {
+    setShowNewModal(true);
+  };
+
+  const hideNewModalHandler = () => {
+    setShowNewModal(false);
+  };
 
   const editModal = (id: number) => {
     const editStock = stocks.filter((stock) => stock.id === id)[0];
 
-    setModalChildren(<div className={styles.mCWrapper}>
+    setModalChildren(
+      <div className={styles.mCWrapper}>
         <div className={styles.mCTitle}>{editStock.product}</div>
         <div className={styles.mCInputWrapper}>
-            <SCInput type="text" placeholder="Ist-Menge" />
-            <SCInput type="text" placeholder="Soll-Menge" />
+          <SCInput type="text" placeholder="Ist-Menge" />
+          <SCInput type="text" placeholder="Soll-Menge" />
         </div>
         <div className={styles.mCButtonWrapper}>
-            <Button onClick={hideStockModalHandler}>Abbrechen</Button>
-            <Button>Speichern</Button>
+          <Button onClick={hideEditModalHandler}>Abbrechen</Button>
+          <Button>Speichern</Button>
         </div>
-    </div>);
-  }
-
-  
+      </div>
+    );
+  };
 
   return (
-    <>
-    {showEditModal && <Modal modaltitle="Artikel verwalten" hideOverlay={hideStockModalHandler} children={modalChildren} />}
-      <SCNavbar />
+    <SCResponsiveContainer>
+      {showEditModal && (
+        <Modal
+          modaltitle="Artikel verwalten"
+          hideOverlay={hideEditModalHandler}
+          children={modalChildren}
+        />
+      )}
+      {showNewModal && (
+        <Modal
+          modaltitle="Artikel verwalten"
+          hideOverlay={hideNewModalHandler}
+          children={modalChildren}
+        />
+      )}
       <div className={styles.contentCenter}>
         <div className={styles.contentWrapper}>
           <div className={styles.searchWrapper}>
             <SCInput placeholder="Suchen" />
           </div>
-          <SCStocks stocks={stocks} openStockModalHandler={openStockModalHandler} />
+          <SCStocks
+            stocks={stocks}
+            openEditModalHandler={openEditModalHandler}
+            openNewModalHandler={openNewModalHandler}
+          />
         </div>
       </div>
-    </>
+    </SCResponsiveContainer>
   );
 }
 

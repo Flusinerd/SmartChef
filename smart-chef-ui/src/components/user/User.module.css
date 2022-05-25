@@ -8,14 +8,45 @@
   align-items: center;
 }
 
-.liwrapper button {
+.emailaction{
+    display: flex;
+    align-items: center;
+}
+
+.emailaction button {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.delete{
+    width: 1.5rem;
 }
 
 .names {
   margin-left: 1rem;
   display: flex;
   justify-content: space-between;
-  width: 8rem;
+  width: 7rem;
+}
+
+@media only screen and (max-width: 450px) {
+    .liwrapper{
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        height: 4rem;
+    }
+
+    .emailaction{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .emailaction button{
+        margin-right: 2rem;
+    }
+
 }
