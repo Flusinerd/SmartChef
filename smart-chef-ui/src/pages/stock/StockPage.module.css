@@ -10,7 +10,7 @@
 }
 
 .contentWrapper li {
-  height: 3.14159rem;
+  height: 3.15rem;
 }
 
 .searchWrapper {
@@ -28,8 +28,6 @@
 }
 
 .mCInputWrapper {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
@@ -53,9 +51,11 @@
   margin-bottom: -0.5rem;
 }
 
-@media only screen and (max-width: 600px) {
-    .searchWrapper{
-        justify-content: center;
-    }
-
+@media only screen and (max-width: 905px) {
+  /* .searchWrapper {
+    justify-content: center;
+  } */
+  .mCWrapper.mCInputWrapper {
+      flex-direction: row;
+  }
 }

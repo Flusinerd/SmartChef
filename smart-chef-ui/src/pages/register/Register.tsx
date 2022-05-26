@@ -82,7 +82,7 @@ function SCRegisterPage() {
 
   return (
     <div className="sc-wrapper">
-      <h1>
+      <h1 className={styles.title}>
         <span className="color-primary">Smart</span>Chef
       </h1>
       <img src={BgImage} alt="" className="sc-bg-image" />
