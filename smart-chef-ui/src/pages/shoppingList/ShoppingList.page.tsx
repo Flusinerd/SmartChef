@@ -51,6 +51,7 @@ function SCShoppingListPage(): React.ReactElement {
     <SCResponsiveContainer>
       {showModal && <SCModal
        modaltitle ="Neuen Artikel hinzufügen"
+       children="Fügen Sie einen neuen Artikel der Einkaufsliste hinzu:"
        hideOverlay={hideModal}
        buttons={modalNewArticleButtons} />}
       <div className={styles.centerContents}>
