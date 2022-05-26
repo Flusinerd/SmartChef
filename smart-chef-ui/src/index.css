@@ -10,6 +10,10 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+a.active {
+  color: var(--primary-color) !important;
+}
+
 body {
   --primary-color: #eb5757;
   --primary-color-dark: #c53030;

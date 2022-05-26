@@ -1,11 +1,11 @@
-import styles from "./Settings.module.css";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../components/input/Input";
 // import PasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import Button from "../../components/button/button";
-import { Link } from "react-router-dom";
-// import SCModal from "../../components/modal/Modal";
 import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
+import styles from "./Settings.module.css";
+// import SCModal from "../../components/modal/Modal";
 
 function SCSettingsPage() {
   //   const [password, setPassword] = useState("");
@@ -27,7 +27,7 @@ function SCSettingsPage() {
   };
 
   return (
-    <SCResponsiveContainer>
+    <SCResponsiveContainer pageTitle="Einstellungen">
       {/* {overlayVisible &&
         {
           <Modal onOverlay={hideOverlayHandler} />

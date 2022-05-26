@@ -15,8 +15,8 @@ function SCShoppingListPage(): React.ReactElement {
   };
 
   const openOverlay = () => {
-      setShowModal(true);
-  }
+    setShowModal(true);
+  };
 
   const [ingredients] = useState([
     {

@@ -19,17 +19,16 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1rem;
-  
 }
 
 .ingredientSearch input {
-    background-color: #f2f2f280;
-    border-style: none;
+  background-color: #f2f2f280;
+  border-style: none;
 }
 
 @media only screen and (max-width: 1000px) {
-    .dude{
-        width: 150%;
-        right: 0.5rem;
-    }
+  .dude {
+    width: 150%;
+    right: 0.5rem;
+  }
 }

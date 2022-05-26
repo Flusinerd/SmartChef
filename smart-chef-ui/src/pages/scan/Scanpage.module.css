@@ -1,58 +1,54 @@
-.scanWrapper img {
+.scanWrapper img.bg-image {
   opacity: 20%;
   position: absolute;
   z-index: -1;
-  width: 70rem;
-  margin-left: 70rem;
-  transition: width 0.25s ease-in-out, margin-left 0.25s ease-in-out;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  height: 70vh;
 }
 
 .scanWrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 10rem;
-  /* transition: all 0.25s ease-in-out; */
+  margin-top: 2rem;
+  height: calc(100% - 10rem);
+  padding: 1rem;
 }
 
 .scan {
   margin-top: 2rem;
-  width: 45rem;
-  height: 45rem;
   background-color: var(--disabled-color);
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (max-width: 1500px) {
-  .scan {
-    transition: all 0.25s ease-in-out;
-    width: 30rem;
-    height: 30rem;
-  }
-
-  .scanWrapper img {
-    width: 60rem;
-    margin-left: 50rem;
-  }
+ul.results {
+  margin-top: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 25vh;
+  overflow-y: scroll;
+  border-radius: 0.5rem;
+  padding: 0;
 }
 
-
-@media screen and (max-width: 850px) {
-  .scan {
-    width: 30rem;
-    height: 30rem;
-  }
-
-  .scanWrapper img {
-    display: none;
-  }
+ul.results li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
 }
 
-@media screen and (max-width: 550px) {
-  .scan {
-    transition: all 0.25s ease-in-out;
-    width: 20rem;
-    height: 20rem;
-  }
+ul.results li:last-child {
+  border-bottom: none;
 }
 
+.results button {
+  width: 1.5rem;
+  height: 1.5rem;
+}
