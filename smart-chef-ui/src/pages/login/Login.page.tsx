@@ -65,7 +65,7 @@ function SCLoginPage() {
               <SCInput
                 type="text"
                 id="email-input"
-                placeholder="Bitte geben Sie Ihre Email-Adresse ein"
+                placeholder="Bitte eine E-Mail angeben"
                 register={register("email", {
                   required: true,
                   pattern: emailRegex,

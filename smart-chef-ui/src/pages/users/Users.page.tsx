@@ -6,6 +6,7 @@ import SCResponsiveContainer from "../../components/responsive-container/respons
 import { ReactComponent as Exit } from "./exitbutton.svg";
 import SCModal from "../../components/modal/Modal";
 import { useState } from "react";
+import SCButton from "../../components/button/button";
 
 function SCUsersPage() {
   const [showModal, setShowModal] = useState(false);
@@ -14,9 +15,31 @@ function SCUsersPage() {
     setShowModal(false);
   };
 
+  const modalChildren = (
+    <div className={styles.mCTitle}>
+      Wollen Sie wirklich den Haushalt XXX verlassen?
+    </div>
+  );
+
+  const modalButtons = (
+    <div className={styles.mCButtons}>
+      <SCButton id={styles.btnLeave}>Verlassen</SCButton>
+      <SCButton id={styles.btnCancel} onClick={hideModal}>
+        Abbrechen
+      </SCButton>
+    </div>
+  );
+
   return (
     <SCResponsiveContainer>
-      {showModal && <SCModal hideOverlay={hideModal} />}
+      {showModal && (
+        <SCModal
+          modaltitle="Haushalt verlassen"
+          children={modalChildren}
+          hideOverlay={hideModal}
+          buttons={modalButtons}
+        />
+      )}
       <div className={styles.usersBackground}>
         <img src={House} alt="house" />
         <div className={styles.contentwrapper}>

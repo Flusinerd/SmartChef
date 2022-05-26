@@ -126,4 +126,8 @@
   .hs-action {
     flex-direction: column;
   }
+
+  .logoutBtn {
+    width: 22rem;
+  }
 }

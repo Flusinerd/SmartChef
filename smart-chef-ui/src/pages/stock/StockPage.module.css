@@ -10,7 +10,7 @@
 }
 
 .contentWrapper li {
-  height: 3.14159rem;
+  height: 3.15rem;
 }
 
 .searchWrapper {
@@ -19,43 +19,64 @@
   justify-content: end;
 }
 
-.mCWrapper {
-  color: var();
-}
-.mCTitle {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.mCInputWrapper {
+.mCEditWrapper {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  flex-direction: column;
 }
 
-.mCInputWrapper input {
+.mCEditTitle {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.mCEditInputWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 7rem;
+  margin-bottom: 1rem;
+  transition: all 0.5s ease-in-out;
+}
+.mCEditInputWrapper input {
   height: 3rem;
+  width: 100%;
+  transition: all 0.5s ease-in-out;
 }
 
-.mCInputWrapper input:first-of-type {
-  margin-right: 1rem;
-}
-
-.mCButtonWrapper {
-  width: 55%;
-  margin-top: 1.5rem;
+.mCEditButtons {
   display: flex;
   justify-content: space-between;
 }
 
-.mCButtonWrapper button {
-  height: 2.5rem;
-  margin-bottom: -0.5rem;
+#btnSave {
+  background-color: var(--grey);
+  color: var(--text-color);
+  box-shadow: none;
 }
 
-@media only screen and (max-width: 600px) {
-    .searchWrapper{
-        justify-content: center;
-    }
+#btnSave:hover {
+  background-color: #c0bfbf4f;
+}
 
+#btnSave:active {
+  background-color: #f5f5f54f;
+}
+
+#btnCancel:hover{
+    background-color: var(--primary-color-light);
+}
+
+@media screen and (min-width: 600px) {
+  .mCEditInputWrapper {
+    flex-direction: row;
+    margin-bottom: -0.5rem;
+  }
+
+  .mCEditButtons {
+    justify-content: flex-end;
+  }
+
+  .mCEditButtons button:first-of-type {
+    margin-right: 1rem;
+  }
 }
