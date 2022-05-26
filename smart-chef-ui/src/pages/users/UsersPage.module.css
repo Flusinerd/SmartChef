@@ -57,10 +57,7 @@
 .mCButtons button{
     width: 8rem;
 }
-.mcAddContent{
-  display: flex;
-  
-}
+
 .mcInput{
   display: flex;
   flex-direction: column;
@@ -70,6 +67,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
+  margin-left: 1rem;
   
 }
 
@@ -99,6 +97,10 @@
         margin-right: 1rem;
     }
     .mCAddButtons{
-      margin-right: 1rem;
+      justify-content: flex-end;
+      
     }
+    .mCAddButtons button:first-of-type{
+      margin-right: 1rem;
+  }
 }
