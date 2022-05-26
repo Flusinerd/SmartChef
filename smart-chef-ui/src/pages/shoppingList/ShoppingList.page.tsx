@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ReactComponent as Dude } from "./dude.svg";
 import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
 import SCModal from "../../components/modal/Modal";
+import SCButton from "../../components/button/button";
 
 function SCShoppingListPage(): React.ReactElement {
   const [showModal, setShowModal] = useState(false);
@@ -31,9 +32,27 @@ function SCShoppingListPage(): React.ReactElement {
     },
   ]);
 
+
+  const modalNewArticleButtons = 
+  <>
+  <div className={styles.mCNewArticleInputs}>
+        <SCInput type="text" placeholder = "Neuer Artikel" />
+        <SCInput type="text" placeholder = "Menge" />
+      </div>
+      <div className={styles.mCNewArticleButtons}>
+        <SCButton id = {styles.btnCancel} onClick ={hideModal}>Abbrechen</SCButton>
+        <SCButton id = {styles.btnSave}>Speichern</SCButton>
+      </div>
+  
+  
+  </>
+
   return (
     <SCResponsiveContainer>
-      {showModal && <SCModal hideOverlay={hideModal} />}
+      {showModal && <SCModal
+       modaltitle ="Neuen Artikel hinzufügen"
+       hideOverlay={hideModal}
+       buttons={modalNewArticleButtons} />}
       <div className={styles.centerContents}>
         <Dude className={styles.dude} />
         <div className={styles.listwrapper}>
