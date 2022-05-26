@@ -1,0 +1,36 @@
+.breadcrumb-element{
+    display: inline-flex;
+    
+    
+ 
+}
+.breadcrumb-element-divider{
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+
+.c-breadcrumb{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0.5rem;
+    width: 30%;
+    height: 20%;
+    
+    
+
+    
+}
+.breadcrumb-element-link{
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight:bold;
+    
+
+
+
+}
+.breadcrumb-element-link:hover{
+    color: var(--primary-color)
+}
