@@ -21,7 +21,7 @@ function SCResponsiveContainer(props: SCResponsiveContainerProps) {
     <>
       {windowWidth >= 992 && <SCNavbar></SCNavbar>}
       {windowWidth < 992 && pageTitle && (
-        <div className="h-14 bg-white drop-shadow flex justify-center items-center">
+        <div className="h-14 bg-white drop-shadow flex justify-center items-center left-0 right-0 w-full">
           <h1 className="align-middle m-0">{pageTitle}</h1>
         </div>
       )}
