@@ -29,6 +29,7 @@ function SCStockPage() {
   const [showNewModal, setShowNewModal] = useState(false);
 
   const [modalEditChildren, setModalEditChildren] = useState(<></>);
+  const [modalNewChildren, setModalNewChildren] = useState(<></>);
   
 
   const openEditModalHandler = (id: number) => {
@@ -52,6 +53,22 @@ function SCStockPage() {
   const modalEditButtons = <div className={styles.mCEditButtons}><Button id={styles.btnCancel} onClick={hideEditModalHandler}>Abbrechen</Button>
   <Button id={styles.btnSave}>Speichern</Button></div>
 
+
+  const modalNewButtons = 
+    <>
+      <div className={styles.mCNewInputs}>
+        <SCInput type="text" placeholder = "Neuer Artikel" />
+        <SCInput type="text" placeholder = "Ist-Menge" />
+        <SCInput type="text" placeholder = "Soll-Menge" />
+      </div>
+      <div className={styles.mCNewButtons}>
+        <Button id = {styles.btnCancel} onClick ={hideNewModalHandler}>Abbrechen</Button>
+        <Button id = {styles.btnSave}>Speichern</Button>
+      </div>
+
+    </>
+  
+
   const editModal = (id: number) => {
     const editStock = stocks.filter((stock) => stock.id === id)[0];
 
@@ -65,6 +82,7 @@ function SCStockPage() {
       </div>
     );
   };
+
 
   
 
@@ -82,8 +100,7 @@ function SCStockPage() {
         <Modal
           modaltitle="Neuen Artikel hinzufügen"
           hideOverlay={hideNewModalHandler}
-          children={modalEditChildren}
-          buttons={modalEditButtons}
+          buttons={modalNewButtons}
         />
       )}
       <div className={styles.contentCenter}>
