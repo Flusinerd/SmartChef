@@ -57,6 +57,25 @@
 .mCButtons button{
     width: 8rem;
 }
+.mcAddContent{
+  display: flex;
+  
+}
+.mcInput{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.mCAddButtons{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  
+}
+
+.mCAddTitle{
+ margin-right: 5rem;
+}
 
 #btnLeave {
   background-color: var(--grey);
@@ -78,5 +97,8 @@
     }
     .mCButtons button:first-of-type{
         margin-right: 1rem;
+    }
+    .mCAddButtons{
+      margin-right: 1rem;
     }
 }
