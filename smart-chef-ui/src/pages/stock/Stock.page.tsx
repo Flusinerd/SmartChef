@@ -28,7 +28,8 @@ function SCStockPage() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showNewModal, setShowNewModal] = useState(false);
 
-  const [modalChildren, setModalChildren] = useState(<div></div>);
+  const [modalEditChildren, setModalEditChildren] = useState(<></>);
+  
 
   const openEditModalHandler = (id: number) => {
     editModal(id);
@@ -47,23 +48,25 @@ function SCStockPage() {
     setShowNewModal(false);
   };
 
+
+  const modalEditButtons = <div className={styles.mCEditButtons}><Button id={styles.btnCancel} onClick={hideEditModalHandler}>Abbrechen</Button>
+  <Button id={styles.btnSave}>Speichern</Button></div>
+
   const editModal = (id: number) => {
     const editStock = stocks.filter((stock) => stock.id === id)[0];
 
-    setModalChildren(
-      <div className={styles.mCWrapper}>
-        <div className={styles.mCTitle}>{editStock.product}</div>
-        <div className={styles.mCInputWrapper}>
+    setModalEditChildren(
+      <div className={styles.mCEditWrapper}>
+        <div className={styles.mCEditTitle}>{editStock.product}</div>
+        <div className={styles.mCEditInputWrapper}>
           <SCInput type="text" placeholder="Ist-Menge" />
           <SCInput type="text" placeholder="Soll-Menge" />
-        </div>
-        <div className={styles.mCButtonWrapper}>
-          <Button onClick={hideEditModalHandler}>Abbrechen</Button>
-          <Button>Speichern</Button>
         </div>
       </div>
     );
   };
+
+  
 
   return (
     <SCResponsiveContainer>
@@ -71,14 +74,16 @@ function SCStockPage() {
         <Modal
           modaltitle="Artikel verwalten"
           hideOverlay={hideEditModalHandler}
-          children={modalChildren}
+          children={modalEditChildren}
+          buttons={modalEditButtons}
         />
       )}
       {showNewModal && (
         <Modal
-          modaltitle="Artikel verwalten"
+          modaltitle="Neuen Artikel hinzufügen"
           hideOverlay={hideNewModalHandler}
-          children={modalChildren}
+          children={modalEditChildren}
+          buttons={modalEditButtons}
         />
       )}
       <div className={styles.contentCenter}>

@@ -1,7 +1,7 @@
 .actions input {
   background-color: #f2f2f280;
   border-style: none;
-} 
+}
 
 .usersBackground {
   display: flex;
@@ -36,8 +36,8 @@
   align-items: center;
 }
 
-.switchhousehold button:hover{
-    color: var(--primary-color);
+.switchhousehold button:hover {
+  color: var(--primary-color);
 }
 
 .exit {
@@ -45,5 +45,38 @@
   margin-left: 1rem;
 }
 
+.mCTitle {
+  margin-bottom: 1.5rem;
+}
 
+.mCButtons{
+    display: flex;
+    justify-content: space-between;
+}
 
+.mCButtons button{
+    width: 8rem;
+}
+
+#btnLeave {
+  background-color: var(--grey);
+  color: var(--text-color);
+  box-shadow: none;
+}
+
+#btnLeave:hover {
+  background-color: #c0bfbf4f;
+}
+
+#btnLeave:active {
+  background-color: #f5f5f54f;
+}
+
+@media screen and (min-width: 465px) {
+    .mCButtons{
+        justify-content: flex-end;
+    }
+    .mCButtons button:first-of-type{
+        margin-right: 1rem;
+    }
+}
