@@ -63,6 +63,7 @@ function SCUsersPage() {
       {showAddModal && (
         <SCModal 
         modaltitle="Nutzer zu Haushalt hinzufügen:"
+        children={modalAddChildren}
         hideOverlay={hideModal}
         buttons={modalAddButtons}
         />

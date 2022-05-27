@@ -13,11 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from posixpath import basename
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import HouseholdViewSet, UserViewSet, AuthViewSet
+from .views import HouseholdViewSet, UserViewSet, AuthViewSet, ProductViewSet
 from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
@@ -26,6 +27,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'households', HouseholdViewSet)
 router.register(r'auth', AuthViewSet, basename='auth')
+router.register(r'products', ProductViewSet, basename='products')
 
 urlpatterns = [
     path('api/', include(router.urls)),

@@ -1,4 +1,6 @@
 import { Result } from "@zxing/library";
+import axios from "axios";
+import { baseUrl } from "../../api";
 import { useEffect, useState } from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import SCButton from "../../components/button/button";
@@ -8,18 +10,53 @@ import Add from "./add.svg";
 import Dude from "./dude.svg";
 import Remove from "./remove.svg";
 import styles from "./Scanpage.module.css";
+import {ManyResponseDTO} from "../../shared/many-response";
+import { ProductDTO } from "../../shared/product";
+import SCModal from "../../components/modal/Modal";
 
 const SCScanPage = () => {
   const [scannedProducts, setScannedProducts] = useState<Product[]>([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const hideModal = () => {
+    setShowModal(false);
+  };
+
+  const modalChildren = (
+    <div className={styles.mCTitle}>
+      Wollen Sie wirklich den Haushalt XXX verlassen?
+    </div>
+  );
+
+
+  const modalButtons = (
+    <div className={styles.mCButtons}>
+      <SCButton id={styles.btnLeave}>Verlassen</SCButton>
+      <SCButton id={styles.btnCancel} onClick={hideModal}>
+        Abbrechen
+      </SCButton>
+    </div>
+  );
+
 
   // When a product is scanned, add it to the list of scanned products, if the code is not already in the list
-  const handleScan = (result: Result) => {
-    setScannedProducts((prev) => {
-      const newProduct = new Product(
-        "Test",
-        "" + (prev.length + 1),
-        result.getText()
+  const handleScan = async (result: Result) => {
+
+    const products = await axios.get<ManyResponseDTO<ProductDTO>>(`${baseUrl}/api/products?gtin=${result.getText()}`)
+
+    if (products.data.count === 0){
+        setShowModal(true);
+        return
+    }
+
+    const newProduct = new Product(
+        products.data.results[0].name,
+        products.data.results[0].id,
+        products.data.results[0].gtin,
       );
+
+    setScannedProducts((prev) => {
+      
       const product = prev.find((p) => p.code === newProduct.code);
       if (!product) {
         return [...prev, newProduct];
@@ -38,6 +75,14 @@ const SCScanPage = () => {
 
   return (
     <SCResponsiveContainer pageTitle="Scannen">
+        {showModal && (
+        <SCModal
+          modaltitle="Haushalt verlassen"
+          children={modalChildren}
+          hideOverlay={hideModal}
+          buttons={modalButtons}
+        />
+      )}
       <div className={styles.scanWrapper}>
         <img src={Dude} alt="" className={styles["bg-image"]} />
         <div className="">
