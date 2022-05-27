@@ -13,6 +13,6 @@ export enum UNITS{
     GRAM = 'GRAM',
     KILOGRAM = 'KILOGRAM',
     LITER = 'LITER',
-    MILILITER = 'MILILITER',
+    MILLILITER = 'MILLILITER',
     PIECE = 'PIECE',
 }

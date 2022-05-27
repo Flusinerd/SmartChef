@@ -52,3 +52,56 @@ ul.results li:last-child {
   width: 1.5rem;
   height: 1.5rem;
 }
+
+
+.mCWrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.mCWrapper h2{
+    font-size: 1.125rem;
+}
+
+.mcMain{
+    margin-top: 1rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mcAmountUnit{
+    display: flex;
+    flex-direction: row;
+}
+
+.mcAmountUnit input{
+    width: 8rem;
+    margin-right: 1rem;
+    transition: width 0.25s ease-in-out;
+}
+
+.mcAmountUnit select{
+    width: 10rem;
+}
+
+.mCButtons{
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.25s ease-in-out;
+}
+
+@media screen and (min-width: 500px) {
+    .mcAmountUnit input{
+        width: 12rem;
+    }
+
+    .mCButtons{
+        justify-content: flex-end;
+    }
+
+    .mCButtons button:first-of-type{
+        margin-right: 1rem;
+    }
+}

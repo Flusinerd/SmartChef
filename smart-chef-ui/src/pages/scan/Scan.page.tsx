@@ -10,53 +10,70 @@ import Add from "./add.svg";
 import Dude from "./dude.svg";
 import Remove from "./remove.svg";
 import styles from "./Scanpage.module.css";
-import {ManyResponseDTO} from "../../shared/many-response";
+import { ManyResponseDTO } from "../../shared/many-response";
 import { ProductDTO } from "../../shared/product";
 import SCModal from "../../components/modal/Modal";
+import SCInput from "../../components/input/Input";
+import SCSelect from "../../components/select/Select";
 
 const SCScanPage = () => {
   const [scannedProducts, setScannedProducts] = useState<Product[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   const hideModal = () => {
     setShowModal(false);
   };
 
+  const unitOptions = [
+    { id: "GRAM", value: "GRAM", label: "Gramm" },
+    { id: "KILOGRAM", value: "KILOGRAM", label: "Kilogramm" },
+    { id: "LITER", value: "LITER", label: "Liter" },
+    { id: "MILLILITER", value: "MILLILITER", label: "Milliliter" },
+    { id: "PIECE", value: "PIECE", label: "Stück" },
+  ];
+
   const modalChildren = (
-    <div className={styles.mCTitle}>
-      Wollen Sie wirklich den Haushalt XXX verlassen?
+    <div className={styles.mCWrapper}>
+      <h2>Bitte fügen Sie den Artikel hinzu</h2>
+      <div className={styles.mcMain}>
+        <SCInput placeholder="Produktname" />
+        <SCInput placeholder="Hersteller" />
+        <div className={styles.mcAmountUnit}>
+          {/* typeof='number' ? ging nicht */}
+          <SCInput placeholder="Menge" />
+          <SCSelect options={unitOptions} />
+        </div>
+      </div>
     </div>
   );
 
-
   const modalButtons = (
     <div className={styles.mCButtons}>
-      <SCButton id={styles.btnLeave}>Verlassen</SCButton>
+      <SCButton id={styles.btnLeave}>Hinzufügen</SCButton>
       <SCButton id={styles.btnCancel} onClick={hideModal}>
         Abbrechen
       </SCButton>
     </div>
   );
 
-
   // When a product is scanned, add it to the list of scanned products, if the code is not already in the list
   const handleScan = async (result: Result) => {
+    const products = await axios.get<ManyResponseDTO<ProductDTO>>(
+      `${baseUrl}/api/products?gtin=${result.getText()}`
+    );
 
-    const products = await axios.get<ManyResponseDTO<ProductDTO>>(`${baseUrl}/api/products?gtin=${result.getText()}`)
-
-    if (products.data.count === 0){
-        setShowModal(true);
-        return
+    if (products.data.count === 0) {
+      setShowModal(true);
+      return;
     }
 
     const newProduct = new Product(
-        products.data.results[0].name,
-        products.data.results[0].id,
-        products.data.results[0].gtin,
-      );
+      products.data.results[0].name,
+      products.data.results[0].id,
+      products.data.results[0].gtin
+    );
 
     setScannedProducts((prev) => {
-      
       const product = prev.find((p) => p.code === newProduct.code);
       if (!product) {
         return [...prev, newProduct];
@@ -75,9 +92,9 @@ const SCScanPage = () => {
 
   return (
     <SCResponsiveContainer pageTitle="Scannen">
-        {showModal && (
+      {showModal && (
         <SCModal
-          modaltitle="Haushalt verlassen"
+          modaltitle="Unbekannter Artikel"
           children={modalChildren}
           hideOverlay={hideModal}
           buttons={modalButtons}
