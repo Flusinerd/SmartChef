@@ -1,7 +1,9 @@
-from django.utils import timezone
 import threading
 import time
+
+from django.utils import timezone
 from schedule import Scheduler
+
 from .models import UsedRefreshTokens
 
 

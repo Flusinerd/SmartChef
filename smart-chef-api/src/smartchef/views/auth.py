@@ -1,18 +1,20 @@
-from typing import List
-import jwt
-from rest_framework.viewsets import ViewSet
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from ..serializers import AuthSerializer, RefreshTokenSerializer, LoginRequestSerializer, TokenPairSerializer
-from ..models import User, Household, Application, UsedRefreshTokens
-from ..shared import RefreshToken
-from django.contrib.auth.hashers import check_password
-from django.utils import timezone
-from jwt import encode, decode
 from datetime import datetime, timedelta
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
-from drf_spectacular.types import OpenApiTypes
+from typing import List
+
+import jwt
+from django.contrib.auth.hashers import check_password
 from django.db.utils import DatabaseError
+from django.utils import timezone
+from drf_spectacular.utils import extend_schema
+from jwt import decode, encode
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.viewsets import ViewSet
+
+from ..models import Application, Household, UsedRefreshTokens, User
+from ..serializers import (AuthSerializer, LoginRequestSerializer,
+                           RefreshTokenSerializer, TokenPairSerializer)
+from ..shared import RefreshToken
 
 
 class AuthViewSet(ViewSet):

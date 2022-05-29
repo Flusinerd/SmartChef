@@ -1,10 +1,9 @@
-from rest_framework import viewsets
+from django.db import IntegrityError
 from django.http import HttpResponse
+from rest_framework import permissions, viewsets
+
 from ..models.user import User
 from ..serializers.user import CreateUserSerializer, UserSerializer
-from django.db import IntegrityError
-from rest_framework import mixins, viewsets, permissions
-from rest_framework.decorators import action
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -1,8 +1,10 @@
 import string
+
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import viewsets
+
 from ..models import Product
 from ..serializers.product import ProductSerializer
-from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -20,7 +22,6 @@ class ProductViewSet(viewsets.ModelViewSet):
                              description='gtin', required=False, type=string),
         ],
     )
-
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
@@ -29,6 +30,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         gtin = self.request.query_params.get('gtin')
 
         if gtin is not None:
-            queryset = queryset.filter(gtin = gtin)
+            queryset = queryset.filter(gtin=gtin)
 
         return queryset

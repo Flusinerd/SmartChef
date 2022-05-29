@@ -1,4 +1,5 @@
 from .resource import Resource
+
 from .application import Application
 from .auth_code import AuthCode
 from .household import Household

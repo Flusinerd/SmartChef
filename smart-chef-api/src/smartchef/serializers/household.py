@@ -1,7 +1,9 @@
+from rest_framework import serializers
+
+from ..models import HouseholdStock, User
 from ..models.household import Household
 from .resource import ResourceSerializer
-from ..models import User
-from rest_framework import serializers
+from .stock import HouseholdStockSerializer
 
 
 class HouseholdSerializer(ResourceSerializer):
@@ -10,6 +12,13 @@ class HouseholdSerializer(ResourceSerializer):
 
     owner = serializers.SlugRelatedField(
         slug_field='id', queryset=User.objects.all())
+
+    # Load related household stocks
+    def to_representation(self, instance):
+        data = super(HouseholdSerializer, self).to_representation(instance)
+        data['stock'] = HouseholdStockSerializer(
+            HouseholdStock.objects.filter(household=instance), many=True).data
+        return data
 
     def create(self, validated_data):
         # Check if the context is set
@@ -24,7 +33,8 @@ class HouseholdSerializer(ResourceSerializer):
 
     class Meta:
         model = Household
-        fields = ('id', 'createdAt', 'updatedAt', 'name', 'owner', 'users')
+        fields = ('id', 'createdAt', 'updatedAt',
+                  'name', 'owner', 'users')
 
         # users field is optional
         extra_kwargs = {

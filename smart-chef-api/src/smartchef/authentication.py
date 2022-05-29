@@ -1,9 +1,10 @@
-from asyncio import exceptions
 import os
-from rest_framework import authentication
+
 import jwt
-from .shared import AccessToken
+from rest_framework import authentication
+
 from .models import User
+from .shared import AccessToken
 
 
 class BearerAuthentication(authentication.TokenAuthentication):

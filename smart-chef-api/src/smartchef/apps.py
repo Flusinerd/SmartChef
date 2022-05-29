@@ -1,4 +1,3 @@
-import os
 from django.apps import AppConfig
 from dotenv import load_dotenv
 

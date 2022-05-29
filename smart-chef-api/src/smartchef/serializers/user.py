@@ -1,9 +1,10 @@
-from ..models import User
-from .resource import ResourceSerializer
 import smartchef.serializers.household as HouseholdSerializer
 from django.contrib.auth.hashers import make_password
 from django.db.transaction import atomic
 from rest_framework import serializers
+
+from ..models import User
+from .resource import ResourceSerializer
 
 
 class UserSerializer(ResourceSerializer):
