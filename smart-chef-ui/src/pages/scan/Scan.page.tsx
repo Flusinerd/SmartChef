@@ -18,7 +18,7 @@ import SCSelect from "../../components/select/Select";
 
 const SCScanPage = () => {
   const [scannedProducts, setScannedProducts] = useState<Product[]>([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const hideModal = () => {
     setShowModal(false);
