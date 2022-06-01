@@ -8,6 +8,10 @@ import SCModal from "../../components/modal/Modal";
 import { useState } from "react";
 import SCButton from "../../components/button/button";
 import SCFab from "../../components/fab/Fab";
+import axios from "axios";
+import { baseUrl } from "../../api";
+import { ManyResponseDTO } from "../../shared/many-response";
+import { HouseholdDTO } from "../../shared/household";
 
 function SCUsersPage() {
   const [showModal, setShowModal] = useState(false);
@@ -50,7 +54,21 @@ function SCUsersPage() {
     </div>
   );
 
+  const handleHousehold = async () => {
+    const households = await axios.get<ManyResponseDTO<HouseholdDTO>>(
+      `${baseUrl}/api/households?owner_id=ec4098e4c7d1454a85c5c7874ce5180d`
+
+
+      
+    )
+    return households.data.results[0].name;
+  };
+
+  const currentHousehold = handleHousehold();
+
+
   return (
+    
     <SCResponsiveContainer>
       {showModal && (
         <SCModal
@@ -73,7 +91,7 @@ function SCUsersPage() {
         <div className={styles.contentwrapper}>
           <div className={styles.actions}>
             <div className={styles.switchhousehold}>
-              <SCInput placeholder="Haushalt 1" disabled={true} />
+              <SCInput placeholder={String(currentHousehold)} disabled={true} />
               <button onClick={() => setShowModal(true)}>
                 <Exit className={styles.exit} />
               </button>
@@ -90,3 +108,4 @@ function SCUsersPage() {
 }
 
 export default SCUsersPage;
+
