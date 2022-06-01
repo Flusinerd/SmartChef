@@ -8,8 +8,25 @@ export class AuthService {
   private readonly REFRESH_TOKEN_LS_KEY = "sc_refresh_token";
 
   private apiUrl = "http://localhost:8000";
-  private isLoggedIn = false;
-  private accessToken?: string;
+  public isLoggedIn = false;
+  private _accessToken?: string;
+  set accessToken(string) {
+    this._accessToken = string;
+    if (this._accessToken) {
+      this.isLoggedIn = true;
+      // Decode token
+      this.tokenData = jwt_decode<AccessTokenPayload>(this._accessToken);
+    } else {
+      this.isLoggedIn = false;
+    }
+  }
+
+  get accessToken() {
+    return this._accessToken;
+  }
+
+  public tokenData?: AccessTokenPayload;
+
   private refreshToken?: string;
   private clientId = "91746da8-079f-44e0-bdae-bbf4b62c0adf";
   private axiosInstance = axios.create();
@@ -18,6 +35,8 @@ export class AuthService {
   private refreshInProgress: Promise<void> | undefined;
   private loginInProgress: Promise<void> | undefined;
   private loadInProgress: Promise<void> | undefined;
+
+  public households = [];
 
   private apiConfig = new Configuration({
     basePath: this.apiUrl,
@@ -99,7 +118,7 @@ export class AuthService {
         const response = await this.api.apiAuthRefreshCreate({
           refresh_token: this.refreshToken,
         });
-        if (response.status === 201) {
+        if (response.status === 200) {
           this.accessToken = response.data.accessToken;
           this.refreshToken = response.data.refreshToken;
           this.isLoggedIn = true;
