@@ -4,10 +4,11 @@ import {
   SelectHTMLAttributes,
   useState,
 } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 import "./Select.css";
 
 function SCSelect(props: SelectProps) {
-  const { options, onChange, value, placeholder, disabled } = props;
+  const { options, onChange, value, placeholder, disabled, register } = props;
   const [valueState, setValue] = useState(value);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -19,9 +20,12 @@ function SCSelect(props: SelectProps) {
 
   return (
     <select
-      onChange={(value) => handleChange(value)}
-      value={valueState ?? "placeholder"}
+      // value={valueState ?? "placeholder"}
       disabled={disabled}
+      {...register}
+      // only set onChange and value if register is not set
+      onChange={register ? undefined : handleChange}
+      value={register ? undefined : valueState}
       className="sc-select"
     >
       {placeholder && (
@@ -33,7 +37,7 @@ function SCSelect(props: SelectProps) {
       {/* Map options */}
       {options &&
         options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option value={option.value} key={option.value}>
             {option.label}
           </option>
         ))}
@@ -42,7 +46,7 @@ function SCSelect(props: SelectProps) {
 }
 export default SCSelect;
 
-type SCSelectOption = {
+export type SCSelectOption = {
   value: string;
   label: string;
 };
@@ -53,4 +57,5 @@ export class SelectProps implements SelectHTMLAttributes<HTMLSelectElement> {
   options?: SCSelectOption[];
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   disabled?: boolean;
+  register?: UseFormRegisterReturn;
 }

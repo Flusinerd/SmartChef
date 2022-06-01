@@ -53,55 +53,57 @@ ul.results li:last-child {
   height: 1.5rem;
 }
 
-
-.mCWrapper{
-    display: flex;
-    flex-direction: column;
+.mCWrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-.mCWrapper h2{
-    font-size: 1.125rem;
+.mCWrapper h2 {
+  font-size: 1.125rem;
 }
 
-.mcMain{
-    margin-top: 1rem;
-    height: 10rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.mcMain {
+  gap: 0.5rem;
+  margin-top: 1rem;
+  /* height: 10rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.mcAmountUnit{
-    display: flex;
-    flex-direction: row;
+.mcAmountUnit {
+  display: flex;
+  flex-direction: row;
 }
 
-.mcAmountUnit input{
-    width: 8rem;
-    margin-right: 1rem;
-    transition: width 0.25s ease-in-out;
+.mcAmountUnit input {
+  width: 8rem;
+  margin-right: 1rem;
+  transition: width 0.25s ease-in-out;
 }
 
-.mcAmountUnit select{
-    width: 10rem;
+.mcAmountUnit select {
+  width: 10rem;
 }
 
-.mCButtons{
-    display: flex;
-    justify-content: space-between;
-    transition: all 0.25s ease-in-out;
+.mCButtons {
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.25s ease-in-out;
+  margin-bottom: 0px;
+  margin-top: auto;
 }
 
 @media screen and (min-width: 500px) {
-    .mcAmountUnit input{
-        width: 12rem;
-    }
+  .mcAmountUnit input {
+    width: 12rem;
+  }
 
-    .mCButtons{
-        justify-content: flex-end;
-    }
+  .mCButtons {
+    justify-content: flex-end;
+  }
 
-    .mCButtons button:first-of-type{
-        margin-right: 1rem;
-    }
+  .mCButtons button:first-of-type {
+    margin-right: 1rem;
+  }
 }

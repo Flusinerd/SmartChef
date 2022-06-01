@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from posixpath import basename
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
@@ -21,13 +22,14 @@ from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
                                    SpectacularSwaggerView)
 from rest_framework import routers
 
-from .views import AuthViewSet, HouseholdViewSet, ProductViewSet, UserViewSet
+from .views import AuthViewSet, HouseholdViewSet, ProductViewSet, UserViewSet, ProductCategoryViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'households', HouseholdViewSet)
 router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'products', ProductViewSet, basename='products')
+router.register(r'productcategories', ProductCategoryViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),

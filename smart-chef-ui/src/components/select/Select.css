@@ -1,9 +1,11 @@
 select.sc-select {
   border: none;
   background-color: #f8f9fa;
+  border: 1px solid #9f9f9f;
   border-radius: 0.5rem;
+  height: 34px;
 
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
 
   transition: box-shadow 0.2s, opacity 0.2s, background-color 0.2s;
 }

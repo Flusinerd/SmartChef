@@ -11,18 +11,54 @@ import Dude from "./dude.svg";
 import Remove from "./remove.svg";
 import styles from "./Scanpage.module.css";
 import { ManyResponseDTO } from "../../shared/many-response";
-import { ProductDTO } from "../../shared/product";
+import { CreateProductDto, ProductDTO } from "../../shared/product";
 import SCModal from "../../components/modal/Modal";
 import SCInput from "../../components/input/Input";
 import SCSelect from "../../components/select/Select";
+import { useForm } from "react-hook-form";
+import { ProductCategoryDto } from "../../shared/product-category";
+import { AuthService } from "../../authentication";
 
 const SCScanPage = () => {
-  const [scannedProducts, setScannedProducts] = useState<Product[]>([]);
-  const [showModal, setShowModal] = useState(true);
+  type ProductWithPieces = Product & {
+    pieces: number;
+  };
+
+  const [scannedProducts, setScannedProducts] = useState<ProductWithPieces[]>(
+    []
+  );
+  const [showModal, setShowModal] = useState(false);
+  const [latestGtin, setLatestGtin] = useState("");
+  const [productCategoryOptions, setProductCategoryOptions] = useState<
+    ProductCategoryDto[]
+  >([]);
+
+  const authService = AuthService.getInstance();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<FormValues>({
+    mode: "all",
+  });
 
   const hideModal = () => {
     setShowModal(false);
   };
+
+  const getProductCategories = async () => {
+    const response = await axios.get<ManyResponseDTO<ProductCategoryDto>>(
+      `${baseUrl}/api/productcategories`
+    );
+    setProductCategoryOptions(
+      response.data.results.sort((a, b) => (a.name > b.name ? 1 : -1))
+    );
+  };
+
+  useEffect(() => {
+    getProductCategories();
+  }, []);
 
   const unitOptions = [
     { id: "GRAM", value: "GRAM", label: "Gramm" },
@@ -32,34 +68,124 @@ const SCScanPage = () => {
     { id: "PIECE", value: "PIECE", label: "Stück" },
   ];
 
-  const modalChildren = (
-    <div className={styles.mCWrapper}>
-      <h2>Bitte fügen Sie den Artikel hinzu</h2>
-      <div className={styles.mcMain}>
-        <SCInput placeholder="Produktname" />
-        <SCInput placeholder="Hersteller" />
-        <div className={styles.mcAmountUnit}>
-          {/* typeof='number' ? ging nicht */}
-          <SCInput placeholder="Menge" />
-          <SCSelect options={unitOptions} />
-        </div>
-      </div>
-    </div>
-  );
+  const onNewProductSubmit = async (data: FormValues) => {
+    console.log(data);
+    const res = await axios.post<ProductDTO>(`${baseUrl}/api/products/`, {
+      amount: parseFloat(data.amount),
+      gtin: latestGtin,
+      name: data.name,
+      category_id: data.type,
+      manufacturer: data.manufacturer,
+      unit: data.unit,
+    } as CreateProductDto);
+
+    setShowModal(false);
+
+    // Add new product to scannedProducts
+    setScannedProducts((prev) => [
+      ...prev,
+      {
+        pieces: 1,
+        amount: parseFloat(data.amount),
+        code: latestGtin,
+        id: res.data.id,
+        name: data.name,
+        unit: "Stk",
+      },
+    ]);
+  };
 
   const modalButtons = (
     <div className={styles.mCButtons}>
-      <SCButton id={styles.btnLeave}>Hinzufügen</SCButton>
+      <SCButton id={styles.btnLeave} type="submit" disabled={!isValid}>
+        Hinzufügen
+      </SCButton>
       <SCButton id={styles.btnCancel} onClick={hideModal}>
         Abbrechen
       </SCButton>
     </div>
   );
 
+  const modalChildren = (
+    <div className={styles.mCWrapper}>
+      <h2>Bitte fügen Sie den Artikel hinzu</h2>
+      <form
+        className={styles.mcMain}
+        onSubmit={handleSubmit(onNewProductSubmit)}
+      >
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col">
+            <SCInput
+              placeholder="Produktname*"
+              register={register("name", {
+                required: "Produktname wird benötigt",
+              })}
+              className="flex-auto"
+            />
+            {errors.name?.type === "required" && (
+              <span className="color-primary mt-2">{errors.name?.message}</span>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <SCSelect
+              placeholder="Produkt-Typ*"
+              register={register("type", {
+                required: "Produkt-Typ wird benötigt",
+              })}
+              options={productCategoryOptions.map((option) => ({
+                value: option.id,
+                label: option.name,
+              }))}
+            />
+            {errors.name?.type === "required" && (
+              <span className="color-primary mt-2">{errors.name?.message}</span>
+            )}
+          </div>
+        </div>
+        <SCInput
+          placeholder="Hersteller*"
+          register={register("manufacturer", {
+            required: "Hersteller wird benötigt",
+          })}
+        />
+        {errors.manufacturer?.type === "required" && (
+          <span className="color-primary">{errors.manufacturer?.message}</span>
+        )}
+        <div className={styles.mcAmountUnit}>
+          <div className="flex flex-col gap-2">
+            <SCInput
+              placeholder="Menge pro Stück*"
+              type="number"
+              step="any"
+              register={register("amount", {
+                required: "Produktmenge wird benötigt",
+              })}
+            />
+            {errors.amount?.type === "required" && (
+              <span className="color-primary">{errors.amount?.message}</span>
+            )}
+          </div>
+          <SCSelect
+            options={unitOptions}
+            register={register("unit", { required: "Einheit wird benötigt" })}
+          />
+          {errors.unit?.type === "required" && (
+            <span className="color-primary">{errors.unit?.message}</span>
+          )}
+        </div>
+        {modalButtons}
+      </form>
+    </div>
+  );
+
   // When a product is scanned, add it to the list of scanned products, if the code is not already in the list
   const handleScan = async (result: Result) => {
+    const gtin = result.getText();
+
+    setLatestGtin(gtin);
+
     const products = await axios.get<ManyResponseDTO<ProductDTO>>(
-      `${baseUrl}/api/products?gtin=${result.getText()}`
+      `${baseUrl}/api/products?gtin=${gtin}`
     );
 
     if (products.data.count === 0) {
@@ -76,14 +202,34 @@ const SCScanPage = () => {
     setScannedProducts((prev) => {
       const product = prev.find((p) => p.code === newProduct.code);
       if (!product) {
-        return [...prev, newProduct];
+        return [
+          ...prev,
+          {
+            pieces: 1,
+            ...newProduct,
+          },
+        ];
       }
       return prev;
     });
   };
 
-  const onSubmit = () => {
-    console.log("Submit");
+  const onSubmit = async () => {
+    console.log("Submit", scannedProducts);
+    if (
+      !authService.tokenData ||
+      !authService.tokenData.householdIds ||
+      authService.tokenData.householdIds.length === 0
+    ) {
+      alert("Sie müssen sich zuerst in einem Haushalt einloggen");
+    }
+    await axios.post(
+      `${baseUrl}/api/households/${authService.tokenData?.householdIds[0]}/stock/`,
+      scannedProducts.map((p) => ({
+        productId: p.id,
+        quantity: p.amount * p.pieces,
+      })) as UpdateStockDTO[]
+    );
   };
 
   useEffect(() => {
@@ -97,7 +243,6 @@ const SCScanPage = () => {
           modaltitle="Unbekannter Artikel"
           children={modalChildren}
           hideOverlay={hideModal}
-          buttons={modalButtons}
         />
       )}
       <div className={styles.scanWrapper}>
@@ -117,18 +262,20 @@ const SCScanPage = () => {
           {scannedProducts.length > 0 && (
             <>
               <ul className={styles.results}>
-                {scannedProducts.map((product: Product) => (
+                {scannedProducts.map((product: ProductWithPieces) => (
                   <li key={product.id}>
                     <span>{product.name}</span>
                     <div className="flex items-center">
-                      <span className="mr-2">{product.amount}x</span>
+                      <span className="mr-2">
+                        {product.pieces} {product.unit}
+                      </span>
                       <button
                         onClick={() => {
                           // Increase amount of product
                           setScannedProducts(
                             scannedProducts.map((p) =>
                               p.code === product.code
-                                ? { ...p, amount: p.amount + 1 }
+                                ? { ...p, pieces: p.pieces + 1 }
                                 : p
                             )
                           );
@@ -142,12 +289,12 @@ const SCScanPage = () => {
                           setScannedProducts(
                             scannedProducts.map((p) =>
                               p.code === product.code
-                                ? { ...p, amount: p.amount - 1 }
+                                ? { ...p, pieces: p.pieces - 1 }
                                 : p
                             )
                           );
 
-                          if (product.amount === 1) {
+                          if (product.pieces === 1) {
                             setScannedProducts(
                               scannedProducts.filter(
                                 (p) => p.code !== product.code
@@ -180,10 +327,25 @@ class Product {
   code: string;
   name: string;
   amount = 1;
+  unit: string;
 
-  constructor(name: string, id: string, code: string) {
+  constructor(name: string, id: string, code: string, unit: string = "Stk") {
     this.id = id;
     this.code = code;
     this.name = name;
+    this.unit = unit;
   }
 }
+
+type FormValues = {
+  name: string;
+  manufacturer: string;
+  amount: string;
+  unit: string;
+  type: string;
+};
+
+type UpdateStockDTO = {
+  productId: string;
+  quantity: number;
+};

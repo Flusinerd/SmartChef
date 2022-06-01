@@ -23,6 +23,6 @@ button.sc-button:active {
 
 button.sc-button:disabled {
   background-color: var(--disabled-color);
-  color: var(--gray-light);
+  color: #999;
   cursor: not-allowed;
 }
