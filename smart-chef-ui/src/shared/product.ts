@@ -1,3 +1,5 @@
+import { ProductCategoryDto } from "./product-category";
+
 export interface ProductDTO {
   id: string;
   createdAt: Date;
@@ -7,6 +9,10 @@ export interface ProductDTO {
   description?: string;
   amount: number;
   unit: UNITS;
+}
+
+export interface ProductWithCategoryDTO extends ProductDTO {
+  category: ProductCategoryDto;
 }
 
 export interface CreateProductDto {

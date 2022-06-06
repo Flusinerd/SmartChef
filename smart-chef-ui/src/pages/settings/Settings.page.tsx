@@ -1,20 +1,40 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthService } from "../../authentication";
+import {
+  default as Button,
+  default as SCButton,
+} from "../../components/button/button";
 import Input from "../../components/input/Input";
-// import PasswordStrength from "../../components/passwordStrength/PasswordStrength";
-import Button from "../../components/button/button";
+import SCPasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
+import emailRegex from "../../shared/email-regex";
+import { classNames } from "../../shared/merge-classnames";
 import styles from "./Settings.module.css";
-// import SCModal from "../../components/modal/Modal";
 
 function SCSettingsPage() {
-  //   const [password, setPassword] = useState("");
-  //     const [passwordConfirm, setPasswordConfirm] = useState("");
-  //   const [passwordMatch, setPasswordMatch] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(false);
+  const [emailSet, setEmailSet] = useState(false);
+  const [passwordSet, setPasswordSet] = useState(false);
+  const [passwordConfirmSet, setPasswordConfirmSet] = useState(false);
 
-  //   React.useEffect(() => {
-  //     setPasswordMatch(password === passwordConfirm);
-  //   }, [password, passwordConfirm]);
+  const authService = AuthService.getInstance();
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors, isValid },
+  } = useForm<FormValues>({
+    mode: "all",
+  });
+
+  React.useEffect(() => {
+    setPasswordMatch(password === passwordConfirm);
+  }, [password, passwordConfirm]);
 
   const [overlayVisible, setOverlayVisible] = useState(false);
 
@@ -26,6 +46,39 @@ function SCSettingsPage() {
     setOverlayVisible(false);
   };
 
+  const onChange = (event: React.ChangeEvent<HTMLFormElement>) => {
+    // Check if the target is the password input
+    if (event.target.name === "password") {
+      setPassword(event.target.value);
+    } else if (event.target.name === "passwordConfirm") {
+      setPasswordConfirm(event.target.value);
+    }
+
+    // Check if the target is the email input
+    if (event.target.name === "email" && event.target.value !== "") {
+      setEmailSet(true);
+    } else if (event.target.name === "email" && event.target.value === "") {
+      setEmailSet(false);
+    }
+
+    // Check if the target is the password input
+    if (event.target.name === "password" && event.target.value !== "") {
+      setPasswordSet(true);
+    } else if (event.target.name === "password" && event.target.value === "") {
+      setPasswordSet(false);
+    }
+
+    // Check if the target is the passwordConfirm input
+    if (event.target.name === "passwordConfirm" && event.target.value !== "") {
+      setPasswordConfirmSet(true);
+    } else if (
+      event.target.name === "passwordConfirm" &&
+      event.target.value === ""
+    ) {
+      setPasswordConfirmSet(false);
+    }
+  };
+
   return (
     <SCResponsiveContainer pageTitle="Einstellungen">
       {/* {overlayVisible &&
@@ -34,37 +87,88 @@ function SCSettingsPage() {
         }} */}
 
       <div className={styles.wrapper}>
-        <div className={styles["user-settings"]}>
+        <form className={styles["user-settings"]} onChange={onChange}>
           <h2>Nutzereinstellungen</h2>
           <div className={styles.inputfield}>
             <label htmlFor="changeEmail">E-Mail ändern</label>
-            <Input placeholder="E-Mail Adresse" />
+            <Input
+              placeholder="E-Mail Adresse"
+              register={register("email", { pattern: emailRegex })}
+            />
+            {errors.email && (
+              <span className={styles.error}>E-Mail Adresse ist ungültig</span>
+            )}
           </div>
           <div className={styles.inputfield}>
             <label htmlFor="changePassword">Passwort ändern</label>
-            <Input placeholder="Passwort ändern" />
-            {/* <PasswordStrength  /> */}
+            <Input
+              type="password"
+              id="password-input"
+              placeholder="Passwort ändern"
+              autoComplete="new-password"
+              register={register("password", {
+                minLength: 8,
+                // Check for one lowercase letter, one uppercase letter and one number
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+              })}
+            ></Input>
+            {errors.password?.type === "minLength" && (
+              <span className="color-primary" data-cy="password-length-error">
+                Das Passwort muss mindestens 8 Zeichen lang sein
+              </span>
+            )}
+            {errors.password?.type === "pattern" && (
+              <span className="color-primary" data-cy="password-pattern-error">
+                Das Passwort muss einen Kleinbuchstaben, einen Großbuchstaben
+                und eine Ziffer enthalten
+              </span>
+            )}
+            <SCPasswordStrength
+              password={password}
+              className={styles["password-strength"]}
+            ></SCPasswordStrength>
           </div>
           <div className={styles.inputfield}>
             <label htmlFor="againPassword"></label>
-            <Input placeholder="Passwort bestätigen" />
+            <Input
+              type="password"
+              id="password-confirm-input"
+              placeholder="Passwort bestätigen"
+              autoComplete="new-password"
+              register={register("passwordConfirm", {
+                minLength: 8,
+                // Check for one lowercase letter, one uppercase letter and one number
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+              })}
+            ></Input>
+            {!passwordMatch && (
+              <span className="color-primary" data-cy="password-mismatch-error">
+                Die Passwörter stimmen nicht überein
+              </span>
+            )}
           </div>
-        </div>
+        </form>
 
         <div className={styles.actions}>
           <div>
-            <Button className={styles.buttons} id={styles.btn1}>
+            <SCButton
+              className={classNames(styles.button, styles.alternate)}
+              // The button should be disabled, if none of the inputs are filled
+              // or if the passwords don't match
+              // or if the form is invalid
+              disabled={
+                !isValid ||
+                !passwordMatch ||
+                (!passwordSet && !passwordConfirmSet && !emailSet)
+              }
+            >
               Änderungen speichern
-            </Button>
+            </SCButton>
           </div>
           <div>
-            <Button
-              className={styles.buttons}
-              id={styles.btn2}
-              onClick={showOverlayHandler}
-            >
+            <SCButton className={styles.button} onClick={showOverlayHandler}>
               Benutzerkonto löschen
-            </Button>
+            </SCButton>
           </div>
         </div>
 
@@ -73,16 +177,22 @@ function SCSettingsPage() {
           <div className={styles["hs-action"]}>
             <div>
               <Link to="/users">
-                <Button className={styles.buttons} id={styles.btn1}>
+                <SCButton
+                  className={classNames(styles.button, styles.alternate)}
+                  id={styles.btn1}
+                >
                   Mitglieder verwalten
-                </Button>
+                </SCButton>
               </Link>
             </div>
             <div>
               <Link to="/stock">
-                <Button className={styles.buttons} id={styles.btn1}>
+                <SCButton
+                  className={classNames(styles.button, styles.alternate)}
+                  id={styles.btn1}
+                >
                   Bestand verwalten
-                </Button>
+                </SCButton>
               </Link>
             </div>
           </div>
@@ -99,3 +209,9 @@ function SCSettingsPage() {
 }
 
 export default SCSettingsPage;
+
+type FormValues = {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};

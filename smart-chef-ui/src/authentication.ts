@@ -6,6 +6,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 export class AuthService {
   private static instance: AuthService;
   private readonly REFRESH_TOKEN_LS_KEY = "sc_refresh_token";
+  private readonly ACCESS_TOKEN_LS_KEY = "sc_access_token";
 
   private apiUrl = "http://localhost:8000";
   public isLoggedIn = false;
@@ -44,7 +45,7 @@ export class AuthService {
   private api = new AuthApi(this.apiConfig, undefined, this.axiosInstance);
 
   private constructor() {
-    createAuthRefreshInterceptor(axios, this.refreshAuthToken);
+    createAuthRefreshInterceptor(axios, this.refreshAuthToken.bind(this));
     this.addInterceptor();
   }
 
@@ -82,6 +83,7 @@ export class AuthService {
   }
 
   private async refreshAuthToken(failedRequest: any) {
+    const authToken = localStorage.getItem("sc_access_token");
     if (this.refreshToken) {
       const refreshToken = this.refreshToken;
       this.refreshToken = undefined;
@@ -96,10 +98,11 @@ export class AuthService {
   }
 
   private setTokens(response: AxiosResponse<TokenPair, any>) {
+    console.log("Setting tokens");
     this.accessToken = response.data.accessToken;
     this.refreshToken = response.data.refreshToken;
     this.isLoggedIn = true;
-    this.saveRefreshToken();
+    this.saveTokens();
   }
 
   private refreshAccessToken() {
@@ -122,7 +125,7 @@ export class AuthService {
           this.accessToken = response.data.accessToken;
           this.refreshToken = response.data.refreshToken;
           this.isLoggedIn = true;
-          this.saveRefreshToken();
+          this.saveTokens();
         } else {
           this.logout();
         }
@@ -145,15 +148,19 @@ export class AuthService {
     if (!config.headers) {
       config.headers = {};
     }
-    if (this && this.accessToken) {
-      config.headers["Authorization"] = `Bearer ${this.accessToken}`;
+    const accessToken = localStorage.getItem("sc_access_token");
+    if (accessToken) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
   }
 
-  private saveRefreshToken() {
+  private saveTokens() {
     if (this.refreshToken) {
       localStorage.setItem(this.REFRESH_TOKEN_LS_KEY, this.refreshToken);
+    }
+    if (this.accessToken) {
+      localStorage.setItem(this.ACCESS_TOKEN_LS_KEY, this.accessToken);
     }
   }
 
@@ -195,6 +202,7 @@ export class AuthService {
     this.refreshToken = undefined;
     this.isLoggedIn = false;
     localStorage.removeItem(this.REFRESH_TOKEN_LS_KEY);
+    localStorage.removeItem(this.ACCESS_TOKEN_LS_KEY);
   }
 }
 

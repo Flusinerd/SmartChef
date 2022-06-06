@@ -17,6 +17,6 @@ const Template: Story<SCIngredientsProps> = (args) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  items: [{ id: 1, title: "Tomatensaft", quantity: "3" }],
+  items: [{ id: "1", title: "Tomatensaft", quantity: "3" }],
   openOverlay: () => {},
 };

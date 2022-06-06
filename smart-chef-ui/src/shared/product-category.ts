@@ -5,3 +5,8 @@ export interface ProductCategoryDto {
   name: string;
   parent: string | null;
 }
+
+export interface ProductCategoryWithStockDTO extends ProductCategoryDto {
+  actual: number;
+  target: number;
+}

@@ -1,23 +1,48 @@
+import { classNames } from "../../shared/merge-classnames";
 import SCInput from "../input/Input";
-import "./Ingredient.css";
+import styles from "./Ingredient.module.css";
 
 function SCIngredient(props: SCIngredientProps) {
   return (
-    <li className="ingredientItem">
-      <div className="ingredientItemLi">
-        <SCInput type="checkbox" />
-        <div className="ingredientTitle">{props.title}</div>
+    <li
+      className={classNames(
+        styles["ingredientItem"],
+        props.strikeThrough ? styles["bought"] : ""
+      )}
+    >
+      <div className={styles["ingredientItemLi"]}>
+        <SCInput
+          type="checkbox"
+          onChange={(event) => {
+            props.onCheckboxClick(event.target.checked);
+          }}
+        />
+        <div
+          className={classNames(
+            styles["ingredientTitle"],
+            props.strikeThrough ? styles["strike-through"] : ""
+          )}
+        >
+          {props.title}
+        </div>
       </div>
-      <div className="ingredientQuantity">{props.quantity}</div>
-      
+      <div
+        className={classNames(
+          styles["ingredientQuantity"],
+          props.strikeThrough ? styles["strike-through"] : ""
+        )}
+      >
+        {props.quantity}
+      </div>
     </li>
-    
   );
 }
 export interface SCIngredientProps {
-  id?: number;
+  id: string;
   title: string;
   quantity: string;
+  strikeThrough?: boolean;
+  onCheckboxClick: (isChecked: boolean) => void;
 }
 
 export default SCIngredient;

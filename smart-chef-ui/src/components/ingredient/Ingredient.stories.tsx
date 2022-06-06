@@ -10,7 +10,12 @@ export default {
 
 const Template: Story = () => (
   <Router>
-    <SCIngredient id = {1} title = "Tomatensaft" quantity = "1 L"/>
+    <SCIngredient
+      id={"1"}
+      title="Tomatensaft"
+      quantity="1 L"
+      onCheckboxClick={() => {}}
+    />
   </Router>
 );
 

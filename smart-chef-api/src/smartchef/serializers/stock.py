@@ -15,7 +15,7 @@ class HouseholdStockSerializer(serializers.ModelSerializer):
 
 class UpdateStockSerializer(serializers.ModelSerializer):
     productId = serializers.CharField()
-    quantity = serializers.IntegerField()
+    quantity = serializers.FloatField()
 
     class Meta:
         model = HouseholdStock

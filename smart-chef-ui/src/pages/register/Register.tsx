@@ -234,7 +234,7 @@ function SCRegisterPage() {
                   Das Passwort muss mindestens 8 Zeichen lang sein
                 </span>
               )}
-              {password !== passwordConfirm && (
+              {!passwordMatch && (
                 <span
                   className="color-primary"
                   data-cy="password-mismatch-error"

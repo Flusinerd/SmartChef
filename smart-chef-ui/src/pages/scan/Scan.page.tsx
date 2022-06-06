@@ -32,6 +32,7 @@ const SCScanPage = () => {
   const [productCategoryOptions, setProductCategoryOptions] = useState<
     ProductCategoryDto[]
   >([]);
+  const [scanMode, setScanMode] = useState(false);
 
   const authService = AuthService.getInstance();
 
@@ -196,7 +197,9 @@ const SCScanPage = () => {
     const newProduct = new Product(
       products.data.results[0].name,
       products.data.results[0].id,
-      products.data.results[0].gtin
+      products.data.results[0].gtin,
+      products.data.results[0].unit,
+      products.data.results[0].amount
     );
 
     setScannedProducts((prev) => {
@@ -215,21 +218,24 @@ const SCScanPage = () => {
   };
 
   const onSubmit = async () => {
-    console.log("Submit", scannedProducts);
     if (
       !authService.tokenData ||
       !authService.tokenData.householdIds ||
       authService.tokenData.householdIds.length === 0
     ) {
       alert("Sie müssen sich zuerst in einem Haushalt einloggen");
+      return;
     }
-    await axios.post(
+    const quantityPrefix = scanMode === true ? -1 : 1;
+    await axios.patch(
       `${baseUrl}/api/households/${authService.tokenData?.householdIds[0]}/stock/`,
       scannedProducts.map((p) => ({
         productId: p.id,
-        quantity: p.amount * p.pieces,
+        quantity: quantityPrefix * p.amount * p.pieces,
       })) as UpdateStockDTO[]
     );
+    alert("Lagerbestand wurde erfolgreich aktualisiert");
+    setScannedProducts([]);
   };
 
   useEffect(() => {
@@ -249,7 +255,13 @@ const SCScanPage = () => {
         <img src={Dude} alt="" className={styles["bg-image"]} />
         <div className="">
           <div className={styles.toggleWrapper}>
-            <SCToggle activeLabel="Ausbuchen" inactiveLabel="Einscannen" />
+            <SCToggle
+              activeLabel="Ausbuchen"
+              inactiveLabel="Einscannen"
+              onChange={(data: any) => {
+                setScanMode(data.target.checked);
+              }}
+            />
           </div>
           <div className={styles.scan}>
             <BarcodeScannerComponent
@@ -267,7 +279,8 @@ const SCScanPage = () => {
                     <span>{product.name}</span>
                     <div className="flex items-center">
                       <span className="mr-2">
-                        {product.pieces} {product.unit}
+                        {scanMode === true ? "-" : ""}
+                        {product.pieces} Stck
                       </span>
                       <button
                         onClick={() => {
@@ -329,11 +342,18 @@ class Product {
   amount = 1;
   unit: string;
 
-  constructor(name: string, id: string, code: string, unit: string = "Stk") {
+  constructor(
+    name: string,
+    id: string,
+    code: string,
+    unit: string = "Stk",
+    amount = 1
+  ) {
     this.id = id;
     this.code = code;
     this.name = name;
     this.unit = unit;
+    this.amount = amount;
   }
 }
 
