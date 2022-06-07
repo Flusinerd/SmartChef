@@ -54,7 +54,7 @@
 }
 
 .hs-action button {
-  height: 60%;
+  height: auto;
   max-width: 25rem;
 }
 
