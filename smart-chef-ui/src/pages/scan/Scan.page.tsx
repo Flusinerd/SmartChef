@@ -117,7 +117,7 @@ const SCScanPage = () => {
         className={styles.mcMain}
         onSubmit={handleSubmit(onNewProductSubmit)}
       >
-        <div className="flex flex-row justify-between">
+        <div className="flex md:flex-row gap-2 justify-between flex-col">
           <div className="flex flex-col">
             <SCInput
               placeholder="Produktname*"

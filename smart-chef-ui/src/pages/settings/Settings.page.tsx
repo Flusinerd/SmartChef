@@ -232,10 +232,10 @@ function SCSettingsPage() {
             </div>
           </div>
         </form>
-        {/* <div className={styles["household-settings"]}>
+        <div className={styles["household-settings"]}>
           <h2>Haushaltseinstellungen</h2>
           <div className={styles["hs-action"]}>
-            <div>
+            {/* <div>
               <Link to="/users">
                 <SCButton
                   className={classNames(styles.button, styles.alternate)}
@@ -244,7 +244,7 @@ function SCSettingsPage() {
                   Mitglieder verwalten
                 </SCButton>
               </Link>
-            </div>
+            </div> */}
             <div>
               <Link to="/stock">
                 <SCButton
@@ -256,7 +256,7 @@ function SCSettingsPage() {
               </Link>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className={styles.bottomBtnContainer}>
           <Link to="/login">

@@ -1,18 +1,18 @@
 import styles from "./Navbar.module.css";
 import Logo from "./logo.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function SCNavbar(_props: any) {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <NavLink to="/scan">
+        <Link to="/scan">
           <h1 className={styles.name}>
             <span className={styles["color-primary"]}>Smart</span>
             Chef
           </h1>
           <img src={Logo} alt="Logo" className={styles.logoImg} />
-        </NavLink>
+        </Link>
       </div>
 
       <ul className={styles.links}>

@@ -2,8 +2,8 @@ import React, { MouseEventHandler } from "react";
 import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 
-const Backdrop = (props: SCModalProps) => {
-  return <div className={styles.backdrop} onClick={props.hideOverlay}></div>;
+const Backdrop = () => {
+  return <div className={styles.backdrop}></div>;
 };
 
 const ModalOverlay = (props: SCModalProps) => {
@@ -29,7 +29,7 @@ const SCModal = ({
     portalElement && (
       <React.Fragment>
         {ReactDOM.createPortal(
-          <Backdrop hideOverlay={hideOverlay} />,
+          <Backdrop  />,
           portalElement
         )}
         {ReactDOM.createPortal(

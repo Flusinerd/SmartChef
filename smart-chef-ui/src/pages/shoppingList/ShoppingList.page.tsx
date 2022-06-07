@@ -105,9 +105,9 @@ function SCShoppingListPage(): React.ReactElement {
       <div className={styles.centerContents}>
         <Dude className={styles.dude} />
         <div className={styles.listwrapper}>
-          <div className={styles.ingredientSearch}>
+          {/* <div className={styles.ingredientSearch}>
             <SCInput placeholder="Suchen" />
-          </div>
+          </div> */}
 
           <SCIngredients
             openOverlay={openOverlay}

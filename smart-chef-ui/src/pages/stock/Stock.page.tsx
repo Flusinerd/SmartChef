@@ -114,9 +114,9 @@ function SCStockPage() {
       )}
       <div className={styles.contentCenter}>
         <div className={styles.contentWrapper}>
-          <div className={styles.searchWrapper}>
+          {/* <div className={styles.searchWrapper}>
             <SCInput placeholder="Suchen" />
-          </div>
+          </div> */}
           <SCStocks
             stocks={productCategories.map((stock) => ({
               id: stock.id,
