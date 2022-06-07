@@ -13,6 +13,7 @@ class HouseholdViewSet(viewsets.ModelViewSet):
     """
     queryset = Household.objects.all().order_by('-createdAt')
     serializer_class = HouseholdSerializer
+    permission_classes = []
 
     # Endpoint for updating the household's stock
     @action(detail=True, methods=['patch'], url_path='stock')

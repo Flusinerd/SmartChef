@@ -9,6 +9,21 @@
   font-size: larger;
 }
 
+li{
+    border-bottom: 2px solid #d9d9d9;
+}
+
+li:first-of-type{
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+
+}
+
+li:last-of-type {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
 .contentWrapper li {
   height: 3.15rem;
 }

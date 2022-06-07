@@ -96,7 +96,7 @@ function SCStockPage() {
   };
 
   return (
-    <SCResponsiveContainer>
+    <SCResponsiveContainer pageTitle="Bestand">
       {showEditModal && (
         <Modal
           modaltitle="Artikel verwalten"

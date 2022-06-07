@@ -93,7 +93,7 @@ function SCShoppingListPage(): React.ReactElement {
   }, [authService.tokenData]);
 
   return (
-    <SCResponsiveContainer>
+    <SCResponsiveContainer pageTitle="Einkaufsliste">
       {showModal && (
         <SCModal
           modaltitle="Neuen Artikel hinzufügen"

@@ -1,9 +1,9 @@
 .ulStocks {
-  background-color: var(--grey);
-  border-radius: 0.5rem;
+  background-color: #f2f2f280;
+  
 }
 
-.newArticle button {
+/* .newArticle button {
   border: 2px solid #d9d9d9;
   border-radius: 100%;
   width: 1.3rem;
@@ -19,7 +19,7 @@
   padding-bottom: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
-}
+} */
 
 .add{
     width: 1.5rem;

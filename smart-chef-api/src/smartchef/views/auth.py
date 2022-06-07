@@ -119,7 +119,7 @@ class AuthViewSet(ViewSet):
         Returns:
             Response: The response with the new token pair
         """
-        expAccessToken = datetime.now() + timedelta(minutes=20)
+        expAccessToken = datetime.now() + timedelta(minutes=60)
         expRefreshToken = datetime.now() + timedelta(days=90)
         accessToken = encode({
             'sub': sub,
