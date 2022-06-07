@@ -130,7 +130,7 @@ const SCScanPage = () => {
               <span className="color-primary mt-2">{errors.name?.message}</span>
             )}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-sm">
             <SCSelect
               placeholder="Produkt-Typ*"
               register={register("type", {
