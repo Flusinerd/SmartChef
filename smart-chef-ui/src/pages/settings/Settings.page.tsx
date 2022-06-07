@@ -4,9 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../../api";
 import { AuthService } from "../../authentication";
-import {
-  default as SCButton
-} from "../../components/button/button";
+import { default as SCButton } from "../../components/button/button";
 import Input from "../../components/input/Input";
 import SCModal from "../../components/modal/Modal";
 import SCPasswordStrength from "../../components/passwordStrength/PasswordStrength";
@@ -29,6 +27,7 @@ function SCSettingsPage() {
     register,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors, isValid },
   } = useForm<FormValues>({
     mode: "all",
@@ -85,15 +84,19 @@ function SCSettingsPage() {
     if (!authService.tokenData) {
       return;
     }
-    const res = await axios.delete(`${baseUrl}/api/users/${authService.tokenData.sub}/`);
+    const res = await axios.delete(
+      `${baseUrl}/api/users/${authService.tokenData.sub}/`
+    );
 
-    if (res.status === 204) {    
+    if (res.status === 204) {
       alert("Ihr Konto wurde gelöscht.");
     } else {
       alert("Es ist ein Fehler aufgetreten.");
     }
 
     hideOverlayHandler();
+    authService.logout();
+    document.location.href = "/";
   };
 
   const onFormSubmit = async (data: FormValues) => {
@@ -116,6 +119,7 @@ function SCSettingsPage() {
       );
       if (response.status === 200) {
         alert("Erfolgreich aktualisiert");
+        reset();
       } else {
         alert("Fehler beim Aktualisieren");
       }
@@ -128,12 +132,20 @@ function SCSettingsPage() {
         <SCModal
           buttons={
             <div className="flex flex-row justify-end">
-              <SCButton onClick={hideOverlayHandler} className={classNames(styles.alternate)}>Abbrechen</SCButton>
-              <SCButton onClick={onDelete} style={
-                {
+              <SCButton
+                onClick={hideOverlayHandler}
+                className={classNames(styles.alternate)}
+              >
+                Abbrechen
+              </SCButton>
+              <SCButton
+                onClick={onDelete}
+                style={{
                   marginLeft: "0.75rem",
-                }
-              }>Löschen</SCButton>
+                }}
+              >
+                Löschen
+              </SCButton>
             </div>
           }
         >
@@ -260,12 +272,15 @@ function SCSettingsPage() {
 
         <div className={styles.bottomBtnContainer}>
           <Link to="/login">
-            <SCButton className={styles.logoutBtn} onClick={
-              () => {
+            <SCButton
+              className={styles.logoutBtn}
+              onClick={() => {
                 authService.logout();
                 document.location.href = "/";
-              }
-            }>Abmelden</SCButton>
+              }}
+            >
+              Abmelden
+            </SCButton>
           </Link>
         </div>
       </div>
