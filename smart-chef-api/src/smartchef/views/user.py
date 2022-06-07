@@ -12,6 +12,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-createdAt')
     # serializer_class = UserSerializer
+    permission_classes = []
 
     # Disable authentication for this endpoint
     def get_permissions(self):
