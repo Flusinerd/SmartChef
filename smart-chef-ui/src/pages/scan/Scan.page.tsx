@@ -39,6 +39,7 @@ const SCScanPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<FormValues>({
     mode: "all",
@@ -79,6 +80,8 @@ const SCScanPage = () => {
       manufacturer: data.manufacturer,
       unit: data.unit,
     } as CreateProductDto);
+
+    reset();
 
     setShowModal(false);
 
