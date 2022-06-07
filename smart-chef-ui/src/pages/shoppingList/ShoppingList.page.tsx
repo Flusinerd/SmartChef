@@ -17,6 +17,18 @@ function SCShoppingListPage(): React.ReactElement {
   const [productCategories, setProductCategories] = useState<
     Map<ProductCategoryDto, ShoppingListItem>
   >(new Map());
+  const [list, setList] = useState<any[]>([]);
+
+  useEffect(() => {
+    setList(Array.from(productCategories.entries())
+              .sort((a, b) => (a === b ? 0 : a ? 1 : -1))
+              .map(([category, item]) => ({
+                quantity: item.quantity + " " + item.unit,
+                title: category.name,
+                id: category.id,
+                strikeThrough: item.bought,
+              })))
+  }, [productCategories]);
 
   const authService = AuthService.getInstance();
 
@@ -99,14 +111,7 @@ function SCShoppingListPage(): React.ReactElement {
 
           <SCIngredients
             openOverlay={openOverlay}
-            items={Array.from(productCategories.entries())
-              .sort((a, b) => (a === b ? 0 : a ? 1 : -1))
-              .map(([category, item]) => ({
-                quantity: item.quantity + " " + item.unit,
-                title: category.name,
-                id: category.id,
-                strikeThrough: item.bought,
-              }))}
+            items={list}
             onCheckboxClick={(key: string, isChecked: boolean) => {
               const current = Array.from(productCategories.entries()).find(
                 ([category, item]) => category.id === key

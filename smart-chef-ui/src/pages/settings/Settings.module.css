@@ -121,15 +121,15 @@
   margin-top: 0.75rem;
 }
 
-.button.alternate {
-  background-color: #ccc;
-  color: #333;
+.alternate {
+  background-color: #ccc !important;
+  color: #333 !important;
 }
 
-.button.alternate:hover {
-  background-color: #d5d5d5;
+.alternate:hover {
+  background-color: #d5d5d5 !important;
 }
 
-.button.alternate:active {
-  background-color: #b3b3b3;
+.alternate:active {
+  background-color: #b3b3b3 !important;
 }

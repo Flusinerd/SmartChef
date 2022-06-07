@@ -33,7 +33,8 @@ class BearerAuthentication(authentication.TokenAuthentication):
         except jwt.exceptions.ExpiredSignatureError:
             msg = ('Invalid token header. Token has expired.')
             raise authentication.exceptions.AuthenticationFailed(msg, code=401)
-        except jwt.exceptions.InvalidTokenError:
+        except jwt.exceptions.InvalidTokenError as e:
+            print(e, auth[1])
             msg = ('Invalid token header. Token is invalid.')
             raise authentication.exceptions.AuthenticationFailed(msg, code=400)
         return (user, token)

@@ -18,7 +18,7 @@ class UserSerializer(ResourceSerializer):
         if 'password' in validated_data:
             validated_data['password'] = make_password(
                 validated_data['password'])
-        return super(UserSerializer, self).update(instance, validated_data)
+        return super().update(instance, validated_data)
 
     class Meta:
         model = User
@@ -56,10 +56,13 @@ class CreateUserSerializer(UserSerializer):
         }
 
 
-class UpdateUserSerializer(ResourceSerializer):
+class UpdateUserSerializer(UserSerializer):
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
     class Meta:
         model = User
-        fields = ('id', 'firstName', 'lastName', 'password')
+        fields = ('email', 'password')
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True, 'required': False},
         }

@@ -1,12 +1,15 @@
-import styles from "./Stocks.module.css";
 import SCStock, { SCStockProps } from "../stock/Stock";
-import {ReactComponent as Add} from "./plus.svg";
+import styles from "./Stocks.module.css";
 
-const SCStocks = ({ stocks, openNewModalHandler, openEditModalHandler }: any) => {
-
-    
-
-
+const SCStocks = ({
+  stocks,
+  openNewModalHandler,
+  openEditModalHandler,
+}: {
+  stocks: SCStockProps[];
+  openNewModalHandler: any;
+  openEditModalHandler: any;
+}) => {
   return (
     <ul className={styles.ulStocks}>
       {stocks.map((stock: SCStockProps) => (
@@ -18,10 +21,12 @@ const SCStocks = ({ stocks, openNewModalHandler, openEditModalHandler }: any) =>
           openEditModalHandler={openEditModalHandler}
         />
       ))}
-      <li className={styles.newArticle}>
-        <button onClick={openNewModalHandler}><Add className={styles.add} /></button>
+      {/* <li className={styles.newArticle}>
+        <button onClick={openNewModalHandler}>
+          <Add className={styles.add} />
+        </button>
         <p>Neuen Artikel hinzufügen</p>
-      </li>
+      </li> */}
     </ul>
   );
 };

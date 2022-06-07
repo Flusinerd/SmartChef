@@ -22,9 +22,9 @@ function SCNavbar(_props: any) {
         <li className={styles["link active"]}>
           <NavLink to="/shopping-list">Einkaufsliste</NavLink>
         </li>
-        <li className={styles.link}>
+        {/* <li className={styles.link}>
           <NavLink to="/recipes">Rezepte</NavLink>
-        </li>
+        </li> */}
         <li className={styles.link}>
           <NavLink to="/settings">Einstellungen</NavLink>
         </li>

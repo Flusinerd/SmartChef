@@ -9,6 +9,7 @@ export interface HouseholdDTO {
 }
 
 export interface StockDTO {
+  id: string;
   actual: number;
   target: number;
   product: ProductWithCategoryDTO;

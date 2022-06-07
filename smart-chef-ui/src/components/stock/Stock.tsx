@@ -27,7 +27,7 @@ const SCStock = ({
 export default SCStock;
 
 export interface SCStockProps {
-  id: number;
+  id: string;
   product: string;
   quantity: string;
   openEditModalHandler: any;

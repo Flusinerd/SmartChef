@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from rest_framework import permissions, viewsets
 
 from ..models.user import User
-from ..serializers.user import CreateUserSerializer, UserSerializer
+from ..serializers.user import CreateUserSerializer, UserSerializer, UpdateUserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,4 +29,6 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return CreateUserSerializer
+        if self.action == 'partial_update':
+            return UpdateUserSerializer
         return UserSerializer

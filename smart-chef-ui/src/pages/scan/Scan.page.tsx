@@ -183,6 +183,8 @@ const SCScanPage = () => {
   const handleScan = async (result: Result) => {
     const gtin = result.getText();
 
+    console.log(gtin);
+
     setLatestGtin(gtin);
 
     const products = await axios.get<ManyResponseDTO<ProductDTO>>(

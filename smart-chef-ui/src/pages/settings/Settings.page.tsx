@@ -1,12 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../../api";
 import { AuthService } from "../../authentication";
 import {
-  default as Button,
-  default as SCButton,
+  default as SCButton
 } from "../../components/button/button";
 import Input from "../../components/input/Input";
+import SCModal from "../../components/modal/Modal";
 import SCPasswordStrength from "../../components/passwordStrength/PasswordStrength";
 import SCResponsiveContainer from "../../components/responsive-container/responsive-container";
 import emailRegex from "../../shared/email-regex";
@@ -79,15 +81,73 @@ function SCSettingsPage() {
     }
   };
 
+  const onDelete = async () => {
+    if (!authService.tokenData) {
+      return;
+    }
+    const res = await axios.delete(`${baseUrl}/api/users/${authService.tokenData.sub}/`);
+
+    if (res.status === 204) {    
+      alert("Ihr Konto wurde gelöscht.");
+    } else {
+      alert("Es ist ein Fehler aufgetreten.");
+    }
+
+    hideOverlayHandler();
+  };
+
+  const onFormSubmit = async (data: FormValues) => {
+    const { email, password } = data;
+    const user: { email?: string; password?: string } = {
+      email: undefined,
+      password: undefined,
+    };
+    if (password !== "") {
+      user.password = password;
+    }
+    if (email !== "") {
+      user.email = email;
+    }
+
+    if (authService.tokenData) {
+      const response = await axios.patch(
+        `${baseUrl}/api/users/${authService.tokenData?.sub}/`,
+        user
+      );
+      if (response.status === 200) {
+        alert("Erfolgreich aktualisiert");
+      } else {
+        alert("Fehler beim Aktualisieren");
+      }
+    }
+  };
+
   return (
     <SCResponsiveContainer pageTitle="Einstellungen">
-      {/* {overlayVisible &&
-        {
-          <Modal onOverlay={hideOverlayHandler} />
-        }} */}
-
+      {overlayVisible && (
+        <SCModal
+          buttons={
+            <div className="flex flex-row justify-end">
+              <SCButton onClick={hideOverlayHandler} className={classNames(styles.alternate)}>Abbrechen</SCButton>
+              <SCButton onClick={onDelete} style={
+                {
+                  marginLeft: "0.75rem",
+                }
+              }>Löschen</SCButton>
+            </div>
+          }
+        >
+          <span>
+            Sind sie sicher, dass Sie ihr Benutzerkonto löschen möchten?
+          </span>
+        </SCModal>
+      )}
       <div className={styles.wrapper}>
-        <form className={styles["user-settings"]} onChange={onChange}>
+        <form
+          className={styles["user-settings"]}
+          onChange={onChange}
+          onSubmit={handleSubmit(onFormSubmit)}
+        >
           <h2>Nutzereinstellungen</h2>
           <div className={styles.inputfield}>
             <label htmlFor="changeEmail">E-Mail ändern</label>
@@ -96,7 +156,7 @@ function SCSettingsPage() {
               register={register("email", { pattern: emailRegex })}
             />
             {errors.email && (
-              <span className={styles.error}>E-Mail Adresse ist ungültig</span>
+              <span className="color-primary">E-Mail Adresse ist ungültig</span>
             )}
           </div>
           <div className={styles.inputfield}>
@@ -147,32 +207,32 @@ function SCSettingsPage() {
               </span>
             )}
           </div>
+
+          <div className={styles.actions}>
+            <div>
+              <SCButton
+                className={classNames(styles.button, styles.alternate)}
+                // The button should be disabled, if none of the inputs are filled
+                // or if the passwords don't match
+                // or if the form is invalid
+                disabled={
+                  !isValid ||
+                  !passwordMatch ||
+                  (!passwordSet && !passwordConfirmSet && !emailSet)
+                }
+                type="submit"
+              >
+                Änderungen speichern
+              </SCButton>
+            </div>
+            <div>
+              <SCButton className={styles.button} onClick={showOverlayHandler}>
+                Benutzerkonto löschen
+              </SCButton>
+            </div>
+          </div>
         </form>
-
-        <div className={styles.actions}>
-          <div>
-            <SCButton
-              className={classNames(styles.button, styles.alternate)}
-              // The button should be disabled, if none of the inputs are filled
-              // or if the passwords don't match
-              // or if the form is invalid
-              disabled={
-                !isValid ||
-                !passwordMatch ||
-                (!passwordSet && !passwordConfirmSet && !emailSet)
-              }
-            >
-              Änderungen speichern
-            </SCButton>
-          </div>
-          <div>
-            <SCButton className={styles.button} onClick={showOverlayHandler}>
-              Benutzerkonto löschen
-            </SCButton>
-          </div>
-        </div>
-
-        <div className={styles["household-settings"]}>
+        {/* <div className={styles["household-settings"]}>
           <h2>Haushaltseinstellungen</h2>
           <div className={styles["hs-action"]}>
             <div>
@@ -196,11 +256,16 @@ function SCSettingsPage() {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.bottomBtnContainer}>
           <Link to="/login">
-            <Button className={styles.logoutBtn}>Abmelden</Button>
+            <SCButton className={styles.logoutBtn} onClick={
+              () => {
+                authService.logout();
+                document.location.href = "/";
+              }
+            }>Abmelden</SCButton>
           </Link>
         </div>
       </div>

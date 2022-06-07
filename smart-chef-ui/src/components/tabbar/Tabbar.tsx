@@ -1,11 +1,10 @@
 import { HTMLAttributes } from "react";
-import { classNames } from "../../shared/merge-classnames";
-import styles from "./Tabbar.module.scss";
+import { NavLink } from "react-router-dom";
 import BarcodeIcon from "../../assets/icons/barcode-outline.svg";
-import BookIcon from "../../assets/icons/book-outline.svg";
 import CogIcon from "../../assets/icons/cog-outline.svg";
 import ListIcon from "../../assets/icons/list-outline.svg";
-import { NavLink } from "react-router-dom";
+import { classNames } from "../../shared/merge-classnames";
+import styles from "./Tabbar.module.scss";
 
 function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
   const { className, ...rest } = props;
@@ -51,7 +50,7 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
           <span className="text-xs sm:text-sm">Einkaufsliste</span>
         </div>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="/recipes"
         className={classNames("flex flex-col justify-center")}
       >
@@ -68,7 +67,7 @@ function SCTabbar(props: HTMLAttributes<HTMLDivElement>) {
           />
           <span className="text-xs sm:text-sm">Rezepte</span>
         </div>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to="/settings"
         className={classNames("flex flex-col justify-center")}

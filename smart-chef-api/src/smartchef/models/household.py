@@ -1,6 +1,5 @@
 from typing import List
 from .resource import Resource
-import smartchef.models.user as UserModel
 import smartchef.models.householdStock as HouseholdStockModel
 from django.db import models
 
@@ -10,9 +9,20 @@ class Household(Resource):
     A household of users.
     """
     name: str = models.CharField(max_length=255)
-    users: List[UserModel.User] = models.ManyToManyField('User')
-    owner: UserModel.User = models.ForeignKey(
-        UserModel.User, on_delete=models.CASCADE, related_name='households')
+    users = models.ManyToManyField('User')
+    owner = models.ForeignKey(
+        'User', on_delete=models.CASCADE, related_name='households')
+
+    def delete(self):
+        """
+        Delete this household.
+        """
+        # Delete all stock items in this household
+        stock_items = HouseholdStockModel.HouseholdStock.objects.filter(household=self)
+        for stock_item in stock_items.all():
+            stock_item.delete()
+        # Delete the household
+        super().delete()
 
     def update_stock(self, product_id: int, quantity: int):
         """
